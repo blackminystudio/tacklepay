@@ -1,6 +1,6 @@
 # Flutter Project
 
-This is a Colourmoon's Project "Call Sheet management app", help to manage and create callsheets and production houses
+This is a Blackminystudio's Project "TacklePay App", help to manage All your finances.
 
 ## Setup
 
