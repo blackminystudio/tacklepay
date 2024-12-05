@@ -1,7 +1,5 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-
 import '../tokens/spacing_tokens.dart';
 
 class MinySpacing extends ThemeExtension<MinySpacing> {
@@ -42,7 +40,7 @@ class MinySpacing extends ThemeExtension<MinySpacing> {
   });
 
   @override
-  MinySpacing copyWith({
+  ThemeExtension<MinySpacing> copyWith({
     final double? s0,
     final double? s1,
     final double? s2,
