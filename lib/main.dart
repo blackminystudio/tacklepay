@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'theme/theme.dart';
 
 void main() {
   runApp(const TacklePay());
@@ -9,17 +10,18 @@ class TacklePay extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         title: 'Tackle Pay',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        home: const HomePage(),
+        theme: appTheme,
+        home: HomeScreen(),
       );
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
+class HomeScreen extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => const Placeholder();
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Scaffold(
+      backgroundColor: theme.colors.secondary,
+      body: Container(),
+    );
+  }
 }
