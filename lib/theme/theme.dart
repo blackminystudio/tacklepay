@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'extensions/miny_colors.dart';
+import 'extensions/miny_opacity.dart';
 import 'extensions/miny_sizing.dart';
 import 'extensions/miny_spacing.dart';
 import 'extensions/miny_typography.dart';
@@ -13,6 +14,7 @@ final ThemeData appTheme = ThemeData(
     MinySpacing(),
     MinySizing(),
     MinyTypography(),
+    MinyOpacity(),
   ],
 );
 
@@ -22,4 +24,5 @@ extension ThemeExtensions on ThemeData {
   MinySizing get sizing => extension<MinySizing>() ?? const MinySizing();
   MinyTypography get textStyle =>
       extension<MinyTypography>() ?? const MinyTypography();
+  MinyOpacity get opacity => extension<MinyOpacity>() ?? const MinyOpacity();
 }
