@@ -1,0 +1,7 @@
+# .github/CODEOWNERS
+
+# Define who should review changes in specific parts of the codebase.
+
+# Assign reviews for the lib folder to flutter-lead and ui-dev
+
+lib/ @satyabratanayak @poojaagaarwal
