@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import '../tokens/spacing_tokens.dart';
+
 class MinySpacing extends ThemeExtension<MinySpacing> {
   final double s0;
   final double s1;
@@ -19,23 +21,24 @@ class MinySpacing extends ThemeExtension<MinySpacing> {
   final double s64;
   final double s72;
   final double s80;
+
   const MinySpacing({
-    this.s0 = 0.0,
-    this.s1 = 1.0,
-    this.s2 = 2.0,
-    this.s4 = 4.0,
-    this.s8 = 8.0,
-    this.s12 = 12.0,
-    this.s16 = 16.0,
-    this.s20 = 20.0,
-    this.s24 = 24.0,
-    this.s32 = 32.0,
-    this.s40 = 40.0,
-    this.s48 = 48.0,
-    this.s56 = 56.0,
-    this.s64 = 64.0,
-    this.s72 = 72.0,
-    this.s80 = 80.0,
+    this.s0 = SpacingTokens.s0,
+    this.s1 = SpacingTokens.s1,
+    this.s2 = SpacingTokens.s2,
+    this.s4 = SpacingTokens.s4,
+    this.s8 = SpacingTokens.s8,
+    this.s12 = SpacingTokens.s12,
+    this.s16 = SpacingTokens.s16,
+    this.s20 = SpacingTokens.s20,
+    this.s24 = SpacingTokens.s24,
+    this.s32 = SpacingTokens.s32,
+    this.s40 = SpacingTokens.s40,
+    this.s48 = SpacingTokens.s48,
+    this.s56 = SpacingTokens.s56,
+    this.s64 = SpacingTokens.s64,
+    this.s72 = SpacingTokens.s72,
+    this.s80 = SpacingTokens.s80,
   });
 
   @override
