@@ -1,7 +1,10 @@
 // lib/theme/theme.dart
 
 import 'package:flutter/material.dart';
+import 'extensions/miny_border_radius.dart';
+import 'extensions/miny_border_width.dart';
 import 'extensions/miny_colors.dart';
+import 'extensions/miny_elevation.dart';
 import 'extensions/miny_opacity.dart';
 import 'extensions/miny_sizing.dart';
 import 'extensions/miny_spacing.dart';
@@ -15,6 +18,9 @@ final ThemeData appTheme = ThemeData(
     MinySizing(),
     MinyTypography(),
     MinyOpacity(),
+    MinyElevation(),
+    MinyBorderRadius(),
+    MinyBorderWidth(),
   ],
 );
 
@@ -25,4 +31,10 @@ extension ThemeExtensions on ThemeData {
   MinyTypography get textStyle =>
       extension<MinyTypography>() ?? const MinyTypography();
   MinyOpacity get opacity => extension<MinyOpacity>() ?? const MinyOpacity();
+  MinyElevation get elevation =>
+      extension<MinyElevation>() ?? const MinyElevation();
+  MinyBorderRadius get borderradius =>
+      extension<MinyBorderRadius>() ?? const MinyBorderRadius();
+  MinyBorderWidth get borderwidth =>
+      extension<MinyBorderWidth>() ?? const MinyBorderWidth();
 }
