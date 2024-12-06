@@ -67,14 +67,23 @@ class MinyTypography extends ThemeExtension<MinyTypography> {
       return this;
     }
     return MinyTypography(
-      titleRegular: TextStyle.lerp(titleRegular, other.titleRegular, t) ?? titleRegular,
+      titleRegular:
+          TextStyle.lerp(titleRegular, other.titleRegular, t) ?? titleRegular,
       titleBold: TextStyle.lerp(titleBold, other.titleBold, t) ?? titleBold,
-      headingSmallRegular: TextStyle.lerp(headingSmallRegular, other.headingSmallRegular, t) ?? headingSmallRegular,
-      headingSmallMeduim: TextStyle.lerp(headingSmallMeduim, other.headingSmallMeduim, t) ?? headingSmallMeduim,
-      headingLargeBold: TextStyle.lerp(headingLargeBold, other.headingLargeBold, t) ?? headingLargeBold,
-      lableRegular: TextStyle.lerp(lableRegular, other.lableRegular, t) ?? lableRegular,
+      headingSmallRegular:
+          TextStyle.lerp(headingSmallRegular, other.headingSmallRegular, t) ??
+              headingSmallRegular,
+      headingSmallMeduim:
+          TextStyle.lerp(headingSmallMeduim, other.headingSmallMeduim, t) ??
+              headingSmallMeduim,
+      headingLargeBold:
+          TextStyle.lerp(headingLargeBold, other.headingLargeBold, t) ??
+              headingLargeBold,
+      lableRegular:
+          TextStyle.lerp(lableRegular, other.lableRegular, t) ?? lableRegular,
       lableBold: TextStyle.lerp(lableBold, other.lableBold, t) ?? lableBold,
-      bodyRegular: TextStyle.lerp(bodyRegular, other.bodyRegular, t) ?? bodyRegular,
+      bodyRegular:
+          TextStyle.lerp(bodyRegular, other.bodyRegular, t) ?? bodyRegular,
       bodyBold: TextStyle.lerp(bodyBold, other.bodyBold, t) ?? bodyBold,
       caption: TextStyle.lerp(caption, other.caption, t) ?? caption,
       quote: TextStyle.lerp(quote, other.quote, t) ?? quote,
