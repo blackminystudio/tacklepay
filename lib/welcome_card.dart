@@ -25,22 +25,26 @@ class WelcomeCard extends StatelessWidget {
           backgroundImage: NetworkImage(profilePictureUrl),
         ),
         SizedBox(width: theme.sizing.width.s4),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              greetingMessage,
-              style: theme.textStyle.bodyRegular.copyWith(
-                color: theme.colors.contrastMedium,
+        Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                greetingMessage,
+                style: theme.textStyle.bodyRegular.copyWith(
+                  color: theme.colors.contrastMedium,
+                ),
               ),
-            ),
-            Text(
-              userName,
-              style: theme.textStyle.headingLargeBold.copyWith(
-                color: theme.colors.contrastDark,
+              Text(
+                userName,
+                style: theme.textStyle.headingLargeBold.copyWith(
+                  color: theme.colors.contrastDark,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );
