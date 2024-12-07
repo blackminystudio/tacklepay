@@ -8,7 +8,10 @@ This is a Blackminystudio's Project "TacklePay App", help to manage All your fin
 
    ```bash
    git clone https://github.com/blackminystudio/tacklepay.git
-   cd callsheet
+   ```
+
+   ```bash
+   cd tacklepay
    ```
 
 2. Install dependencies:

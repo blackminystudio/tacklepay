@@ -1,5 +1,3 @@
-// lib/theme/extensions/miny_colors.dart
-
 import 'package:flutter/material.dart';
 import '../tokens/color_tokens.dart';
 
