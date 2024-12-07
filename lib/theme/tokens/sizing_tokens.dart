@@ -9,6 +9,7 @@ class SizingTokens {
   static const double s8 = 32.0;
   static const double s9 = 36.0;
   static const double s10 = 40.0;
+  static const double s11 = 44.0;
   static const double s12 = 48.0;
   static const double s13 = 52.0;
   static const double s14 = 56.0;
@@ -22,6 +23,7 @@ class SizingTokens {
   static const double s31 = 124.0;
   static const double s32 = 128.0;
   static const double s36 = 144.0;
+  static const double s40 = 160.0;
   static const double s50 = 200.0;
   static const double s64 = 256.0;
   static const double quarter = 1.0;
