@@ -14,19 +14,32 @@ class MinyTypography extends ThemeExtension<MinyTypography> {
   final TextStyle caption;
   final TextStyle quote;
 
-  const MinyTypography({
-    this.titleRegular = TypographyTockens.titleRegular,
-    this.titleBold = TypographyTockens.titleBold,
-    this.headingSmallRegular = TypographyTockens.titleRegular,
-    this.headingSmallMeduim = TypographyTockens.headingSmallMeduim,
-    this.headingLargeBold = TypographyTockens.headingLargeBold,
-    this.lableRegular = TypographyTockens.lableRegular,
-    this.lableBold = TypographyTockens.lableBold,
-    this.bodyRegular = TypographyTockens.bodyRegular,
-    this.bodyBold = TypographyTockens.bodyBold,
-    this.caption = TypographyTockens.caption,
-    this.quote = TypographyTockens.quote,
-  });
+  MinyTypography({
+    TextStyle? titleRegular,
+    TextStyle? titleBold,
+    TextStyle? headingSmallRegular,
+    TextStyle? headingSmallMeduim,
+    TextStyle? headingLargeBold,
+    TextStyle? lableRegular,
+    TextStyle? lableBold,
+    TextStyle? bodyRegular,
+    TextStyle? bodyBold,
+    TextStyle? caption,
+    TextStyle? quote,
+  })  : titleRegular = titleRegular ?? TypographyTokens.titleRegular,
+        titleBold = titleBold ?? TypographyTokens.titleBold,
+        headingSmallRegular =
+            headingSmallRegular ?? TypographyTokens.headingSmallRegular,
+        headingSmallMeduim =
+            headingSmallMeduim ?? TypographyTokens.headingSmallMeduim,
+        headingLargeBold =
+            headingLargeBold ?? TypographyTokens.headingLargeBold,
+        lableRegular = lableRegular ?? TypographyTokens.lableRegular,
+        lableBold = lableBold ?? TypographyTokens.lableBold,
+        bodyRegular = bodyRegular ?? TypographyTokens.bodyRegular,
+        bodyBold = bodyBold ?? TypographyTokens.bodyBold,
+        caption = caption ?? TypographyTokens.caption,
+        quote = quote ?? TypographyTokens.quote;
 
   @override
   ThemeExtension<MinyTypography> copyWith({
