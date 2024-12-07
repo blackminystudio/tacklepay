@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'theme/theme.dart';
 
 void main() {
-  runApp(const TacklePay());
+  runApp(
+    ScreenUtilInit(
+      designSize: const Size(440, 956), // Base design size (width x height)
+      minTextAdapt: true,
+      builder: (context, _) => const TacklePay(),
+    ),
+  );
 }
 
 class TacklePay extends StatelessWidget {
