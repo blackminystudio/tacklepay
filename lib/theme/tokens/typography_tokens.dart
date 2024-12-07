@@ -18,7 +18,7 @@ class TypographyTokens {
     fontSize: 18.0.sp,
     fontWeight: FontWeight.w600,
   );
-  static TextStyle headingSmallMeduim = TextStyle(
+  static TextStyle headingSmallMedium = TextStyle(
     fontFamily: 'Inter',
     fontSize: 18.0.sp,
     fontWeight: FontWeight.w700,
@@ -28,12 +28,12 @@ class TypographyTokens {
     fontSize: 20.0.sp,
     fontWeight: FontWeight.w800,
   );
-  static TextStyle lableRegular = TextStyle(
+  static TextStyle labelRegular = TextStyle(
     fontFamily: 'Inter',
     fontSize: 16.0.sp,
     fontWeight: FontWeight.w700,
   );
-  static TextStyle lableBold = TextStyle(
+  static TextStyle labelBold = TextStyle(
     fontFamily: 'Inter',
     fontSize: 16.0.sp,
     fontWeight: FontWeight.w800,
