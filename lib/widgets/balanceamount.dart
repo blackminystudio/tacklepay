@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'theme/theme.dart';
+import '../theme/theme.dart';
 
 class Balanceamount extends StatelessWidget {
   const Balanceamount({
