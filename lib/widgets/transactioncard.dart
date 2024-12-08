@@ -4,19 +4,17 @@ import '/theme/theme.dart';
 class TransactionCard extends StatelessWidget {
   final IconData icon;
   final String transactionName;
-  final String transactionTime;
+  final String transactionDateTime;
   final String transactionAmount;
   final String remainingBalance;
-  final Color backgroundColor;
 
   const TransactionCard({
     super.key,
     required this.icon,
     required this.transactionName,
-    required this.transactionTime,
+    required this.transactionDateTime,
     required this.transactionAmount,
     required this.remainingBalance,
-    required this.backgroundColor,
   });
 
   @override
@@ -27,14 +25,14 @@ class TransactionCard extends StatelessWidget {
       children: [
         Row(
           children: [
-            iconWidget(theme),
+            buildIcon(theme),
             SizedBox(width: theme.sizing.width.s3),
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  titleWidget(theme),
-                  priceWidget(theme),
+                  buildTitle(theme),
+                  buildPrice(theme),
                 ],
               ),
             ),
@@ -52,22 +50,22 @@ class TransactionCard extends StatelessWidget {
     );
   }
 
-  Container iconWidget(ThemeData theme) => Container(
-        height: theme.sizing.height.s14,
+  Container buildIcon(ThemeData theme) => Container(
+        height: theme.sizing.width.s14,
         width: theme.sizing.width.s14,
         decoration: BoxDecoration(
-          color: backgroundColor,
+          color: theme.colors.light,
           borderRadius: BorderRadius.circular(
-              theme.borderradius.full(theme.sizing.width.s15)),
+              theme.borderradius.full(theme.sizing.width.s14)),
         ),
         child: Icon(
           icon,
-          color: theme.colors.light,
+          color: theme.colors.dark,
           size: theme.sizing.width.s6,
         ),
       );
 
-  Column priceWidget(ThemeData theme) => Column(
+  Column buildPrice(ThemeData theme) => Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
@@ -76,7 +74,7 @@ class TransactionCard extends StatelessWidget {
               color: theme.colors.secondary,
             ),
           ),
-          SizedBox(height: theme.spacing.height.s1),
+          SizedBox(height: theme.spacing.height.s8),
           Text(
             remainingBalance,
             style: theme.textStyle.bodyRegular.copyWith(
@@ -86,7 +84,7 @@ class TransactionCard extends StatelessWidget {
         ],
       );
 
-  Column titleWidget(ThemeData theme) => Column(
+  Column buildTitle(ThemeData theme) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -95,9 +93,9 @@ class TransactionCard extends StatelessWidget {
               color: theme.colors.contrastDark,
             ),
           ),
-          SizedBox(height: theme.spacing.height.s1),
+          SizedBox(height: theme.spacing.height.s4),
           Text(
-            transactionTime,
+            transactionDateTime,
             style: theme.textStyle.bodyRegular.copyWith(
               color: theme.colors.contrastMedium,
             ),
