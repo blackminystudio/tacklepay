@@ -97,7 +97,7 @@ class SummaryPreviewCard extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                        text: '  vs. last month',
+                        text: vsLastMonth,
                         style: theme.textStyle.quote.copyWith(
                           color: theme.colors.contrastDark,
                         ),

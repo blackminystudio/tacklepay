@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../theme/theme.dart';
+import '../../theme/theme.dart';
 
 enum ButtonType {
   primary,
@@ -10,42 +9,51 @@ enum ButtonType {
 
 class ActionButton extends StatelessWidget {
   final ButtonType buttonType;
-  const ActionButton({super.key, required this.buttonType});
+  final Function()? onTap;
+  final String title;
+  final IconData icon;
+  const ActionButton({
+    super.key,
+    required this.buttonType,
+    this.onTap,
+    required this.title,
+    required this.icon,
+  });
 
   Widget getButtonType(ButtonType buttonType, ThemeData theme) {
     if (buttonType == ButtonType.primary) {
-      return primaryButton(theme);
+      return buildPrimary(theme);
     } else if (buttonType == ButtonType.text) {
-      return textButton(theme);
+      return buildText(theme);
     } else {
-      return iconButton(theme);
+      return buildIcon(theme);
     }
   }
 
-  Icon iconButton(ThemeData theme) => Icon(
+  Icon buildIcon(ThemeData theme) => Icon(
         Icons.qr_code_scanner_sharp,
         color: theme.colors.light,
         size: theme.spacing.width.s48,
       );
 
-  Text textButton(ThemeData theme) => Text(
-        'New Expense',
+  Text buildText(ThemeData theme) => Text(
+        title,
         style: theme.textStyle.headingLargeBold.copyWith(
           color: theme.colors.light,
         ),
       );
 
-  Row primaryButton(ThemeData theme) => Row(
+  Row buildPrimary(ThemeData theme) => Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
-            Icons.add,
+            icon,
             color: theme.colors.light,
             size: theme.spacing.width.s32,
           ),
           SizedBox(width: theme.sizing.width.s2),
           Text(
-            'New Expense',
+            title,
             style: theme.textStyle.headingLargeBold.copyWith(
               color: theme.colors.light,
             ),
@@ -57,6 +65,7 @@ class ActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return GestureDetector(
+      onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(theme.spacing.width.s16),
         decoration: BoxDecoration(
@@ -71,10 +80,7 @@ class ActionButton extends StatelessWidget {
                   theme.borderradius.normal,
                 ),
         ),
-        child: getButtonType(
-          buttonType,
-          theme,
-        ),
+        child: getButtonType(buttonType, theme),
       ),
     );
   }

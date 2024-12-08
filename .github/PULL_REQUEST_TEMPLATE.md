@@ -24,7 +24,7 @@ Any tips for testing it?
 
 ### Author preparation checklist
 
-- [ ] Current branch is rebased with latest 'main' branch
+- [ ] Current branch is rebased with latest 'Staging' branch
 - [ ] PR is targeting only one issue
 - [ ] Commit messages are descriptive, consistent, and follow the project's guidelines.
 - [ ] Branch name matches with at least `<jira link reference>-<short change description>`
@@ -32,6 +32,7 @@ Any tips for testing it?
 - [ ] No unnecessary changes on `pubspec.lock`
 - [ ] All added TODOs have associated Github issue references
 - [ ] \*.iml and, pubsepc_overrides.yaml are not checkedin
+- [ ] All hard coded strings are present in constants file
 
 ### Primary reviewer checklist
 
@@ -42,6 +43,7 @@ Any tips for testing it?
 - [ ] No spelling or grammatical errors in code comments or documentation.
 - [ ] No sensitive data (e.g., API keys, credentials) is hardcoded or exposed.
 - [ ] The branch is up-to-date with the target branch (e.g., staging).
+- [ ] The code adheres to established coding standards.
 
 ### Pre-merge checklist
 
