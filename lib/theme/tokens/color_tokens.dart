@@ -12,4 +12,5 @@ class ColorTokens {
   static const Color contrastLight = Color(0xFFF4F4F4);
   static const Color dark = Color(0xFF000000);
   static const Color light = Color(0xFFFFFFFF);
+  static const Color shadow = Color(0xFFBFBFBF);
 }
