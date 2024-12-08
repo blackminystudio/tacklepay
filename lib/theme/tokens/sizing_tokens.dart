@@ -20,7 +20,6 @@ class SizingTokens {
   static const double s20 = 80.0;
   static const double s22 = 88.0;
   static const double s28 = 112.0;
-  static const double s31 = 124.0;
   static const double s32 = 128.0;
   static const double s36 = 144.0;
   static const double s40 = 160.0;

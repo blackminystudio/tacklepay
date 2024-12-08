@@ -40,7 +40,6 @@ class SummaryPreviewCard extends StatelessWidget {
         ? theme.colors.primary
         : theme.colors.secondary;
     return Container(
-      height: theme.sizing.height.s31,
       width: theme.sizing.width.s40,
       decoration: BoxDecoration(
         border: Border.all(color: theme.colors.contrastLow),
@@ -48,11 +47,11 @@ class SummaryPreviewCard extends StatelessWidget {
         color: theme.colors.light,
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           // Header part
           Container(
-            height: theme.sizing.height.s11,
-            width: theme.sizing.height.s40,
+            width: double.infinity,
             decoration: BoxDecoration(
               color: headerColor,
               borderRadius: BorderRadius.vertical(
@@ -72,11 +71,13 @@ class SummaryPreviewCard extends StatelessWidget {
               ),
             ),
           ),
-
+          // Content
           Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: theme.spacing.width.s20,
-              vertical: theme.spacing.width.s10,
+            padding: EdgeInsets.only(
+              left: theme.spacing.width.s16,
+              top: theme.spacing.height.s12,
+              right: theme.spacing.width.s16,
+              bottom: theme.spacing.height.s16,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,24 +88,23 @@ class SummaryPreviewCard extends StatelessWidget {
                     color: theme.colors.contrastDark,
                   ),
                 ),
-                SizedBox(height: theme.spacing.height.s2),
-                Row(
-                  children: [
-                    Text(
-                      '$percentage%',
-                      style: theme.textStyle.bodyBold.copyWith(
-                        color: getColor(theme, isIncome),
-                      ),
+                SizedBox(height: theme.spacing.height.s4),
+                Text.rich(
+                  TextSpan(
+                    text: '$percentage%',
+                    style: theme.textStyle.bodyBold.copyWith(
+                      color: getColor(theme, isIncome),
                     ),
-                    SizedBox(width: theme.spacing.width.s2),
-                    Text(
-                      summaryPreviewCardQuote,
-                      style: theme.textStyle.quote.copyWith(
-                        color: theme.colors.contrastMedium,
+                    children: [
+                      TextSpan(
+                        text: '  vs. last month',
+                        style: theme.textStyle.quote.copyWith(
+                          color: theme.colors.contrastDark,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),

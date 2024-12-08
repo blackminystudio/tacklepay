@@ -51,7 +51,6 @@ class SizingDimensions {
   double get s20 => scale(SizingTokens.s20);
   double get s22 => scale(SizingTokens.s22);
   double get s28 => scale(SizingTokens.s28);
-  double get s31 => scale(SizingTokens.s31);
   double get s32 => scale(SizingTokens.s32);
   double get s36 => scale(SizingTokens.s36);
   double get s40 => scale(SizingTokens.s40);
