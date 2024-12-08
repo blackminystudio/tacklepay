@@ -13,31 +13,30 @@ class Balanceamount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Row(
-      children: [
-        Flexible(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                balanceamount,
-                style: theme.textStyle.bodyBold.copyWith(
-                  color: theme.colors.contrastDark,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+    return SizedBox(
+      width: theme.sizing.width.s32,
+      child: Flexible(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              balanceamount,
+              style: theme.textStyle.bodyBold.copyWith(
+                color: theme.colors.contrastDark,
               ),
-              SizedBox(width: theme.sizing.width.s2),
-              Text(
-                'Balance Amount',
-                style: theme.textStyle.bodyRegular.copyWith(
-                  color: theme.colors.contrastMedium,
-                ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            SizedBox(width: theme.sizing.width.s2),
+            Text(
+              'Balance Amount',
+              style: theme.textStyle.bodyRegular.copyWith(
+                color: theme.colors.contrastMedium,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
