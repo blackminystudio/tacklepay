@@ -3,20 +3,20 @@ import 'theme/theme.dart';
 
 class UPICard extends StatelessWidget {
   final String payeeFirstName;
-  final String payeeLasttName;
-  final String payeeUpiAdress;
+  final String payeeLastName;
+  final String payeeUpiId;
   const UPICard({
     super.key,
     required this.payeeFirstName,
-    required this.payeeLasttName,
-    required this.payeeUpiAdress,
+    required this.payeeLastName,
+    required this.payeeUpiId,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final firstNameInitial = payeeFirstName[0];
-    final lastNameInitial = payeeLasttName[0];
+    final lastNameInitial = payeeLastName[0];
 
     return Container(
       width: double.infinity,
@@ -46,12 +46,12 @@ class UPICard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            '$payeeFirstName $payeeLasttName',
+            '$payeeFirstName $payeeLastName',
             style: theme.textStyle.headingSmallRegular
                 .copyWith(color: theme.colors.contrastDark),
           ),
           Text(
-            payeeUpiAdress,
+            payeeUpiId,
             style: theme.textStyle.bodyRegular
                 .copyWith(color: theme.colors.contrastMedium),
           ),
