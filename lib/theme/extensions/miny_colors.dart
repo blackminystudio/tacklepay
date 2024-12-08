@@ -12,6 +12,7 @@ class MinyColors extends ThemeExtension<MinyColors> {
   final Color contrastLight;
   final Color light;
   final Color dark;
+  final Color shadow;
 
   const MinyColors({
     this.primary = ColorTokens.primary,
@@ -24,6 +25,7 @@ class MinyColors extends ThemeExtension<MinyColors> {
     this.contrastLight = ColorTokens.contrastLight,
     this.light = ColorTokens.light,
     this.dark = ColorTokens.dark,
+    this.shadow = ColorTokens.shadow,
   });
 
   @override
@@ -38,6 +40,7 @@ class MinyColors extends ThemeExtension<MinyColors> {
     Color? contrastLight,
     Color? light,
     Color? dark,
+    Color? shadow,
   }) =>
       MinyColors(
         primary: primary ?? this.primary,
@@ -50,6 +53,7 @@ class MinyColors extends ThemeExtension<MinyColors> {
         contrastLight: contrastLight ?? this.contrastLight,
         light: light ?? this.light,
         dark: dark ?? this.dark,
+        shadow: shadow ?? this.shadow,
       );
 
   @override
@@ -67,6 +71,7 @@ class MinyColors extends ThemeExtension<MinyColors> {
       contrastLight: Color.lerp(contrastLight, other.contrastLight, t)!,
       light: Color.lerp(light, other.light, t)!,
       dark: Color.lerp(dark, other.dark, t)!,
+      shadow: Color.lerp(shadow, other.shadow, t)!,
     );
   }
 }
