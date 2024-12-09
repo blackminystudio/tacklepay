@@ -12,12 +12,19 @@ class UPICard extends StatelessWidget {
     required this.payeeUpiId,
   });
 
+  String getCroppedUPIId(String payeeUpiId) {
+    final length = payeeUpiId.length;
+    if (length <= 25) return payeeUpiId;
+    final firstHalf = payeeUpiId.substring(0, 10);
+    final secondHalf = payeeUpiId.substring(length - 10, length);
+    return '$firstHalf....$secondHalf';
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final firstNameInitial = payeeFirstName[0];
     final lastNameInitial = payeeLastName[0];
-
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(theme.spacing.width.s12),
@@ -32,7 +39,6 @@ class UPICard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          // headingTitle Container
           buildIcon(theme, firstNameInitial, lastNameInitial),
           SizedBox(width: theme.spacing.width.s12),
           buildContent(theme),
@@ -41,21 +47,23 @@ class UPICard extends StatelessWidget {
     );
   }
 
-  Column buildContent(ThemeData theme) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            '$payeeFirstName $payeeLastName',
-            style: theme.textStyle.headingSmallRegular
-                .copyWith(color: theme.colors.contrastDark),
-          ),
-          Text(
-            payeeUpiId,
-            style: theme.textStyle.bodyRegular
-                .copyWith(color: theme.colors.contrastMedium),
-          ),
-        ],
+  Flexible buildContent(ThemeData theme) => Flexible(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              '$payeeFirstName $payeeLastName',
+              style: theme.textStyle.headingSmallRegular
+                  .copyWith(color: theme.colors.contrastDark),
+            ),
+            Text(
+              getCroppedUPIId(payeeUpiId),
+              style: theme.textStyle.bodyRegular
+                  .copyWith(color: theme.colors.contrastMedium),
+            ),
+          ],
+        ),
       );
 
   Container buildIcon(
@@ -70,7 +78,6 @@ class UPICard extends StatelessWidget {
           ),
         ),
         child: Center(
-// Name Initial
           child: Text(
             '$firstNameInitial$lastNameInitial',
             style: theme.textStyle.headingSmallMedium.copyWith(
