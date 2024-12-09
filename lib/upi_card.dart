@@ -15,8 +15,8 @@ class UPICard extends StatelessWidget {
   String getCroppedUPIId(String payeeUpiId) {
     final length = payeeUpiId.length;
     if (length <= 25) return payeeUpiId;
-    final firstHalf = payeeUpiId.substring(0, 10);
-    final secondHalf = payeeUpiId.substring(length - 10, length);
+    final firstHalf = payeeUpiId.substring(0, 4);
+    final secondHalf = payeeUpiId.substring(length - 17, length);
     return '$firstHalf....$secondHalf';
   }
 
