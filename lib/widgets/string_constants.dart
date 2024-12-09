@@ -5,3 +5,7 @@ const checkZero = '0';
 const checkMinus = '-';
 const vsLastMonth = '  vs. last month';
 const newExpense = 'New Expense';
+const hintTextAmount = 'Enter Amount';
+const hintTextMessage = 'Enter Message';
+const textMessage = 'Message';
+const textAmount = 'Amount';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '/theme/theme.dart';
+import 'string_constants.dart';
 
 class UpiInfoCard extends StatefulWidget {
   const UpiInfoCard({super.key});
@@ -46,7 +47,7 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Amount:',
+                    textAmount,
                     style: theme.textStyle.bodyBold.copyWith(
                       color: theme.colors.contrastMedium,
                     ),
@@ -58,7 +59,7 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
                       keyboardType: TextInputType.number,
                       onChanged: (value) => setState(() {}),
                       decoration: InputDecoration(
-                        hintText: 'Enter Amount',
+                        hintText: hintTextAmount,
                         border: InputBorder.none,
                         hintStyle: theme.textStyle.bodyBold
                             .copyWith(color: theme.colors.contrastLow),
@@ -70,14 +71,14 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
                   ),
                 ],
               ),
-              SizedBox(height: theme.sizing.width.s2),
+              SizedBox(height: theme.spacing.width.s12),
               const Divider(),
-              SizedBox(height: theme.sizing.width.s2),
+              SizedBox(height: theme.spacing.width.s12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Message:',
+                    textMessage,
                     style: theme.textStyle.bodyBold.copyWith(
                       color: theme.colors.contrastMedium,
                     ),
@@ -87,7 +88,7 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
                       controller: _messageController,
                       onChanged: (value) => setState(() {}),
                       decoration: InputDecoration(
-                        hintText: 'Enter Message',
+                        hintText: hintTextMessage,
                         border: InputBorder.none,
                         hintStyle: theme.textStyle.bodyBold
                             .copyWith(color: theme.colors.contrastLow),
