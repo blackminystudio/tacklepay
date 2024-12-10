@@ -27,51 +27,50 @@ class _PayDateDropDownState extends State<PayDateDropdown> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
-      child: Padding(
-        padding: EdgeInsets.all(theme.spacing.width.s4),
-        child: GestureDetector(
-          onTap: () => _selectDate(context),
-          child: Container(
-            padding: EdgeInsets.all(theme.spacing.width.s4),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(theme.borderradius.small),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Row(
-                  children: [
-                    Text(
-                      payDate,
-                      style: theme.textStyle.caption.copyWith(
-                        fontSize: theme.sizing.width.s5,
-                        color: theme.colors.contrastMedium,
-                      ),
-                    ),
-                    SizedBox(width: theme.sizing.width.s3),
-                    Icon(
-                      MinyIcons.outlineArrowUp,
+    return Padding(
+      padding: EdgeInsets.all(theme.spacing.width.s4),
+      child: GestureDetector(
+        onTap: () => _selectDate(context),
+        child: Container(
+          padding: EdgeInsets.all(theme.spacing.width.s4),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(theme.borderradius.small),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    payDateText,
+                    style: theme.textStyle.caption.copyWith(
                       color: theme.colors.contrastMedium,
                     ),
-                  ],
-                ),
-                SizedBox(height: theme.spacing.width.s4),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    selectedDate == null
-                        ? noDateSelected
-                        : '${selectedDate!.day.toString().padLeft(2, '0')}/'
-                            '${selectedDate!.month.toString().padLeft(2, '0')}/'
-                            '${selectedDate!.year}',
-                    style: theme.textStyle.headingSmallMedium.copyWith(
-                      color: theme.colors.contrastDark,
-                    ),
                   ),
+                  SizedBox(width: theme.sizing.width.s3),
+                  Icon(
+                    MinyIcons.outlineArrowUp,
+                    color: theme.colors.contrastMedium,
+                  ),
+                ],
+              ),
+              SizedBox(height: theme.spacing.width.s4),
+              Text(
+                selectedDate == null
+                    ? '${DateTime.now().day.toString().padLeft(2, '0')}/'
+                        '${DateTime.now().month.toString().padLeft(2, '0')}/'
+                        '${DateTime.now().year}'
+                    : '${selectedDate!.day.toString().padLeft(2, '0')}/'
+                        '${selectedDate!.month.toString().padLeft(2, '0')}/'
+                        '${selectedDate!.year}',
+                style: theme.textStyle.headingSmallMedium.copyWith(
+                  color: theme.colors.contrastDark,
                 ),
-              ],
-            ),
+                textAlign: TextAlign.left,
+              ),
+            ],
           ),
         ),
       ),

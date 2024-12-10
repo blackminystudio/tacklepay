@@ -5,5 +5,4 @@ const checkZero = '0';
 const checkMinus = '-';
 const vsLastMonthText = '  vs. last month';
 const balanceAmountText = 'Balance Amount';
-const noDateSelected = 'No date Selected';
-const payDate = 'Pay Date';
+const payDateText = 'Pay Date';
