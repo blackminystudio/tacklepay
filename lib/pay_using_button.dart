@@ -2,23 +2,24 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'theme/theme.dart';
+import 'widgets/string_constants.dart';
 
 class PayUsingModel {
   final String imageUrl;
   final String providerName;
-  final String upiPrifix;
+  final String upiPrefix;
   PayUsingModel(
     this.imageUrl,
     this.providerName,
-    this.upiPrifix,
+    this.upiPrefix,
   );
 }
 
 class PayUsingButton extends StatefulWidget {
-  final List<PayUsingModel> listOfPayusing;
+  final List<PayUsingModel> listOfPayUsing;
   const PayUsingButton({
     super.key,
-    required this.listOfPayusing,
+    required this.listOfPayUsing,
   });
 
   @override
@@ -32,7 +33,7 @@ class _PayUsingButtonState extends State<PayUsingButton> {
 
   @override
   void initState() {
-    selectedModel = widget.listOfPayusing.first;
+    selectedModel = widget.listOfPayUsing.first;
     super.initState();
   }
 
@@ -52,7 +53,7 @@ class _PayUsingButtonState extends State<PayUsingButton> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final listOfPayUsing = widget.listOfPayusing;
+    final listOfPayUsing = widget.listOfPayUsing;
     final cardWidth = theme.sizing.height.s16;
 
     GestureDetector itemBuilder(BuildContext context, int index) {
@@ -124,7 +125,7 @@ class _PayUsingButtonState extends State<PayUsingButton> {
                 Row(
                   children: [
                     Text(
-                      'Pay Using',
+                      payUsingText,
                       style: theme.textStyle.caption.copyWith(
                         color: theme.colors.contrastMedium,
                       ),
