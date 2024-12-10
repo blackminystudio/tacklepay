@@ -54,13 +54,15 @@ class UPICard extends StatelessWidget {
           children: [
             Text(
               '$payeeFirstName $payeeLastName',
-              style: theme.textStyle.headingSmallRegular
-                  .copyWith(color: theme.colors.contrastDark),
+              style: theme.textStyle.headingSmallRegular.copyWith(
+                color: theme.colors.contrastDark,
+              ),
             ),
             Text(
               getCroppedUPIId(payeeUpiId),
-              style: theme.textStyle.bodyRegular
-                  .copyWith(color: theme.colors.contrastMedium),
+              style: theme.textStyle.bodyRegular.copyWith(
+                color: theme.colors.contrastMedium,
+              ),
             ),
           ],
         ),
@@ -74,7 +76,9 @@ class UPICard extends StatelessWidget {
         decoration: BoxDecoration(
           color: theme.colors.light,
           borderRadius: BorderRadius.circular(
-            theme.borderradius.full(theme.sizing.width.s12),
+            theme.borderradius.full(
+              theme.sizing.width.s12,
+            ),
           ),
         ),
         child: Center(

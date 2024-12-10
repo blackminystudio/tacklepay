@@ -15,13 +15,9 @@ class ActionButton extends StatelessWidget {
   });
 
   Widget getButtonType(ThemeData theme) {
-    if (title != null && icon != null) {
-      return buildPrimary(theme);
-    } else if (title != null && icon == null) {
-      return buildText(theme);
-    } else {
-      return buildIcon(theme);
-    }
+    if (title != null && icon != null) return buildPrimary(theme);
+    if (title != null && icon == null) return buildText(theme);
+    return buildIcon(theme);
   }
 
   Widget buildIcon(ThemeData theme) => Transform.translate(
@@ -84,7 +80,9 @@ class ActionButton extends StatelessWidget {
           color: theme.colors.secondary,
           borderRadius: title == null && icon != null
               ? BorderRadius.circular(
-                  theme.borderradius.full(theme.sizing.width.s20),
+                  theme.borderradius.full(
+                    theme.sizing.width.s20,
+                  ),
                 )
               : BorderRadius.circular(
                   theme.borderradius.normal,

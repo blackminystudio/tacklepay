@@ -72,8 +72,10 @@ class TransactionCard extends StatelessWidget {
           Text(
             transactionAmount,
             style: theme.textStyle.headingSmallMedium.copyWith(
-              color:
-                  ThemeStore.getColor(theme: theme, amount: transactionAmount),
+              color: ThemeStore.getColor(
+                theme: theme,
+                amount: transactionAmount,
+              ),
             ),
           ),
           SizedBox(height: theme.spacing.height.s8),
