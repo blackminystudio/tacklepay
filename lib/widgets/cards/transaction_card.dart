@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '/theme/theme.dart';
+import '../store/theme_store.dart';
 
 class TransactionCard extends StatelessWidget {
   final IconData icon;
@@ -71,7 +72,10 @@ class TransactionCard extends StatelessWidget {
           Text(
             transactionAmount,
             style: theme.textStyle.headingSmallMedium.copyWith(
-              color: theme.colors.secondary,
+              color: ThemeStore.getColor(
+                theme: theme,
+                amount: transactionAmount,
+              ),
             ),
           ),
           SizedBox(height: theme.spacing.height.s8),
