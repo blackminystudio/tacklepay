@@ -26,6 +26,7 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
 
     return Container(
       decoration: BoxDecoration(
+        color: theme.colors.contrastLight,
         border: Border.all(
           color: theme.colors.contrastLow,
           width: theme.borderwidth.small,
