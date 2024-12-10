@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: theme.colors.secondaryDark,
+      backgroundColor: theme.colors.secondary,
       body: Container(),
     );
   }

@@ -25,7 +25,9 @@ class ActionButton extends StatelessWidget {
   }
 
   Widget buildIcon(ThemeData theme) => Transform.translate(
-        offset: icon == MinyIcons.fillScan ? Offset(-theme.spacing.width.s48 / 2, 0) : const Offset(0, 0),
+        offset: icon == MinyIcons.fillScan
+            ? Offset(-theme.spacing.width.s48 / 2, 0)
+            : const Offset(0, 0),
         child: Icon(
           icon,
           color: theme.colors.light,
@@ -49,7 +51,9 @@ class ActionButton extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Transform.translate(
-              offset: icon == MinyIcons.fillScan ? Offset(-theme.spacing.width.s32 / 2, 0) : const Offset(0, 0),
+              offset: icon == MinyIcons.fillScan
+                  ? Offset(-theme.spacing.width.s32 / 2, 0)
+                  : const Offset(0, 0),
               child: Icon(
                 icon,
                 color: theme.colors.light,
@@ -75,7 +79,8 @@ class ActionButton extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(theme.spacing.width.s16),
         decoration: BoxDecoration(
-          boxShadow: title == null && icon != null ? [theme.elevation.e1] : null,
+          boxShadow:
+              title == null && icon != null ? [theme.elevation.e1] : null,
           color: theme.colors.secondary,
           borderRadius: title == null && icon != null
               ? BorderRadius.circular(

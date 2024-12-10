@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import '../../theme/theme.dart';
 import '../string_constants.dart';
 
-import '../../theme/theme.dart';
-
 class ThemeStore {
-  static Color getColor({required ThemeData theme, bool isReversed = false, required String amount}) {
+  static Color getColor(
+      {required ThemeData theme,
+      bool isReversed = false,
+      required String amount}) {
     final zero = amount == checkZero;
     final minus = amount.startsWith(checkMinus);
     if (zero) {

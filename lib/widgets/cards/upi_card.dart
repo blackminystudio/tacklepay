@@ -54,17 +54,21 @@ class UPICard extends StatelessWidget {
           children: [
             Text(
               '$payeeFirstName $payeeLastName',
-              style: theme.textStyle.headingSmallRegular.copyWith(color: theme.colors.contrastDark),
+              style: theme.textStyle.headingSmallRegular
+                  .copyWith(color: theme.colors.contrastDark),
             ),
             Text(
               getCroppedUPIId(payeeUpiId),
-              style: theme.textStyle.bodyRegular.copyWith(color: theme.colors.contrastMedium),
+              style: theme.textStyle.bodyRegular
+                  .copyWith(color: theme.colors.contrastMedium),
             ),
           ],
         ),
       );
 
-  Container buildIcon(ThemeData theme, String firstNameInitial, String lastNameInitial) => Container(
+  Container buildIcon(
+          ThemeData theme, String firstNameInitial, String lastNameInitial) =>
+      Container(
         height: theme.sizing.width.s12,
         width: theme.sizing.width.s12,
         decoration: BoxDecoration(

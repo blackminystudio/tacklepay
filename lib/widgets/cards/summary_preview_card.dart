@@ -25,7 +25,9 @@ class SummaryPreviewCard extends StatelessWidget {
     final isIncome = header == HeaderType.income;
     final theme = Theme.of(context);
     final title = header == HeaderType.income ? incomeText : expenseText;
-    final headerColor = header == HeaderType.income ? theme.colors.primary : theme.colors.secondary;
+    final headerColor = header == HeaderType.income
+        ? theme.colors.primary
+        : theme.colors.secondary;
     return Container(
       width: theme.sizing.width.s40,
       decoration: BoxDecoration(
