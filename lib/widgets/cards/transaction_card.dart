@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../store/theme_store.dart';
 import '/theme/theme.dart';
 
 class TransactionCard extends StatelessWidget {
@@ -55,8 +57,7 @@ class TransactionCard extends StatelessWidget {
         width: theme.sizing.width.s14,
         decoration: BoxDecoration(
           color: theme.colors.light,
-          borderRadius: BorderRadius.circular(
-              theme.borderradius.full(theme.sizing.width.s14)),
+          borderRadius: BorderRadius.circular(theme.borderradius.full(theme.sizing.width.s14)),
         ),
         child: Icon(
           icon,
@@ -71,7 +72,7 @@ class TransactionCard extends StatelessWidget {
           Text(
             transactionAmount,
             style: theme.textStyle.headingSmallMedium.copyWith(
-              color: theme.colors.secondary,
+              color: ThemeStore.getColor(theme: theme, amount: transactionAmount),
             ),
           ),
           SizedBox(height: theme.spacing.height.s8),
