@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../theme/theme.dart';
-import 'string_constants.dart';
+import '../../theme/theme.dart';
+import '../store/theme_store.dart';
+import '../string_constants.dart';
 
 enum HeaderType {
   income,
@@ -18,18 +19,6 @@ class SummaryPreviewCard extends StatelessWidget {
     required this.amount,
     required this.percentage,
   });
-
-  Color getColor(ThemeData theme, bool isIncome) {
-    final zero = percentage == checkZero;
-    final minus = percentage.startsWith(checkMinus);
-    if (zero) {
-      return theme.colors.contrastDark;
-    } else if (minus) {
-      return isIncome ? theme.colors.secondaryDark : theme.colors.primaryDark;
-    } else {
-      return isIncome ? theme.colors.primaryDark : theme.colors.secondaryDark;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +72,7 @@ class SummaryPreviewCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '₹ $amount',
+                  '₹$amount',
                   style: theme.textStyle.titleBold.copyWith(
                     color: theme.colors.contrastDark,
                   ),
@@ -93,11 +82,15 @@ class SummaryPreviewCard extends StatelessWidget {
                   TextSpan(
                     text: '$percentage%',
                     style: theme.textStyle.bodyBold.copyWith(
-                      color: getColor(theme, isIncome),
+                      color: ThemeStore.getColor(
+                        theme: theme,
+                        isReversed: isIncome,
+                        amount: percentage,
+                      ),
                     ),
                     children: [
                       TextSpan(
-                        text: vsLastMonth,
+                        text: vsLastMonthText,
                         style: theme.textStyle.quote.copyWith(
                           color: theme.colors.contrastDark,
                         ),
