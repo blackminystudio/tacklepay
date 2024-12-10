@@ -8,6 +8,8 @@ import 'extensions/miny_sizing.dart';
 import 'extensions/miny_spacing.dart';
 import 'extensions/miny_typography.dart';
 
+export 'miny_icons.dart';
+
 final ThemeData appTheme = ThemeData(
   extensions: <ThemeExtension<dynamic>>[
     // These are used with non-const as they are providing dynamic sizes

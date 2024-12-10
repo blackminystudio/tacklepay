@@ -36,6 +36,7 @@ class SpacingDimensions {
   double get s2 => scale(SpacingTokens.s2);
   double get s4 => scale(SpacingTokens.s4);
   double get s8 => scale(SpacingTokens.s8);
+  double get s10 => scale(SpacingTokens.s10);
   double get s12 => scale(SpacingTokens.s12);
   double get s16 => scale(SpacingTokens.s16);
   double get s20 => scale(SpacingTokens.s20);
