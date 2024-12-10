@@ -1,11 +1,12 @@
-const summaryPreviewCardQuote = 'vs. last month';
+const appName = 'Tackle Pay';
 const incomeText = 'Income';
 const expenseText = 'Expense';
 const checkZero = '0';
 const checkMinus = '-';
-const vsLastMonth = '  vs. last month';
 const newExpense = 'New Expense';
 const hintTextAmount = 'Enter Amount';
 const hintTextMessage = 'Enter Message';
 const textMessage = 'Message';
 const textAmount = 'Amount';
+const vsLastMonthText = '  vs. last month';
+const balanceAmountText = 'Balance Amount';
