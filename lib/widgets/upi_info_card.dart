@@ -240,7 +240,6 @@ class AmountInputFormatter extends TextInputFormatter {
   }
 }
 
-
 // TODO:
 /// [x] 1. No Text other than allowed <₹> <.> <[0-9]>
 /// [x] 2. Comma in indian currency format
