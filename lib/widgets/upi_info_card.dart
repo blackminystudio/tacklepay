@@ -247,6 +247,6 @@ class AmountInputFormatter extends TextInputFormatter {
 /// [x] 4. No more than 6 characters [9,99,999] allowed
 /// [x] 5. No more than 8 characters [9,99,999.99] allowed with decimal
 /// [x] 6. No multiple 0's at first allowed it must convet to <₹0.>
-/// [x] 7. if the value is <₹> <₹.> <₹0> <₹0.> <₹0.0> <₹0.00> then onSumit 
+/// [x] 7. if the value is <₹> <₹.> <₹0> <₹0.> <₹0.0> <₹0.00> then onSumit
 ///        it should remove
 /// [x] 8. if its starting with <.>  it should replace with <₹0.>
