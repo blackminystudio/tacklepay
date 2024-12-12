@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../theme/theme.dart';
 import 'string_constants.dart';
 
@@ -59,12 +60,8 @@ class _PayDateDropDownState extends State<PayDateDropdown> {
               SizedBox(height: theme.spacing.width.s4),
               Text(
                 selectedDate == null
-                    ? '${DateTime.now().day.toString().padLeft(2, '0')}/'
-                        '${DateTime.now().month.toString().padLeft(2, '0')}/'
-                        '${DateTime.now().year}'
-                    : '${selectedDate!.day.toString().padLeft(2, '0')}/'
-                        '${selectedDate!.month.toString().padLeft(2, '0')}/'
-                        '${selectedDate!.year}',
+                    ? DateFormat('dd/MM/yyyy').format(DateTime.now())
+                    : DateFormat('dd/MM/yyyy').format(selectedDate!),
                 style: theme.textStyle.headingSmallMedium.copyWith(
                   color: theme.colors.contrastDark,
                 ),
