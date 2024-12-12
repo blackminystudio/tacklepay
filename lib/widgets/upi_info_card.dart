@@ -17,8 +17,6 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
   final FocusNode _amountFocusNode = FocusNode();
   final FocusNode _messageFocusNode = FocusNode();
 
-  bool _isEditingMessage = false;
-
   @override
   void dispose() {
     _amountController.dispose();
@@ -28,6 +26,22 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
     super.dispose();
   }
 
+  void onSubmitAmount(String value) {
+    if (value == ruppeeSymbol ||
+        value.trim() == ruppeeSymbol ||
+        value.trim() == '$ruppeeSymbol.' ||
+        value.trim() == '${ruppeeSymbol}0' ||
+        value.trim() == '${ruppeeSymbol}0.' ||
+        value.trim() == '${ruppeeSymbol}0.0' ||
+        value.trim() == '${ruppeeSymbol}0.00') {
+      _amountController.clear();
+    } else {
+      _messageFocusNode.requestFocus();
+    }
+  }
+
+  void onSubmitMessageField(String value) {}
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -36,120 +50,43 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
       child: Container(
         decoration: BoxDecoration(
           color: theme.colors.contrastLight,
-          borderRadius: BorderRadius.circular(theme.borderradius.medium),
+          borderRadius: BorderRadius.circular(
+            theme.borderradius.medium,
+          ),
           border: Border.all(
             color: theme.colors.contrastLow,
           ),
         ),
         child: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: theme.sizing.width.s4,
-              vertical: theme.sizing.width.s3),
+            horizontal: theme.sizing.width.s4,
+            vertical: theme.sizing.width.s3,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    textAmount,
-                    style: theme.textStyle.bodyBold.copyWith(
-                      color: theme.colors.contrastMedium,
-                    ),
-                  ),
-                  SizedBox(
-                    width: theme.sizing.width.s32,
-                    child: TextField(
-                      controller: _amountController,
-                      focusNode: _amountFocusNode,
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: true),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                            RegExp(r'^\d+\.?\d{0,2}')),
-                      ],
-                      decoration: InputDecoration(
-                        isDense: true,
-                        contentPadding: EdgeInsets.zero,
-                        hintText: hintTextAmount,
-                        prefixText: '₹ ',
-                        prefixStyle: theme.textStyle.titleBold.copyWith(
-                          color: theme.colors.contrastDark,
-                        ),
-                        border: InputBorder.none,
-                        hintStyle: theme.textStyle.bodyBold.copyWith(
-                          color: theme.colors.contrastLow,
-                        ),
-                      ),
-                      style: theme.textStyle.titleBold.copyWith(
-                        color: theme.colors.contrastDark,
-                      ),
-                      textAlign: TextAlign.right,
-                      onSubmitted: (_) => _messageFocusNode.requestFocus(),
-                    ),
+                  buildTitle(amountText, theme),
+                  Expanded(
+                    child: buildAmountField(theme),
                   ),
                 ],
               ),
-              SizedBox(height: theme.sizing.height.s2),
               Container(
                 height: theme.spacing.height.s1,
                 color: theme.colors.contrastLow,
+                margin: EdgeInsets.symmetric(
+                  vertical: theme.sizing.height.s3,
+                ),
               ),
-              SizedBox(height: theme.sizing.height.s3),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    textMessage,
-                    style: theme.textStyle.bodyBold.copyWith(
-                      color: theme.colors.contrastMedium,
-                    ),
-                  ),
-                  SizedBox(width: theme.sizing.height.s2),
+                  buildTitle(messageText, theme),
                   Expanded(
-                    child: _isEditingMessage
-                        ? TextField(
-                            controller: _messageController,
-                            focusNode: _messageFocusNode,
-                            onSubmitted: (_) {
-                              setState(() {
-                                _isEditingMessage = false;
-                              });
-                            },
-                            decoration: InputDecoration(
-                              isDense: true,
-                              border: InputBorder.none,
-                              hintText: hintTextMessage,
-                              hintStyle: theme.textStyle.bodyBold.copyWith(
-                                color: theme.colors.contrastLow,
-                              ),
-                            ),
-                            style: theme.textStyle.headingSmallMedium.copyWith(
-                              color: theme.colors.contrastMedium,
-                            ),
-                            textAlign: TextAlign.right,
-                          )
-                        : GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _isEditingMessage = true;
-                                _messageFocusNode.requestFocus();
-                              });
-                            },
-                            child: Text(
-                              _messageController.text.isEmpty
-                                  ? hintTextMessage
-                                  : _messageController.text,
-                              style:
-                                  theme.textStyle.headingSmallMedium.copyWith(
-                                color: _messageController.text.isEmpty
-                                    ? theme.colors.contrastLow
-                                    : theme.colors.contrastMedium,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              textAlign: TextAlign.right,
-                            ),
-                          ),
+                    child: buildMessageField(theme),
                   ),
                 ],
               ),
@@ -159,4 +96,157 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
       ),
     );
   }
+
+  Padding buildTitle(String title, ThemeData theme) => Padding(
+        padding: EdgeInsets.only(right: theme.sizing.height.s2),
+        child: Text(
+          title,
+          style: theme.textStyle.bodyBold.copyWith(
+            color: theme.colors.contrastMedium,
+          ),
+        ),
+      );
+
+  TextField buildMessageField(ThemeData theme) => TextField(
+        controller: _messageController,
+        focusNode: _messageFocusNode,
+        onSubmitted: onSubmitMessageField,
+        decoration: inputDecoration(theme, hintTextMessage),
+        style: theme.textStyle.headingSmallMedium.copyWith(
+          color: theme.colors.contrastMedium,
+        ),
+        textAlign: TextAlign.right,
+      );
+
+  TextField buildAmountField(ThemeData theme) => TextField(
+        controller: _amountController,
+        focusNode: _amountFocusNode,
+        textAlign: TextAlign.right,
+        onSubmitted: onSubmitAmount,
+        inputFormatters: [AmountInputFormatter()],
+        decoration: inputDecoration(theme, hintTextAmount),
+        keyboardType: const TextInputType.numberWithOptions(
+          decimal: true,
+        ),
+        style: theme.textStyle.titleBold.copyWith(
+          color: theme.colors.contrastDark,
+        ),
+      );
+
+  InputDecoration inputDecoration(ThemeData theme, String hintText) =>
+      InputDecoration(
+        isCollapsed: true,
+        border: InputBorder.none,
+        hintText: hintText,
+        hintStyle: theme.textStyle.bodyBold.copyWith(
+          color: theme.colors.contrastLow,
+        ),
+      );
 }
+
+class AmountInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    var text = newValue.text;
+    text = _extractNumericText(text);
+    text = _validateMaxAmountAndDecimalLimit(text);
+    text = _replaceZeroToDecimal(text);
+    text = _addCommasToInteger(text);
+    text = _ensureRupeeSymbol(text);
+    return TextEditingValue(
+      text: text,
+      selection: TextSelection.collapsed(offset: text.length),
+    );
+  }
+
+  String _extractNumericText(String text) =>
+      text.replaceAll(RegExp(r'[^0-9.]'), '');
+
+  String _validateMaxAmountAndDecimalLimit(String text) {
+    // Split the number into integer and decimal parts
+    if (text.contains('.')) {
+      final parts = text.split('.');
+      var integerPart = parts[0];
+      var decimalPart = parts.length > 1 ? parts[1] : '';
+      // Ensure 999999
+      if (_isIntegerLimited(integerPart)) {
+        integerPart = integerPart.substring(0, 6);
+      }
+      // Ensure .99
+      if (decimalPart.length > 2) {
+        decimalPart = decimalPart.substring(0, 2);
+      }
+      return '$integerPart.$decimalPart';
+    }
+    // Ensure 999999
+    if (_isIntegerLimited(text)) return text.substring(0, 6);
+    return text;
+  }
+
+  bool _isIntegerLimited(String text) =>
+      text.length > 6 ||
+      BigInt.tryParse(text) != null && BigInt.parse(text) > BigInt.from(999999);
+
+  String _replaceZeroToDecimal(String text) {
+    if (text.startsWith('0') && text.length > 1 && !text.contains('.')) {
+      text = text.replaceFirst('0', '0.');
+    }
+    if (text.startsWith('.') && text.length > 1) {
+      text = text.replaceFirst('.', '0.');
+    }
+
+    return text;
+  }
+
+  String _addCommasToInteger(String text) {
+    if (text.contains('.')) {
+      final parts = text.split('.');
+      final integerPart = parts[0];
+      final decimalPart = parts.length > 1 ? parts[1] : '';
+      final formattedInteger = _formatIndianNumber(integerPart);
+      final formattedText =
+          '$formattedInteger${decimalPart.isNotEmpty ? '.$decimalPart' : '.'}';
+      return formattedText;
+    }
+    return _formatIndianNumber(text);
+  }
+
+  String _formatIndianNumber(String number) {
+    if (number.isEmpty) return number;
+    final length = number.length;
+    if (length <= 3) return number;
+
+    // Take the last three digits
+    final lastThree = number.substring(length - 3);
+    final remaining = number.substring(0, length - 3);
+
+    // Format the remaining part with commas
+    final regExp = RegExp(r'(\d)(?=(\d{2})+(?!\d))');
+    final formattedRemaining = remaining.replaceAllMapped(
+      regExp,
+      (Match match) => '${match[1]},',
+    );
+    return '$formattedRemaining,$lastThree';
+  }
+
+  String _ensureRupeeSymbol(String text) {
+    if (text.isNotEmpty && !text.startsWith(ruppeeSymbol)) {
+      text = '$ruppeeSymbol$text';
+    }
+    return text;
+  }
+}
+
+
+// TODO:
+/// [x] 1. No Text other than allowed <₹> <.> <[0-9]>
+/// [x] 2. Comma in indian currency format
+/// [x] 3. ₹ symbol as soon as we start typing
+/// [x] 4. No more than 6 characters [9,99,999] allowed
+/// [x] 5. No more than 8 characters [9,99,999.99] allowed with decimal
+/// [x] 6. No multiple 0's at first allowed it must convet to <₹0.>
+/// [x] 7. if the value is <₹> <₹.> <₹0> <₹0.> <₹0.0> <₹0.00> then onSumit it should remove
+/// [x] 8. if its starting with <.>  it should replace with <₹0.>
