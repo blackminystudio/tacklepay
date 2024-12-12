@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'theme/theme.dart';
+import 'widgets/pay_date_dropdown.dart';
 import 'widgets/string_constants.dart';
 
 void main() {
@@ -28,8 +29,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: theme.colors.secondary,
-      body: Container(),
+      backgroundColor: theme.colors.light,
+      body: Center(child: PayDateDropdown()),
     );
   }
 }
