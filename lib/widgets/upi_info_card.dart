@@ -27,13 +27,13 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
   }
 
   void onSubmitAmount(String value) {
-    if (value == ruppeeSymbol ||
-        value.trim() == ruppeeSymbol ||
-        value.trim() == '$ruppeeSymbol.' ||
-        value.trim() == '${ruppeeSymbol}0' ||
-        value.trim() == '${ruppeeSymbol}0.' ||
-        value.trim() == '${ruppeeSymbol}0.0' ||
-        value.trim() == '${ruppeeSymbol}0.00') {
+    if (value == rupeeSymbol ||
+        value.trim() == rupeeSymbol ||
+        value.trim() == '$rupeeSymbol.' ||
+        value.trim() == '${rupeeSymbol}0' ||
+        value.trim() == '${rupeeSymbol}0.' ||
+        value.trim() == '${rupeeSymbol}0.0' ||
+        value.trim() == '${rupeeSymbol}0.00') {
       _amountController.clear();
     } else {
       _messageFocusNode.requestFocus();
@@ -219,7 +219,6 @@ class AmountInputFormatter extends TextInputFormatter {
     final length = number.length;
     if (length <= 3) return number;
 
-    // Take the last three digits
     final lastThree = number.substring(length - 3);
     final remaining = number.substring(0, length - 3);
 
@@ -233,20 +232,9 @@ class AmountInputFormatter extends TextInputFormatter {
   }
 
   String _ensureRupeeSymbol(String text) {
-    if (text.isNotEmpty && !text.startsWith(ruppeeSymbol)) {
-      text = '$ruppeeSymbol$text';
+    if (text.isNotEmpty && !text.startsWith(rupeeSymbol)) {
+      text = '$rupeeSymbol$text';
     }
     return text;
   }
 }
-
-// TODO:
-/// [x] 1. No Text other than allowed <₹> <.> <[0-9]>
-/// [x] 2. Comma in indian currency format
-/// [x] 3. ₹ symbol as soon as we start typing
-/// [x] 4. No more than 6 characters [9,99,999] allowed
-/// [x] 5. No more than 8 characters [9,99,999.99] allowed with decimal
-/// [x] 6. No multiple 0's at first allowed it must convet to <₹0.>
-/// [x] 7. if the value is <₹> <₹.> <₹0> <₹0.> <₹0.0> <₹0.00> then onSumit
-///        it should remove
-/// [x] 8. if its starting with <.>  it should replace with <₹0.>
