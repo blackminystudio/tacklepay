@@ -13,6 +13,7 @@ class UpiInfoCard extends StatefulWidget {
 class _UpiInfoCardState extends State<UpiInfoCard> {
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _messageController = TextEditingController();
+  String _originalText = '';
 
   final FocusNode _amountFocusNode = FocusNode();
   final FocusNode _messageFocusNode = FocusNode();
@@ -24,6 +25,20 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
     _amountFocusNode.dispose();
     _messageFocusNode.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _messageFocusNode.addListener(
+      () {
+        if (_messageFocusNode.hasFocus) {
+          onTapMessageField();
+        } else {
+          onSubmitMessageField(_originalText);
+        }
+      },
+    );
   }
 
   void onSubmitAmount(String value) {
@@ -40,7 +55,26 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
     }
   }
 
-  void onSubmitMessageField(String value) {}
+  void onSubmitMessageField(String text) {
+    // Update the original
+    _originalText = text;
+    if (text.length > 15) {
+      _messageController
+        ..text = '${text.substring(0, 15)}...'
+        ..selection = TextSelection.fromPosition(
+          TextPosition(offset: _messageController.text.length),
+        );
+    }
+  }
+
+  void onTapMessageField() {
+    // Restore the original text
+    _messageController
+      ..text = _originalText
+      ..selection = TextSelection.fromPosition(
+        TextPosition(offset: _messageController.text.length),
+      );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +146,7 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
         focusNode: _messageFocusNode,
         onSubmitted: onSubmitMessageField,
         decoration: inputDecoration(theme, hintTextMessage),
+        onTap: onTapMessageField,
         style: theme.textStyle.headingSmallMedium.copyWith(
           color: theme.colors.contrastMedium,
         ),
@@ -119,6 +154,7 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
       );
 
   TextField buildAmountField(ThemeData theme) => TextField(
+        enableInteractiveSelection: false,
         controller: _amountController,
         focusNode: _amountFocusNode,
         textAlign: TextAlign.right,
