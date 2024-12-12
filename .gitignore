@@ -30,6 +30,8 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+pubspec.lock
+ios/Podfile
 
 # Symbolication related
 app.*.symbols
