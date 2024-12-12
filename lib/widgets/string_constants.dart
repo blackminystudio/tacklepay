@@ -1,6 +1,6 @@
 // TacklePay App
 const appName = 'Tackle Pay';
-const ruppeeSymbol = '₹';
+const rupeeSymbol = '₹';
 
 const incomeText = 'Income';
 const expenseText = 'Expense';
