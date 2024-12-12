@@ -9,6 +9,7 @@ const checkMinus = '-';
 const newExpense = 'New Expense';
 const hintTextAmount = 'Enter Amount';
 const hintTextMessage = 'Enter Message';
+const payUsingText = 'Pay Using';
 const vsLastMonthText = '  vs. last month';
 const balanceAmountText = 'Balance Amount';
 
