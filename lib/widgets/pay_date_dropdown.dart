@@ -9,16 +9,16 @@ class PayDateDropdown extends StatefulWidget {
 }
 
 class _PayDateDropDownState extends State<PayDateDropdown> {
-  DateTime? selectedDate;
+  DateTime selectedDate = DateTime.now();
 
   Future<void> _selectDate(BuildContext context) async {
     final picked = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: selectedDate,
       firstDate: DateTime(2000),
       lastDate: DateTime.now(),
     );
-    if (picked != null && picked != selectedDate) {
+    if (picked != null) {
       setState(() {
         selectedDate = picked;
       });
@@ -59,9 +59,7 @@ class _PayDateDropDownState extends State<PayDateDropdown> {
               ),
               SizedBox(height: theme.spacing.width.s4),
               Text(
-                selectedDate == null
-                    ? DateFormat('dd/MM/yyyy').format(DateTime.now())
-                    : DateFormat('dd/MM/yyyy').format(selectedDate!),
+                DateFormat('dd/MM/yyyy').format(selectedDate),
                 style: theme.textStyle.headingSmallMedium.copyWith(
                   color: theme.colors.contrastDark,
                 ),

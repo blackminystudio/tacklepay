@@ -14,4 +14,3 @@ const balanceAmountText = 'Balance Amount';
 const messageText = 'Message';
 const amountText = 'Amount';
 const payDateText = 'Pay Date';
-
