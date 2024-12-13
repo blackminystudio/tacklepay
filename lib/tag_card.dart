@@ -38,34 +38,51 @@ class _TagCardState extends State<TagCard> {
 
     if (widget.tagType == TagType.create && isEditing) {
       return DottedBorder(
+        dashPattern: [4, 4],
+        strokeCap: StrokeCap.round,
+        strokeWidth: 2,
+        padding: EdgeInsets.zero,
         color: theme.colors.contrastDark,
         borderType: BorderType.RRect,
         radius: Radius.circular(theme.borderradius.xLarge),
         child: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: theme.sizing.width.s5,
+          ),
           decoration: BoxDecoration(
             color: theme.colors.contrastLow,
             borderRadius: BorderRadius.circular(theme.borderradius.xLarge),
           ),
           width: theme.sizing.width.s28,
           height: theme.sizing.height.s11,
-          child: TextField(
-            controller: _controller,
-            autofocus: true,
-            decoration: InputDecoration(
-              hintText: enterTagText,
-              border: InputBorder.none,
-              contentPadding:
-                  EdgeInsets.symmetric(horizontal: theme.sizing.width.s2),
+          child: Center(
+            child: TextField(
+              controller: _controller,
+              autofocus: true,
+              style: theme.textStyle.bodyBold.copyWith(
+                color: theme.colors.contrastDark,
+              ),
+              decoration: InputDecoration(
+                hintStyle: theme.textStyle.bodyBold.copyWith(
+                  color: theme.colors.contrastDark,
+                ),
+                isCollapsed: true,
+                hintText: enterTagText,
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: theme.sizing.width.s2,
+                ),
+              ),
+              onSubmitted: (value) {
+                if (value.isNotEmpty) {
+                  widget.onTextSubmit?.call(value);
+                  setState(() {
+                    isEditing = false;
+                  });
+                  _controller.clear();
+                }
+              },
             ),
-            onSubmitted: (value) {
-              if (value.isNotEmpty) {
-                widget.onTextSubmit?.call(value);
-                setState(() {
-                  isEditing = false;
-                });
-                _controller.clear();
-              }
-            },
           ),
         ),
       );
@@ -77,22 +94,28 @@ class _TagCardState extends State<TagCard> {
           : widget.onTap,
       child: widget.tagType == TagType.create
           ? DottedBorder(
+              dashPattern: [4, 4],
+              strokeCap: StrokeCap.round,
+              strokeWidth: 2,
               color: theme.colors.contrastDark,
               borderType: BorderType.RRect,
               radius: Radius.circular(theme.borderradius.xLarge),
+              padding: EdgeInsets.zero,
               child: Container(
                 decoration: BoxDecoration(
                   color: theme.colors.contrastLow,
-                  borderRadius:
-                      BorderRadius.circular(theme.borderradius.xLarge),
+                  borderRadius: BorderRadius.circular(
+                    theme.borderradius.xLarge,
+                  ),
                 ),
                 width: theme.sizing.width.s28,
                 height: theme.sizing.height.s11,
                 child: Center(
                   child: Text(
                     createText,
-                    style: theme.textStyle.bodyBold
-                        .copyWith(color: theme.colors.contrastDark),
+                    style: theme.textStyle.bodyBold.copyWith(
+                      color: theme.colors.contrastDark,
+                    ),
                   ),
                 ),
               ),
