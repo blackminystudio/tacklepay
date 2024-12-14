@@ -32,14 +32,15 @@ class _TagCardState extends State<TagCard> {
   bool isEditing = false;
   final TextEditingController _controller = TextEditingController();
 
-  void onSubmitted(String value) {
-    if (value.isNotEmpty) {
-      widget.onTextSubmit?.call(value);
+  void _onSubmitted(String value) {
+    final text = value.replaceAll(' ', '');
+    if (text.isNotEmpty) {
+      widget.onTextSubmit?.call(text);
     }
-    clearField();
+    _clearField();
   }
 
-  void clearField() {
+  void _clearField() {
     setState(() {
       isEditing = false;
     });
@@ -51,7 +52,7 @@ class _TagCardState extends State<TagCard> {
     final theme = Theme.of(context);
 
     if (widget.tagType == TagType.create && isEditing) {
-      return buildDottedBorderWrapper(
+      return _buildDottedBorderWrapper(
         theme: theme,
         child: Container(
           padding: EdgeInsets.symmetric(
@@ -69,8 +70,8 @@ class _TagCardState extends State<TagCard> {
             child: TextField(
               autofocus: true,
               controller: _controller,
-              onSubmitted: onSubmitted,
-              onTapOutside: (_) => clearField(),
+              onSubmitted: _onSubmitted,
+              onTapOutside: (_) => _clearField(),
               decoration: _buildInputDecoration(theme),
               style: theme.textStyle.bodyBold.copyWith(
                 color: theme.colors.contrastDark,
@@ -86,7 +87,7 @@ class _TagCardState extends State<TagCard> {
           ? () => setState(() => isEditing = true)
           : widget.onTap,
       child: widget.tagType == TagType.create
-          ? buildDottedBorderWrapper(
+          ? _buildDottedBorderWrapper(
               theme: theme,
               child: Container(
                 decoration: BoxDecoration(
@@ -133,7 +134,7 @@ class _TagCardState extends State<TagCard> {
                       ),
                     ),
                   ),
-                  buildCrossButton(theme),
+                  _buildCrossButton(theme),
                 ],
               ),
             ),
@@ -152,7 +153,7 @@ class _TagCardState extends State<TagCard> {
         ),
       );
 
-  DottedBorder buildDottedBorderWrapper({
+  DottedBorder _buildDottedBorderWrapper({
     required Widget child,
     required ThemeData theme,
   }) =>
@@ -167,7 +168,7 @@ class _TagCardState extends State<TagCard> {
         child: child,
       );
 
-  GestureDetector buildCrossButton(ThemeData theme) => GestureDetector(
+  GestureDetector _buildCrossButton(ThemeData theme) => GestureDetector(
         onTap: widget.onDelete,
         child: Container(
           color: Colors.transparent,
