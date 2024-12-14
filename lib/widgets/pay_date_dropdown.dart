@@ -28,45 +28,40 @@ class _PayDateDropDownState extends State<PayDateDropdown> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Padding(
-      padding: EdgeInsets.all(theme.spacing.width.s4),
-      child: GestureDetector(
-        onTap: () => _selectDate(context),
-        child: Container(
-          padding: EdgeInsets.all(theme.spacing.width.s4),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(theme.borderradius.small),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    payDateText,
-                    style: theme.textStyle.caption.copyWith(
-                      color: theme.colors.contrastMedium,
-                    ),
-                  ),
-                  SizedBox(width: theme.sizing.width.s3),
-                  Icon(
-                    MinyIcons.outlineArrowUp,
+    return GestureDetector(
+      onTap: () => _selectDate(context),
+      child: Container(
+        padding: EdgeInsets.all(theme.spacing.width.s4),
+        color: Colors.transparent,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  payDateText,
+                  style: theme.textStyle.caption.copyWith(
                     color: theme.colors.contrastMedium,
                   ),
-                ],
-              ),
-              SizedBox(height: theme.spacing.width.s4),
-              Text(
-                DateFormat('dd/MM/yyyy').format(selectedDate),
-                style: theme.textStyle.headingSmallMedium.copyWith(
-                  color: theme.colors.contrastDark,
                 ),
-                textAlign: TextAlign.left,
+                SizedBox(width: theme.sizing.width.s3),
+                Icon(
+                  MinyIcons.outlineArrowUp,
+                  color: theme.colors.contrastMedium,
+                  size: theme.sizing.width.s3,
+                ),
+              ],
+            ),
+            SizedBox(height: theme.spacing.width.s4),
+            Text(
+              DateFormat('dd/MM/yyyy').format(selectedDate),
+              style: theme.textStyle.headingSmallMedium.copyWith(
+                color: theme.colors.contrastDark,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
