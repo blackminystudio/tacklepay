@@ -7,6 +7,7 @@ const expenseText = 'Expense';
 const checkZero = '0';
 const checkMinus = '-';
 const newExpense = 'New Expense';
+const addTagText = 'Add Tag';
 const hintTextAmount = 'Enter Amount';
 const hintTextMessage = 'Enter Message';
 const payUsingText = 'Pay Using';
