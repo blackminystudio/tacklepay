@@ -16,11 +16,9 @@ const balanceAmountText = 'Balance Amount';
 const messageText = 'Message';
 const amountText = 'Amount';
 
-
 // HistoryInfoCard
 
 const totalAmountText = 'Total amount';
 const day = 'Today';
 
 const payDateText = 'Pay Date';
-
