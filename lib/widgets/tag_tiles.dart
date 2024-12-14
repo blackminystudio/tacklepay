@@ -5,16 +5,20 @@ class TagTile extends StatefulWidget {
   final String tagName;
   final bool isChecked;
 
-  TagTile({required this.tagName, this.isChecked = false});
+  TagTile({
+    required this.tagName,
+    this.isChecked = false,
+  });
 
   @override
-  _TagTileState createState() => _TagTileState();
+  State<TagTile> createState() => _TagTileState();
 }
 
 class _TagTileState extends State<TagTile> {
   late bool _isChecked;
   late TextEditingController _controller;
   bool _isEditing = false;
+  String _originalText = '';
 
   @override
   void initState() {
@@ -43,8 +47,8 @@ class _TagTileState extends State<TagTile> {
 
   void _onSubmitted(String value) {
     setState(() {
+      _originalText = value;
       _isEditing = false;
-      _controller.text;
       if (_controller.text.length > 15) {
         _controller
           ..text = '${_controller.text.substring(0, 15)}...'
@@ -59,11 +63,12 @@ class _TagTileState extends State<TagTile> {
     setState(() {
       _isEditing = false;
     });
+    _controller.clear();
   }
 
   void _onTap() {
     _controller
-      ..text = _controller.text
+      ..text = _originalText
       ..selection = TextSelection.fromPosition(
         TextPosition(offset: _controller.text.length),
       );
