@@ -32,56 +32,49 @@ class _TagCardState extends State<TagCard> {
   bool isEditing = false;
   final TextEditingController _controller = TextEditingController();
 
+  void onSubmitted(String value) {
+    if (value.isNotEmpty) {
+      widget.onTextSubmit?.call(value);
+    }
+    clearField();
+  }
+
+  void clearField() {
+    setState(() {
+      isEditing = false;
+    });
+    _controller.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     if (widget.tagType == TagType.create && isEditing) {
-      return DottedBorder(
-        dashPattern: [4, 4],
-        strokeCap: StrokeCap.round,
-        strokeWidth: 2,
-        padding: EdgeInsets.zero,
-        color: theme.colors.contrastDark,
-        borderType: BorderType.RRect,
-        radius: Radius.circular(theme.borderradius.xLarge),
+      return buildDottedBorderWrapper(
+        theme: theme,
         child: Container(
           padding: EdgeInsets.symmetric(
             horizontal: theme.sizing.width.s5,
           ),
           decoration: BoxDecoration(
             color: theme.colors.contrastLow,
-            borderRadius: BorderRadius.circular(theme.borderradius.xLarge),
+            borderRadius: BorderRadius.circular(
+              theme.borderradius.xLarge,
+            ),
           ),
           width: theme.sizing.width.s28,
           height: theme.sizing.height.s11,
           child: Center(
             child: TextField(
-              controller: _controller,
               autofocus: true,
+              controller: _controller,
+              onSubmitted: onSubmitted,
+              onTapOutside: (_) => clearField(),
+              decoration: _buildInputDecoration(theme),
               style: theme.textStyle.bodyBold.copyWith(
                 color: theme.colors.contrastDark,
               ),
-              decoration: InputDecoration(
-                hintStyle: theme.textStyle.bodyBold.copyWith(
-                  color: theme.colors.contrastDark,
-                ),
-                isCollapsed: true,
-                hintText: enterTagText,
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: theme.sizing.width.s2,
-                ),
-              ),
-              onSubmitted: (value) {
-                if (value.isNotEmpty) {
-                  widget.onTextSubmit?.call(value);
-                  setState(() {
-                    isEditing = false;
-                  });
-                  _controller.clear();
-                }
-              },
             ),
           ),
         ),
@@ -89,18 +82,10 @@ class _TagCardState extends State<TagCard> {
     }
 
     return GestureDetector(
-      onTap: widget.tagType == TagType.create
-          ? () => setState(() => isEditing = true)
-          : widget.onTap,
+      onTap: widget.tagType == TagType.create ? () => setState(() => isEditing = true) : widget.onTap,
       child: widget.tagType == TagType.create
-          ? DottedBorder(
-              dashPattern: [4, 4],
-              strokeCap: StrokeCap.round,
-              strokeWidth: 2,
-              color: theme.colors.contrastDark,
-              borderType: BorderType.RRect,
-              radius: Radius.circular(theme.borderradius.xLarge),
-              padding: EdgeInsets.zero,
+          ? buildDottedBorderWrapper(
+              theme: theme,
               child: Container(
                 decoration: BoxDecoration(
                   color: theme.colors.contrastLow,
@@ -112,7 +97,7 @@ class _TagCardState extends State<TagCard> {
                 height: theme.sizing.height.s11,
                 child: Center(
                   child: Text(
-                    createText,
+                    addTagText,
                     style: theme.textStyle.bodyBold.copyWith(
                       color: theme.colors.contrastDark,
                     ),
@@ -146,12 +131,39 @@ class _TagCardState extends State<TagCard> {
                       ),
                     ),
                   ),
-                  if (widget.tagType == TagType.info) buildCrossButton(theme),
+                  buildCrossButton(theme),
                 ],
               ),
             ),
     );
   }
+
+  InputDecoration _buildInputDecoration(ThemeData theme) => InputDecoration(
+        hintStyle: theme.textStyle.bodyBold.copyWith(
+          color: theme.colors.contrastDark,
+        ),
+        isCollapsed: true,
+        hintText: addTagText,
+        border: InputBorder.none,
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: theme.sizing.width.s2,
+        ),
+      );
+
+  DottedBorder buildDottedBorderWrapper({
+    required ThemeData theme,
+    required Widget child,
+  }) =>
+      DottedBorder(
+        strokeWidth: 2,
+        dashPattern: [4, 4],
+        padding: EdgeInsets.zero,
+        strokeCap: StrokeCap.round,
+        borderType: BorderType.RRect,
+        color: theme.colors.contrastDark,
+        radius: Radius.circular(theme.borderradius.xLarge),
+        child: child,
+      );
 
   GestureDetector buildCrossButton(ThemeData theme) => GestureDetector(
         onTap: widget.onDelete,
