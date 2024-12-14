@@ -9,19 +9,19 @@ enum TagType {
 }
 
 class TagCard extends StatefulWidget {
-  final TagType tagType;
   final String? text;
+  final TagType tagType;
   final VoidCallback? onTap;
   final VoidCallback? onDelete;
   final ValueChanged<String>? onTextSubmit;
 
   const TagCard({
     super.key,
-    required this.tagType,
     this.text,
     this.onTap,
     this.onDelete,
     this.onTextSubmit,
+    required this.tagType,
   });
 
   @override
@@ -82,7 +82,9 @@ class _TagCardState extends State<TagCard> {
     }
 
     return GestureDetector(
-      onTap: widget.tagType == TagType.create ? () => setState(() => isEditing = true) : widget.onTap,
+      onTap: widget.tagType == TagType.create
+          ? () => setState(() => isEditing = true)
+          : widget.onTap,
       child: widget.tagType == TagType.create
           ? buildDottedBorderWrapper(
               theme: theme,
@@ -117,8 +119,8 @@ class _TagCardState extends State<TagCard> {
                   Flexible(
                     child: Padding(
                       padding: EdgeInsets.only(
-                        left: theme.sizing.width.s4,
                         top: theme.sizing.width.s3,
+                        left: theme.sizing.width.s4,
                         bottom: theme.sizing.width.s3,
                       ),
                       child: Text(
@@ -151,8 +153,8 @@ class _TagCardState extends State<TagCard> {
       );
 
   DottedBorder buildDottedBorderWrapper({
-    required ThemeData theme,
     required Widget child,
+    required ThemeData theme,
   }) =>
       DottedBorder(
         strokeWidth: 2,
@@ -170,15 +172,15 @@ class _TagCardState extends State<TagCard> {
         child: Container(
           color: Colors.transparent,
           padding: EdgeInsets.only(
-            left: theme.sizing.width.s3,
             top: theme.sizing.width.s3,
+            left: theme.sizing.width.s3,
             right: theme.sizing.width.s4,
             bottom: theme.sizing.width.s3,
           ),
           child: Icon(
             MinyIcons.cross,
-            color: theme.colors.contrastDark,
             size: theme.sizing.width.s4,
+            color: theme.colors.contrastDark,
           ),
         ),
       );
