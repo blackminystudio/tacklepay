@@ -1,4 +1,5 @@
 // TacklePay App
+
 const appName = 'Tackle Pay';
 const rupeeSymbol = '₹';
 
@@ -19,3 +20,8 @@ const balanceAmountText = 'Balance Amount';
 
 const messageText = 'Message';
 const amountText = 'Amount';
+
+// HistoryInfoCard
+
+const totalAmountText = 'Total amount';
+const day = 'Today';
