@@ -15,3 +15,6 @@ const balanceAmountText = 'Balance Amount';
 const messageText = 'Message';
 const amountText = 'Amount';
 const payDateText = 'Pay Date';
+const transactionsText = 'Transactions';
+const allTransactionsText = 'All Transactions';
+const seeAllText = 'See All';
