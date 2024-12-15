@@ -3,12 +3,12 @@ import '../theme/theme.dart';
 
 class FilterButton extends StatelessWidget {
   final IconData icon;
-  final String buttonName;
+  final String title;
   final VoidCallback onTap;
 
   FilterButton({
     required this.icon,
-    required this.buttonName,
+    required this.title,
     required this.onTap,
   });
 
@@ -37,7 +37,7 @@ class FilterButton extends StatelessWidget {
             ),
             SizedBox(width: theme.sizing.width.s2),
             Text(
-              buttonName,
+              title,
               style: theme.textStyle.headingSmallRegular.copyWith(
                 color: theme.colors.contrastDark,
               ),
