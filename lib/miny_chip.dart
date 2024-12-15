@@ -20,7 +20,7 @@ class MinyChip extends StatefulWidget {
   });
 
   @override
-  _MinyChipState createState() => _MinyChipState();
+  State<MinyChip> createState() => _MinyChipState();
 }
 
 class _MinyChipState extends State<MinyChip> {
@@ -76,7 +76,7 @@ class _MinyChipState extends State<MinyChip> {
     );
   }
 
-  RenderObjectWidget _buildSelectedIcon(ThemeData theme) {
+  Widget _buildSelectedIcon(ThemeData theme) {
     if (!selected) return const SizedBox.shrink();
     return Row(
       children: [
