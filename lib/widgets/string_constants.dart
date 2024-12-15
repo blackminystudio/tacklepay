@@ -22,3 +22,6 @@ const totalAmountText = 'Total amount';
 const day = 'Today';
 
 const payDateText = 'Pay Date';
+const transactionsText = 'Transactions';
+const allTransactionsText = 'All Transactions';
+const seeAllText = 'See All';
