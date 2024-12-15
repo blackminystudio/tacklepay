@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 
 import '../../theme/theme.dart';
 
-class CreateToggleButton extends StatefulWidget {
+class MinyToggleButton extends StatefulWidget {
   final bool value;
   final void Function(bool value) onChanged;
 
-  CreateToggleButton({
+  MinyToggleButton({
     super.key,
     required this.value,
     required this.onChanged,
   });
 
   @override
-  State<CreateToggleButton> createState() => _CreateToggleButtonState();
+  State<MinyToggleButton> createState() => _MinyToggleButtonState();
 }
 
-class _CreateToggleButtonState extends State<CreateToggleButton> {
+class _MinyToggleButtonState extends State<MinyToggleButton> {
   late bool value;
   @override
   void initState() {
@@ -37,7 +37,7 @@ class _CreateToggleButtonState extends State<CreateToggleButton> {
         },
         child: AnimatedContainer(
           height: theme.sizing.height.s8,
-          width: theme.sizing.height.s17,
+          width: theme.sizing.width.s17,
           duration: const Duration(milliseconds: 200),
           decoration: BoxDecoration(
             color: theme.colors.contrastLight,
@@ -48,7 +48,7 @@ class _CreateToggleButtonState extends State<CreateToggleButton> {
           alignment: value ? Alignment.centerRight : Alignment.centerLeft,
           child: Container(
             height: theme.sizing.height.s8,
-            width: theme.sizing.height.s12,
+            width: theme.sizing.width.s12,
             decoration: BoxDecoration(
               color: value ? theme.colors.primary : theme.colors.secondary,
               borderRadius: BorderRadius.circular(
