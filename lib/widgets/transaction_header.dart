@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/theme.dart';
+import 'string_constants.dart';
 
 class TransactionHeader extends StatelessWidget {
   final String value;
@@ -17,21 +18,21 @@ class TransactionHeader extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: theme.sizing.width.s4,
-        vertical: theme.sizing.width.s2,
+        vertical: theme.sizing.height.s2,
       ),
       child: Row(
         children: [
           Text(
-            (onSeeAllPressed != null) ? 'Transactions' : 'All Transactions',
+            (onSeeAllPressed != null) ? transactionsText : allTransactionsText,
             style: theme.textStyle.titleRegular.copyWith(
               color: theme.colors.contrastDark,
             ),
           ),
-          const SizedBox(width: 10),
+          SizedBox(width: theme.spacing.width.s10),
           Container(
             padding: EdgeInsets.symmetric(
                 horizontal: theme.sizing.width.s2,
-                vertical: theme.spacing.width.s4),
+                vertical: theme.spacing.height.s4),
             decoration: BoxDecoration(
               color: theme.colors.contrastLight,
               borderRadius: BorderRadius.circular(theme.borderradius.xSmall),
@@ -48,7 +49,7 @@ class TransactionHeader extends StatelessWidget {
             GestureDetector(
               onTap: onSeeAllPressed,
               child: Text(
-                'See All',
+                seeAllText,
                 style: theme.textStyle.bodyBold.copyWith(
                   color: theme.colors.contrastMedium,
                 ),
