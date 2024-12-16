@@ -100,7 +100,6 @@ void main() {
       // Act
       await tester.tap(find.text(testTitle));
       await tester.pump();
-
       // Assert
       expect(isTapped, isTrue);
     });
