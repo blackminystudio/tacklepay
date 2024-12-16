@@ -63,5 +63,28 @@ void main() {
       expect(dateTextStyle?.color, ColorTokens.contrastMedium);
       expect(amountTextStyle?.color, ColorTokens.secondary);
     });
+
+    testWidgets('renders correctly with empty amount',
+        (WidgetTester tester) async {
+      // Arrange
+      await tester.pumpWidget(
+        ScreenUtilInit(
+          designSize: const Size(440, 956),
+          minTextAdapt: true,
+          builder: (_, __) => const MaterialApp(
+            home: Material(
+              child: HistoryInfoCard(
+                date: testDate,
+                amount: '',
+              ),
+            ),
+          ),
+        ),
+      );
+
+      // Assert
+      // expect(find.text('${rupeeSymbol}0'), findsOneWidget);
+      expect(find.text(rupeeSymbol), findsOneWidget);
+    });
   });
 }

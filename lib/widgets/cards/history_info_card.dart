@@ -88,6 +88,7 @@ class HistoryInfoCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
+            // TODO:renders correctly with empty amount
             Text(
               '$rupeeSymbol$formattedAmount',
               textAlign: TextAlign.right,
