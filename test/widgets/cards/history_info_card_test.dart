@@ -8,27 +8,38 @@ import 'package:tackleapp/widgets/string_constants.dart';
 
 void main() {
   group('HistoryInfoCard Widget Tests', () {
-    const testDate = '12 Dec 2024';
-    const testAmount = '1234567';
-    const formattedTestAmount = '12,34,567';
-
-    Widget createWidgetUnderTest() => ScreenUtilInit(
-          designSize: const Size(440, 956), // Base design size (width x height)
+    Widget createWidgetUnderTest({
+      required String date,
+      required String amount,
+    }) =>
+        ScreenUtilInit(
+          designSize: const Size(440, 956),
           minTextAdapt: true,
-          builder: (context, child) => const MaterialApp(
+          builder: (context, child) => MaterialApp(
             home: Material(
               child: HistoryInfoCard(
-                date: testDate,
-                amount: testAmount,
+                date: date,
+                amount: amount,
               ),
             ),
           ),
         );
 
-    testWidgets('renders the correct date and formatted amount',
+    testWidgets(
+        'Given correct date and amount '
+        'when HistoryInfoCard is rendered '
+        'Then it should show the correct date and formatted amount',
         (WidgetTester tester) async {
       // Arrange
-      await tester.pumpWidget(createWidgetUnderTest());
+      const testAmount = '1234';
+      const testDate = '12 Dec 2024';
+      const formattedTestAmount = '1,234';
+      await tester.pumpWidget(
+        createWidgetUnderTest(
+          date: testDate,
+          amount: testAmount,
+        ),
+      );
 
       // Assert
       expect(find.text(testDate), findsOneWidget);
@@ -36,10 +47,20 @@ void main() {
       expect(find.text(totalAmountText), findsOneWidget);
     });
 
-    testWidgets('renders separator line between date and amount',
+    testWidgets(
+        'Given date and amount '
+        'when HistoryInfoCard is rendered '
+        'Then it should display a separator line between date and amount',
         (WidgetTester tester) async {
       // Arrange
-      await tester.pumpWidget(createWidgetUnderTest());
+      const testAmount = '1234';
+      const testDate = '12 Dec 2024';
+      await tester.pumpWidget(
+        createWidgetUnderTest(
+          date: testDate,
+          amount: testAmount,
+        ),
+      );
 
       // Assert
       final separatorFinder = find.byType(Container).first;
@@ -47,10 +68,21 @@ void main() {
       expect(separatorWidget.decoration, isA<BoxDecoration>());
     });
 
-    testWidgets('applies correct styles from the theme',
+    testWidgets(
+        'Given a theme with specific colors '
+        'when HistoryInfoCard is rendered '
+        'Then it should apply the correct styles from the theme',
         (WidgetTester tester) async {
       // Arrange
-      await tester.pumpWidget(createWidgetUnderTest());
+      const testAmount = '1234';
+      const testDate = '12 Dec 2024';
+      const formattedTestAmount = '1,234';
+      await tester.pumpWidget(
+        createWidgetUnderTest(
+          date: testDate,
+          amount: testAmount,
+        ),
+      );
 
       // Assert
       final dateTextFinder = find.text(testDate);
@@ -64,18 +96,63 @@ void main() {
       expect(amountTextStyle?.color, ColorTokens.secondary);
     });
 
-    testWidgets('renders correctly with empty amount',
+    testWidgets(
+        'Given an empty amount '
+        'when HistoryInfoCard is rendered '
+        'Then it should display only the rupee symbol without crashing',
         (WidgetTester tester) async {
       // Arrange
+      const testDate = '12 Dec 2024';
+      await tester.pumpWidget(
+        createWidgetUnderTest(
+          date: testDate,
+          amount: '',
+        ),
+      );
+
+      // Assert
+      expect(find.text(rupeeSymbol), findsOneWidget);
+    });
+
+    testWidgets(
+        'Given a large numeric amount '
+        'when HistoryInfoCard is rendered '
+        'Then it should display the formatted large amount in Indian format',
+        (WidgetTester tester) async {
+      // Arrange
+      const testDate = '12 Dec 2024';
+      const largeAmount = '123456789';
+      const formattedLargeAmount = '12,34,56,789';
+      await tester.pumpWidget(
+        createWidgetUnderTest(
+          date: testDate,
+          amount: largeAmount,
+        ),
+      );
+
+      // Assert
+      expect(find.text('$rupeeSymbol$formattedLargeAmount'), findsOneWidget);
+    });
+
+    testWidgets(
+        'Given a smaller screen size '
+        'when HistoryInfoCard is rendered '
+        'Then it should adjust the layout without overflow or truncation',
+        (WidgetTester tester) async {
+      // Arrange
+      const testAmount = '1234';
+      const testDate = '12 Dec 2024';
+      const formattedTestAmount = '1,234';
+
       await tester.pumpWidget(
         ScreenUtilInit(
-          designSize: const Size(440, 956),
+          designSize: const Size(320, 568), // Small screen size
           minTextAdapt: true,
           builder: (_, __) => const MaterialApp(
             home: Material(
               child: HistoryInfoCard(
                 date: testDate,
-                amount: '',
+                amount: testAmount,
               ),
             ),
           ),
@@ -83,6 +160,25 @@ void main() {
       );
 
       // Assert
+      expect(find.text('$rupeeSymbol$formattedTestAmount'), findsOneWidget);
+      expect(find.text(testDate), findsOneWidget);
+    });
+
+    testWidgets(
+        'Given an empty amount '
+        'when HistoryInfoCard is rendered '
+        'Then it should display  the rupee symbol with Zero without crashing',
+        (WidgetTester tester) async {
+      // Arrange
+      const testDate = '12 Dec 2024';
+      await tester.pumpWidget(createWidgetUnderTest(
+        date: testDate,
+        amount: '',
+      ));
+
+      // Assert
+
+      // TODO:This test case would follow  below
       // expect(find.text('${rupeeSymbol}0'), findsOneWidget);
       expect(find.text(rupeeSymbol), findsOneWidget);
     });
