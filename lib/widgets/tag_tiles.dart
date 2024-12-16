@@ -1,13 +1,21 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '/theme/theme.dart';
 
 class TagTile extends StatefulWidget {
   final String tagName;
-  final bool isChecked;
+  final bool isSelected;
+  final Function(bool value) onSelection;
+  final Function(String value) onSaveTag;
+  final int maxLength;
 
   TagTile({
     required this.tagName,
-    this.isChecked = false,
+    this.isSelected = false,
+    required this.onSelection,
+    required this.onSaveTag,
+    this.maxLength = 15,
   });
 
   @override
@@ -15,100 +23,154 @@ class TagTile extends StatefulWidget {
 }
 
 class _TagTileState extends State<TagTile> {
-  late bool _isChecked;
-  late TextEditingController _controller;
-  bool _isEditing = false;
-  String _originalText = '';
+  late bool _isTagSelected;
+  bool _isEditingTagName = false;
+  late TextEditingController _tagNameController;
+  final FocusNode _focusNode = FocusNode();
+  Timer? _debounce;
 
   @override
   void initState() {
     super.initState();
-    _isChecked = widget.isChecked;
-    _controller = TextEditingController(text: widget.tagName);
+    _isTagSelected = widget.isSelected;
+    _tagNameController = TextEditingController(text: widget.tagName);
+    // Update the counter in realtime
+    _tagNameController.addListener(() {
+      if (_debounce?.isActive ?? false) _debounce?.cancel();
+      _debounce = Timer(const Duration(milliseconds: 300), () {
+        setState(() {}); // Update character count after debounce
+      });
+    });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _debounce?.cancel();
+    _tagNameController.dispose();
+    _focusNode.dispose();
     super.dispose();
-  }
-
-  void _toggleCheckbox(bool value) {
-    setState(() {
-      _isChecked = value;
-    });
   }
 
   void _toggleEditMode() {
     setState(() {
-      _isEditing = !_isEditing;
+      _isEditingTagName = true;
     });
+    _focusNode.requestFocus();
   }
 
-  void _onSubmitted(String value) {
+  void _discardChanges() {
     setState(() {
-      _originalText = value;
-      _isEditing = false;
-      if (_controller.text.length > 15) {
-        _controller
-          ..text = '${_controller.text.substring(0, 15)}...'
-          ..selection = TextSelection.fromPosition(
-            TextPosition(offset: _controller.text.length),
-          );
-      }
+      _tagNameController.text = widget.tagName;
+      _isEditingTagName = false;
     });
+    _focusNode.unfocus();
   }
 
-  void _onTapOutside(PointerDownEvent value) {
-    setState(() {
-      _isEditing = false;
-    });
-    _controller.clear();
-  }
-
-  void _onTap() {
-    _controller
-      ..text = _originalText
-      ..selection = TextSelection.fromPosition(
-        TextPosition(offset: _controller.text.length),
+  void _onSubmitted(String value, ThemeData theme) {
+    final trimmedValue = value.trim(); // Trim extra spaces
+    if (trimmedValue.isNotEmpty && trimmedValue != widget.tagName) {
+      widget.onSaveTag(trimmedValue);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          showCloseIcon: true,
+          closeIconColor: theme.colors.contrastLight,
+          content: const Text('Tag updated successfully!'),
+          duration: const Duration(seconds: 2),
+        ),
       );
+    } else {
+      // Reset if input is empty
+      _tagNameController.text = widget.tagName;
+    }
+    setState(() {
+      _isEditingTagName = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: _isEditingTagName
+                ? _buildTagTextfield(theme)
+                : _buildTagShowText(theme),
+          ),
+          _buildCheckBox(theme),
+        ],
+      ),
+    );
+  }
 
-    return ListTile(
-      title: _isEditing
-          ? TextField(
-              controller: _controller,
+  Widget _buildTagTextfield(ThemeData theme) => Row(
+        children: [
+          Expanded(
+            child: TextField(
+              focusNode: _focusNode,
               autofocus: true,
-              onSubmitted: _onSubmitted,
-              onTapOutside: _onTapOutside,
-              onTap: _onTap,
+              onSubmitted: (value) => _onSubmitted(value, theme),
+              maxLength: widget.maxLength,
+              controller: _tagNameController,
+              onTapOutside: (_) => _discardChanges(),
               decoration: const InputDecoration(
                 border: InputBorder.none,
+                counterText: '',
                 isCollapsed: true,
               ),
-            )
-          : Text(
-              _controller.text,
               style: theme.textStyle.labelRegular.copyWith(
-                color: _isChecked
+                color: _isTagSelected
                     ? theme.colors.contrastDark
                     : theme.colors.contrastMedium,
               ),
             ),
-      trailing: Checkbox(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(theme.borderradius.xSmall),
+          ),
+          Text(
+            '${_tagNameController.text.length} / ${widget.maxLength}',
+            style: theme.textStyle.caption.copyWith(
+              color: theme.colors.contrastMedium,
+            ),
+          ),
+        ],
+      );
+
+  SizedBox _buildCheckBox(ThemeData theme) => SizedBox(
+        width: theme.sizing.width.s8,
+        height: theme.sizing.width.s8,
+        child: Checkbox(
+          value: _isTagSelected,
+          checkColor: theme.colors.contrastLight,
+          activeColor: theme.colors.contrastDark,
+          onChanged: (value) {
+            setState(() {
+              _isTagSelected = value ?? false;
+            });
+            widget.onSelection(_isTagSelected);
+          },
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              theme.borderradius.xSmall,
+            ),
+          ),
         ),
-        value: _isChecked,
-        onChanged: (value) => _toggleCheckbox(value ?? false),
-        activeColor: theme.colors.contrastDark,
-        checkColor: theme.colors.contrastLight,
-      ),
-      onTap: _toggleEditMode,
-    );
-  }
+      );
+
+  GestureDetector _buildTagShowText(ThemeData theme) => GestureDetector(
+        onTap: _toggleEditMode,
+        child: Container(
+          margin: EdgeInsets.only(right: theme.sizing.width.s10),
+          color: theme.colors.light,
+          child: Text(
+            widget.tagName,
+            style: theme.textStyle.labelRegular.copyWith(
+              color: _isTagSelected
+                  ? theme.colors.contrastDark
+                  : theme.colors.contrastMedium,
+            ),
+          ),
+        ),
+      );
 }
