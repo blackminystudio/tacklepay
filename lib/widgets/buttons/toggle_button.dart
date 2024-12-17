@@ -36,6 +36,7 @@ class _MinyToggleButtonState extends State<MinyToggleButton> {
           widget.onChanged(value);
         },
         child: AnimatedContainer(
+          key: const Key('ToggleButtonBackground'),
           height: theme.sizing.height.s8,
           width: theme.sizing.width.s17,
           duration: const Duration(milliseconds: 200),
@@ -47,6 +48,7 @@ class _MinyToggleButtonState extends State<MinyToggleButton> {
           ),
           alignment: value ? Alignment.centerRight : Alignment.centerLeft,
           child: Container(
+            key: const Key('ToggleButtonSlider'),
             height: theme.sizing.height.s8,
             width: theme.sizing.width.s12,
             decoration: BoxDecoration(
