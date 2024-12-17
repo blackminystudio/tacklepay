@@ -22,13 +22,13 @@ void main() {
         'Then it should display the correct balance amount and label text',
         (WidgetTester tester) async {
       // Arrange
-      const testBalance = '10000';
+      const testBalance = '123000000';
 
       // Act
       await tester.pumpWidget(createWidgetUnderTest(testBalance));
 
       // Assert
-      expect(find.text('10000'), findsOneWidget);
+      expect(find.text('12,30,00,000'), findsOneWidget);
       expect(find.text(balanceAmountText), findsOneWidget);
     });
 
@@ -53,7 +53,7 @@ void main() {
     testWidgets(
         'Given an empty balance amount '
         'when BalanceAmount is rendered '
-        'Then it should display an empty space and the label text',
+        'Then it should display zero with rupee symbol and label text',
         (WidgetTester tester) async {
       // Arrange
       const emptyBalance = '';
@@ -62,7 +62,7 @@ void main() {
       await tester.pumpWidget(createWidgetUnderTest(emptyBalance));
 
       // Assert
-      expect(find.text(''), findsOneWidget);
+      expect(find.text('₹0'), findsOneWidget);
       expect(find.text(balanceAmountText), findsOneWidget);
     });
   });
