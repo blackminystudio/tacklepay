@@ -179,7 +179,7 @@ void main() {
     );
     testWidgets(
       'Given FilterButton with light theme, '
-      'When it is rendered, '
+      'When it is rendered , '
       'Then it should display with light theme colors',
       (WidgetTester tester) async {
         // Arrange
