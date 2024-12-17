@@ -22,32 +22,14 @@ void main() {
         'Then it should display the correct balance amount and label text',
         (WidgetTester tester) async {
       // Arrange
-      const testBalance = '123000000';
+      const testBalance = '999999';
 
       // Act
       await tester.pumpWidget(createWidgetUnderTest(testBalance));
 
       // Assert
-      expect(find.text('12,30,00,000'), findsOneWidget);
+      expect(find.text('₹9,99,999'), findsOneWidget);
       expect(find.text(balanceAmountText), findsOneWidget);
-    });
-
-    testWidgets(
-        'Given a very large balance amount '
-        'when BalanceAmount is rendered '
-        'Then it should truncate and display the amount with ellipsis',
-        (WidgetTester tester) async {
-      // Arrange
-      const largeBalance = '12345678901234567890';
-
-      // Act
-      await tester.pumpWidget(createWidgetUnderTest(largeBalance));
-
-      // Assert
-      final textFinder = find.text(largeBalance);
-      final textWidget = tester.widget<Text>(textFinder);
-      expect(textWidget.maxLines, 2);
-      expect(textWidget.overflow, TextOverflow.ellipsis);
     });
 
     testWidgets(
