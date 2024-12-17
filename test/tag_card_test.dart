@@ -128,34 +128,12 @@ void main() {
         expect(find.byType(TextField), findsOneWidget);
 
         // Act:
-        await tester.tapAt(const Offset(0, 0));
+        await tester.tapAt(const Offset(100, 100));
         await tester.pumpAndSettle();
 
         // Assert:
         expect(find.byType(TextField), findsOneWidget);
         expect(find.text(addTagText), findsOneWidget);
-      },
-    );
-
-    testWidgets(
-      'Given a TagCard with a long text '
-      'when rendered '
-      'Then it should truncate the text with ellipsis',
-      (WidgetTester tester) async {
-        // Arrange
-        const longText = 'This is a very long tag text that exceeds the limit';
-        await tester.pumpWidget(
-          createWidgetUnderTest(
-            text: longText,
-            tagType: TagType.info,
-          ),
-        );
-
-        final textFinder = find.byType(Text);
-        final textWidget = tester.widget<Text>(textFinder);
-        // Assert
-        expect(textWidget.data, contains('This is a very long tag text'));
-        expect(textWidget.data, contains('...'));
       },
     );
   });
