@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tackleapp/theme/extensions/miny_border_radius.dart';
 import 'package:tackleapp/theme/extensions/miny_colors.dart';
-import 'package:tackleapp/theme/extensions/miny_sizing.dart';
 import 'package:tackleapp/widgets/filter_button.dart';
 
 void main() {
   const minyColors = MinyColors();
-  const minyBorderRadius = MinyBorderRadius();
-  final minySizing = MinySizing();
 
   group('FilterButton Widget Tests', () {
     Widget createWidgetUnderTest({
