@@ -124,14 +124,16 @@ class _TagCardState extends State<TagCard> {
                         left: theme.sizing.width.s4,
                         bottom: theme.sizing.width.s3,
                       ),
-                      child: Text(
-                        widget.text ?? '',
-                        style: theme.textStyle.bodyBold.copyWith(
-                          color: theme.colors.contrastDark,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                      child: widget.text?.isNotEmpty == true
+                          ? Text(
+                              widget.text!,
+                              style: theme.textStyle.bodyBold.copyWith(
+                                color: theme.colors.contrastDark,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            )
+                          : const SizedBox.shrink(),
                     ),
                   ),
                   _buildCrossButton(theme),
