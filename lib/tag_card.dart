@@ -127,11 +127,11 @@ class _TagCardState extends State<TagCard> {
                       child: widget.text?.isNotEmpty == true
                           ? Text(
                               widget.text!,
-                        style: theme.textStyle.bodyBold.copyWith(
-                          color: theme.colors.contrastDark,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                              style: theme.textStyle.bodyBold.copyWith(
+                                color: theme.colors.contrastDark,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             )
                           : const SizedBox.shrink(),
                     ),
