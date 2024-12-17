@@ -2,6 +2,7 @@
 
 const appName = 'Tackle Pay';
 const rupeeSymbol = '₹';
+const emptyString = '';
 const incomeText = 'Income';
 const expenseText = 'Expense';
 const checkZero = '0';
@@ -16,8 +17,10 @@ const balanceAmountText = 'Balance Amount';
 const messageText = 'Message';
 const amountText = 'Amount';
 
-// HistoryInfoCard
+// TagsTiles
+const tagUpdated = 'Tag updated successfully!';
 
+// HistoryInfoCard
 const totalAmountText = 'Total amount';
 const day = 'Today';
 
