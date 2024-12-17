@@ -15,11 +15,10 @@ const payUsingText = 'Pay Using';
 const vsLastMonthText = '  vs. last month';
 const balanceAmountText = 'Balance Amount';
 const messageText = 'Message';
-const amountText = 'Amount'; 
- 
+const amountText = 'Amount';
+
 // TagsTiles
 const tagUpdated = 'Tag updated successfully!';
-
 
 // HistoryInfoCard
 const totalAmountText = 'Total amount';
