@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import '/theme/theme.dart';
+import 'string_constants.dart';
 
 class TagTile extends StatefulWidget {
   final String tagName;
@@ -72,10 +73,9 @@ class _TagTileState extends State<TagTile> {
       widget.onSaveTag(trimmedValue);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          showCloseIcon: true,
-          closeIconColor: theme.colors.contrastLight,
-          content: const Text('Tag updated successfully!'),
-          duration: const Duration(seconds: 2),
+          content: Text(tagUpdated, style: theme.textStyle.bodyBold),
+          duration: const Duration(seconds: 1),
+          backgroundColor: theme.colors.contrastDark,
         ),
       );
     } else {
@@ -117,7 +117,7 @@ class _TagTileState extends State<TagTile> {
               onTapOutside: (_) => _discardChanges(),
               decoration: const InputDecoration(
                 border: InputBorder.none,
-                counterText: '',
+                counterText: emptyString,
                 isCollapsed: true,
               ),
               style: theme.textStyle.labelRegular.copyWith(

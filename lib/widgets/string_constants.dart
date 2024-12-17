@@ -1,6 +1,7 @@
 // TacklePay App
 const appName = 'Tackle Pay';
 const rupeeSymbol = '₹';
+const emptyString = '';
 
 const incomeText = 'Income';
 const expenseText = 'Expense';
@@ -18,3 +19,6 @@ const balanceAmountText = 'Balance Amount';
 
 const messageText = 'Message';
 const amountText = 'Amount';
+
+// TagsTiles
+const tagUpdated = 'Tag updated successfully!';
