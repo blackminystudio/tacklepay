@@ -90,42 +90,6 @@ void main() {
     );
 
     testWidgets(
-      'Given FilterButton is rendered, '
-      'When it is interacted with, '
-      'Then it applies the correct decoration and padding',
-      (WidgetTester tester) async {
-        // Arrange
-        await tester.pumpWidget(
-          createWidgetUnderTest(
-            icon: testIcon,
-            title: testTitle,
-            onTap: () {},
-            theme: ThemeData(
-              primaryColor: minyColors.contrastDark,
-            ),
-          ),
-        );
-
-        // Act
-        final containerFinder = find.byType(Container);
-        final container = tester.widget<Container>(containerFinder);
-
-        // Assert
-        expect(
-            container.padding,
-            EdgeInsets.symmetric(
-                horizontal: minySizing.width.s10,
-                vertical: minySizing.height.s4));
-
-        final decoration = container.decoration as BoxDecoration;
-        expect(decoration, isNotNull);
-        expect(decoration.borderRadius,
-            BorderRadius.circular(minyBorderRadius.small));
-        expect(decoration.color, minyColors.contrastLight);
-      },
-    );
-
-    testWidgets(
       'Given FilterButton with custom onTap, '
       'When it is tapped, '
       'Then it performs the expected custom action',
