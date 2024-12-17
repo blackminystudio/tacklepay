@@ -82,8 +82,9 @@ void main() {
     });
 
     testWidgets(
-        'When ActionButton is tapped '
-        'Then it should trigger the onTap callback',
+        'Given ActionButton is rendered '
+        'When title and icon are provided '
+        'Then it should display both title and icon',
         (WidgetTester tester) async {
       // Arrange
       var isTapped = false;
