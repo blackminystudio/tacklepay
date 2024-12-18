@@ -14,9 +14,9 @@ class HistoryInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String _formatIndianNumber(String number) {
-      if (number.isEmpty) return number;
+      if (number.isEmpty) return '$rupeeSymbol$checkZero';
       final length = number.length;
-      if (length <= 3) return number;
+      if (length <= 3) return '$rupeeSymbol$number';
       final lastThree = number.substring(length - 3);
       final remaining = number.substring(0, length - 3);
       final regExp = RegExp(r'(\d)(?=(\d{2})+(?!\d))');
@@ -24,7 +24,7 @@ class HistoryInfoCard extends StatelessWidget {
         regExp,
         (Match match) => '${match[1]},',
       );
-      return '$formattedRemaining,$lastThree';
+      return '$rupeeSymbol$formattedRemaining,$lastThree';
     }
 
     final formattedAmount = _formatIndianNumber(amount);
@@ -89,7 +89,7 @@ class HistoryInfoCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              '$rupeeSymbol$formattedAmount',
+              formattedAmount,
               textAlign: TextAlign.right,
               style: theme.textStyle.titleBold.copyWith(
                 color: theme.colors.secondary,
