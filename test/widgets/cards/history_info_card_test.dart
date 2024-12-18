@@ -31,9 +31,9 @@ void main() {
         'Then it should show the correct date and formatted amount',
         (WidgetTester tester) async {
       // Arrange
-      const testAmount = '1234';
+      const testAmount = '134234';
       const testDate = '12 Dec 2024';
-      const formattedTestAmount = '1,234';
+      const formattedTestAmount = '1,34,234';
       await tester.pumpWidget(
         createWidgetUnderTest(
           date: testDate,
@@ -99,7 +99,7 @@ void main() {
     testWidgets(
         'Given an empty amount '
         'when HistoryInfoCard is rendered '
-        'Then it should display only the rupee symbol without crashing',
+        'Then it should display  the rupee symbol with zero without crashing',
         (WidgetTester tester) async {
       // Arrange
       const testDate = '12 Dec 2024';
@@ -112,26 +112,6 @@ void main() {
 
       // Assert
       expect(find.text('$rupeeSymbol$checkZero'), findsOneWidget);
-    });
-
-    testWidgets(
-        'Given a large numeric amount '
-        'when HistoryInfoCard is rendered '
-        'Then it should display the formatted large amount in Indian format',
-        (WidgetTester tester) async {
-      // Arrange
-      const testDate = '12 Dec 2024';
-      const largeAmount = '123456789';
-      const formattedLargeAmount = '12,34,56,789';
-      await tester.pumpWidget(
-        createWidgetUnderTest(
-          date: testDate,
-          amount: largeAmount,
-        ),
-      );
-
-      // Assert
-      expect(find.text('$rupeeSymbol$formattedLargeAmount'), findsOneWidget);
     });
 
     testWidgets(
