@@ -12,7 +12,7 @@ void main() {
       void Function(bool)? onSelected,
     }) =>
         ScreenUtilInit(
-          designSize: const Size(440, 956), // Base design size (width x height)
+          designSize: const Size(440, 956),
           minTextAdapt: true,
           builder: (context, child) => MaterialApp(
             theme: appTheme,
@@ -29,7 +29,7 @@ void main() {
     testWidgets(
       'Given MinyChip is selected '
       'When the widget is rendered '
-      'Then it  contrastDark color as bg, light color for text , display icon ',
+      'Then it contrastDark color as bg, light color for text, display icon ',
       (WidgetTester tester) async {
         // Arrange
         const label = 'Selected Chip';
@@ -57,8 +57,7 @@ void main() {
     testWidgets(
       'Given MinyChip is not selected '
       'When the widget is rendered '
-      'Then its contrastLow color as background, contrastDark color for text '
-      'and  it should not display the tick icon',
+      'then it should render correct background colour and not display icon',
       (WidgetTester tester) async {
         // Arrange
         const label = 'Unselected Chip';
@@ -85,8 +84,7 @@ void main() {
     testWidgets(
       'Given MinyChip with onSelected callback '
       'When it is tapped '
-      'Then its toggle the background color between contrastDark & contrastLow '
-      'Then it should display the tick icon after selection',
+      'Then it should render correct background colour and  display the icon',
       (WidgetTester tester) async {
         // Arrange
         const label = 'Toggle Chip';
