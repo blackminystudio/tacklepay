@@ -36,12 +36,14 @@ class FilterButton extends StatelessWidget {
               color: theme.colors.contrastDark,
             ),
             SizedBox(width: theme.sizing.width.s2),
-            Text(
-              title,
-              style: theme.textStyle.headingSmallRegular.copyWith(
-                color: theme.colors.contrastDark,
-              ),
-            ),
+            title.isEmpty
+                ? const SizedBox.shrink()
+                : Text(
+                    title,
+                    style: theme.textStyle.headingSmallRegular.copyWith(
+                      color: theme.colors.contrastDark,
+                    ),
+                  ),
           ],
         ),
       ),
