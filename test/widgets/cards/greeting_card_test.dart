@@ -7,7 +7,8 @@ import 'package:tackleapp/widgets/cards/greeting_card.dart';
 void main() {
   group('GreetingCard Widget Tests', () {
     const testGreetingMessage = 'Hello, Welcome!';
-    const testUserName = 'John';
+    const testUserName = 'John Doe';
+    const testName = 'John';
     const testProfilePictureUrl = 'https://example.com/profile-picture.jpg';
 
     Widget createWidgetUnderTest({
@@ -49,7 +50,7 @@ void main() {
 
         // Assert
         expect(find.text(testGreetingMessage), findsOneWidget);
-        expect(find.text(testUserName), findsOneWidget);
+        expect(find.text(testName), findsOneWidget);
         expect(find.byType(CircleAvatar), findsOneWidget);
 
         final avatarWidget =
