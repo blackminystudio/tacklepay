@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../theme/theme.dart';
 import 'string_constants.dart';
@@ -12,17 +11,18 @@ class BalanceAmount extends StatelessWidget {
 
   final String balanceamount;
 
-  String getFormattedAmount(String amount) {
-    try {
-      if (amount.isEmpty) {
-        return '$rupeeSymbol$checkZero';
-      }
-      final number = double.parse(amount);
-      final formatter = NumberFormat.decimalPattern('hi_IN');
-      return '₹${formatter.format(number)}';
-    } catch (e) {
-      return amount;
-    }
+  String _getFormattedAmount(String number) {
+    if (number.isEmpty) return '$rupeeSymbol$checkZero';
+    final length = number.length;
+    if (length <= 3) return number;
+    final lastThree = number.substring(length - 3);
+    final remaining = number.substring(0, length - 3);
+    final regExp = RegExp(r'(\d)(?=(\d{2})+(?!\d))');
+    final formattedRemaining = remaining.replaceAllMapped(
+      regExp,
+      (Match match) => '${match[1]},',
+    );
+    return '$rupeeSymbol$formattedRemaining,$lastThree';
   }
 
   @override
@@ -36,7 +36,7 @@ class BalanceAmount extends StatelessWidget {
         children: [
           Flexible(
             child: Text(
-              getFormattedAmount(balanceamount),
+              _getFormattedAmount(balanceamount),
               style: theme.textStyle.titleBold.copyWith(
                 color: theme.colors.contrastDark,
               ),
