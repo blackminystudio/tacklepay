@@ -14,7 +14,7 @@ class BalanceAmount extends StatelessWidget {
   String _getFormattedAmount(String number) {
     if (number.isEmpty) return '$rupeeSymbol$checkZero';
     final length = number.length;
-    if (length <= 3) return number;
+    if (length <= 3) return '$rupeeSymbol$number';
     final lastThree = number.substring(length - 3);
     final remaining = number.substring(0, length - 3);
     final regExp = RegExp(r'(\d)(?=(\d{2})+(?!\d))');
