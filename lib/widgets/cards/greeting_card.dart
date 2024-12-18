@@ -13,6 +13,8 @@ class GreetingCard extends StatelessWidget {
     required this.profilePictureUrl,
   });
 
+  String _buildFirstName(String name) => name.trim().split(' ')[0];
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -38,7 +40,7 @@ class GreetingCard extends StatelessWidget {
                 ),
               ),
               Text(
-                userName,
+                _buildFirstName(userName),
                 style: theme.textStyle.headingLargeBold.copyWith(
                   color: theme.colors.contrastDark,
                 ),
