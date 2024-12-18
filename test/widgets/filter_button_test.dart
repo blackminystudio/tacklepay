@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tackleapp/theme/extensions/miny_colors.dart';
 import 'package:tackleapp/widgets/filter_button.dart';
 
 void main() {
-  const minyColors = MinyColors();
-
   group('FilterButton Widget Tests', () {
     Widget createWidgetUnderTest({
       required IconData icon,
       required String title,
       required VoidCallback onTap,
-      required ThemeData theme,
     }) =>
         ScreenUtilInit(
           designSize: const Size(440, 956),
           minTextAdapt: true,
           builder: (_, __) => MaterialApp(
-            theme: theme,
             home: Scaffold(
               body: FilterButton(
                 icon: icon,
@@ -29,50 +24,22 @@ void main() {
           ),
         );
 
-    const testIcon = Icons.filter_list;
-    const testTitle = 'Filter';
-
     testWidgets(
-      'Given FilterButton is rendered, '
-      'When it loads, '
-      'Then it displays the icon and title correctly',
+      'Given icon and text '
+      'When rendered '
+      'Then it triggers onTap and shows both. ',
       (WidgetTester tester) async {
-        // Arrange
-        await tester.pumpWidget(
-          createWidgetUnderTest(
-            icon: testIcon,
-            title: testTitle,
-            onTap: () {},
-            theme: ThemeData(
-              primaryColor: minyColors.contrastDark,
-            ),
-          ),
-        );
-
-        // Assert
-        expect(find.byIcon(testIcon), findsOneWidget);
-        expect(find.text(testTitle), findsOneWidget);
-      },
-    );
-
-    testWidgets(
-      'Given FilterButton is rendered, '
-      'When it is tapped, '
-      'Then it triggers the onTap callback',
-      (WidgetTester tester) async {
-        // Arrange
         var wasTapped = false;
 
+        // Arrange
+        const testIcon = Icons.filter_list;
+        const testTitle = 'Filter';
+
         await tester.pumpWidget(
           createWidgetUnderTest(
             icon: testIcon,
             title: testTitle,
-            onTap: () {
-              wasTapped = true;
-            },
-            theme: ThemeData(
-              primaryColor: minyColors.contrastDark,
-            ),
+            onTap: () => wasTapped = true,
           ),
         );
 
@@ -81,80 +48,31 @@ void main() {
         await tester.pump();
 
         // Assert
+        expect(find.byIcon(testIcon), findsOneWidget);
+        expect(find.text(testTitle), findsOneWidget);
         expect(wasTapped, isTrue);
       },
     );
 
     testWidgets(
-      'Given FilterButton with custom onTap, '
-      'When it is tapped, '
-      'Then it performs the expected custom action',
+      'Given only icon, '
+      'When rendered, '
+      'Then it triggers icon only and not text',
       (WidgetTester tester) async {
-        var wasCustomActionCalled = false;
-
         // Arrange
+        const testIcon = Icons.filter_list;
+
         await tester.pumpWidget(
           createWidgetUnderTest(
             icon: testIcon,
-            title: testTitle,
-            onTap: () {
-              wasCustomActionCalled = true;
-            },
-            theme: ThemeData(
-              primaryColor: minyColors.contrastDark,
-            ),
-          ),
-        );
-
-        // Act
-        await tester.tap(find.byType(FilterButton));
-        await tester.pump();
-
-        // Assert
-        expect(wasCustomActionCalled, isTrue);
-      },
-    );
-    testWidgets(
-      'Given FilterButton has a custom icon, '
-      'When it is rendered, '
-      'Then it should display the custom icon correctly',
-      (WidgetTester tester) async {
-        const customIcon = Icons.star;
-
-        // Arrange
-        await tester.pumpWidget(
-          createWidgetUnderTest(
-            icon: customIcon,
-            title: testTitle,
+            title: '',
             onTap: () {},
-            theme: ThemeData(
-              primaryColor: minyColors.contrastDark,
-            ),
-          ),
-        );
-
-        // Act
-        expect(find.byIcon(customIcon), findsOneWidget);
-      },
-    );
-    testWidgets(
-      'Given FilterButton with light theme, '
-      'When it is rendered , '
-      'Then it should display with light theme colors',
-      (WidgetTester tester) async {
-        // Arrange
-        await tester.pumpWidget(
-          createWidgetUnderTest(
-            icon: testIcon,
-            title: testTitle,
-            onTap: () {},
-            theme: ThemeData.light(),
           ),
         );
 
         // Assert
         expect(find.byIcon(testIcon), findsOneWidget);
-        expect(find.text(testTitle), findsOneWidget);
+        expect(find.text(''), findsNothing);
       },
     );
   });
