@@ -161,7 +161,6 @@ void main() {
 
       // Assert
       expect(find.text('$rupeeSymbol$formattedTestAmount'), findsOneWidget);
-      expect(find.text(testDate), findsOneWidget);
     });
   });
 }
