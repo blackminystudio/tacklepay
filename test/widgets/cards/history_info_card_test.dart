@@ -111,7 +111,7 @@ void main() {
       );
 
       // Assert
-      expect(find.text(rupeeSymbol), findsOneWidget);
+      expect(find.text('$rupeeSymbol$checkZero'), findsOneWidget);
     });
 
     testWidgets(
@@ -146,7 +146,7 @@ void main() {
 
       await tester.pumpWidget(
         ScreenUtilInit(
-          designSize: const Size(320, 568), // Small screen size
+          designSize: const Size(320, 568),
           minTextAdapt: true,
           builder: (_, __) => const MaterialApp(
             home: Material(
@@ -162,25 +162,6 @@ void main() {
       // Assert
       expect(find.text('$rupeeSymbol$formattedTestAmount'), findsOneWidget);
       expect(find.text(testDate), findsOneWidget);
-    });
-
-    testWidgets(
-        'Given an empty amount '
-        'when HistoryInfoCard is rendered '
-        'Then it should display  the rupee symbol with Zero without crashing',
-        (WidgetTester tester) async {
-      // Arrange
-      const testDate = '12 Dec 2024';
-      await tester.pumpWidget(createWidgetUnderTest(
-        date: testDate,
-        amount: '',
-      ));
-
-      // Assert
-
-      // TODO:This test case would follow  below
-      // expect(find.text('${rupeeSymbol}0'), findsOneWidget);
-      expect(find.text(rupeeSymbol), findsOneWidget);
     });
   });
 }
