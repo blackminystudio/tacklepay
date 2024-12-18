@@ -27,7 +27,8 @@ void main() {
 
     testWidgets(
       'Given UPICard with short UPI ID '
-      'Then it should display the full UPI ID without cropping',
+      'when the UPICard is rendered '
+      'Then it should display the full UPI ID without cropping ',
       (WidgetTester tester) async {
         // Arrange
         const firstName = 'John';
@@ -50,7 +51,8 @@ void main() {
 
     testWidgets(
       'Given UPICard with long UPI ID '
-      'Then it should display the cropped UPI ID',
+      'when the UPICard is rendered '
+      'Then it should display the cropped UPI ID ',
       (WidgetTester tester) async {
         // Arrange
         const firstName = 'Alice';
@@ -76,10 +78,11 @@ void main() {
 
     testWidgets(
       'Given UPICard with valid initials '
+      'when the UPICard is rendered '
       'Then it should display the correct initials in the icon',
       (WidgetTester tester) async {
         // Arrange
-        const firstName = 'John';
+        const firstName = 'john';
         const lastName = 'Doe';
         const upiId = 'john.doe@bank';
 
@@ -98,6 +101,7 @@ void main() {
 
     testWidgets(
       'Given UPICard '
+      'when the UPICard is rendered '
       'Then it should display the correct background and border decorations',
       (WidgetTester tester) async {
         // Arrange
@@ -124,13 +128,10 @@ void main() {
         final container = tester.widget<Container>(containerFinder);
         final decoration = container.decoration as BoxDecoration;
 
-        // Check background color
         expect(
           decoration.color,
           appTheme.colors.contrastLight,
         );
-
-        // Check border color
         final border = decoration.border as Border;
         expect(
           border.top.color,
