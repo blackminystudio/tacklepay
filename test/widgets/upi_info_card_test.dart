@@ -101,5 +101,60 @@ void main() {
         );
       },
     );
+
+    testWidgets(
+      'Given invalid amount or input starting with "0" '
+      'When "₹0" or "0" is entered '
+      'Then the amount should be cleared or formatted correctly',
+      (WidgetTester tester) async {
+        // ARRANGE
+        await tester.pumpWidget(createWidgetUnderTest());
+        final amountField = find.byType(TextField).first;
+
+        // ACT
+        await tester.enterText(amountField, '00');
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+        await tester.pumpAndSettle();
+
+        // ASSERT
+        expect(tester.widget<TextField>(amountField).controller?.text, isEmpty);
+      },
+    );
+    testWidgets(
+      'Given invalid amount or input starting with "0" '
+      'When "₹0" or "0" is entered '
+      'Then the amount should be cleared or formatted correctly',
+      (WidgetTester tester) async {
+        // ARRANGE
+        await tester.pumpWidget(createWidgetUnderTest());
+        final amountField = find.byType(TextField).first;
+
+        // ACT
+        await tester.enterText(amountField, '.1');
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+        await tester.pumpAndSettle();
+
+        // ASSERT
+        expect(find.text('₹0.1'), findsOneWidget);
+      },
+    );
+    testWidgets(
+      'Given 9999999.999 '
+      'When  '
+      'Then the amount should be cleared or formatted correctly',
+      (WidgetTester tester) async {
+        // ARRANGE
+        await tester.pumpWidget(createWidgetUnderTest());
+        final amountField = find.byType(TextField).first;
+
+        // ACT
+        await tester.enterText(amountField, '9999999.999');
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+        // await tester.pumpAndSettle();
+
+        // ASSERT
+        expect(find.text('₹9,99,999.99'), findsOneWidget);
+      },
+    );
   });
 }
