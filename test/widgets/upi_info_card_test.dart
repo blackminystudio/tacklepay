@@ -1,0 +1,105 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:tackleapp/widgets/string_constants.dart';
+import 'package:tackleapp/widgets/upi_info_card.dart';
+
+void main() {
+  Widget createWidgetUnderTest() => ScreenUtilInit(
+        designSize: const Size(440, 956),
+        minTextAdapt: true,
+        builder: (context, child) => const MaterialApp(
+          home: Material(
+            child: UpiInfoCard(),
+          ),
+        ),
+      );
+
+  group('UpiInfoCard Widget Tests', () {
+    testWidgets(
+      'Given the widget is displayed '
+      'When it renders '
+      'Then it should show amount and message fields',
+      (WidgetTester tester) async {
+        // ARRANGE
+        await tester.pumpWidget(createWidgetUnderTest());
+
+        // ASSERT
+        expect(find.text(amountText), findsOneWidget);
+        expect(find.text(messageText), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      'Given invalid amount or input starting with "0" '
+      'When "₹0" or "0" is entered '
+      'Then the amount should be cleared or formatted correctly',
+      (WidgetTester tester) async {
+        // ARRANGE
+        await tester.pumpWidget(createWidgetUnderTest());
+        final amountField = find.byType(TextField).first;
+
+        // ACT
+        await tester.enterText(amountField, '₹0');
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+        await tester.pumpAndSettle();
+
+        // ASSERT
+        expect(tester.widget<TextField>(amountField).controller?.text, isEmpty);
+      },
+    );
+
+    testWidgets(
+      'Given a numeric amount without a rupee symbol or valid input '
+      'When the amount is submitted '
+      'Then the rupee symbol added, formatted, focus shifts to message field',
+      (WidgetTester tester) async {
+        // ARRANGE
+        await tester.pumpWidget(createWidgetUnderTest());
+        final amountField = find.byType(TextField).first;
+
+        // ACT
+        await tester.enterText(amountField, '30000');
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+        await tester.pumpAndSettle();
+
+        // ASSERT
+        expect(
+            tester.widget<TextField>(amountField).controller?.text, '₹30,000');
+
+        // ACT
+        await tester.enterText(amountField, '₹1000');
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+        await tester.pumpAndSettle();
+
+        // ASSERT
+        final messageField = find.byType(TextField).last;
+        expect(
+            tester.widget<TextField>(messageField).focusNode?.hasFocus, isTrue);
+      },
+    );
+
+    testWidgets(
+      'Given a message longer than 15 characters '
+      'When the message is entered '
+      'Then it should be truncated with ellipsis',
+      (WidgetTester tester) async {
+        // ARRANGE
+        await tester.pumpWidget(createWidgetUnderTest());
+        final messageField = find.byType(TextField).last;
+
+        // ACT
+        await tester.enterText(
+            messageField, 'This is a very long message exceeding limit');
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+        await tester.pumpAndSettle();
+
+        // ASSERT
+        expect(
+          tester.widget<TextField>(messageField).controller?.text,
+          'This is a very ...',
+        );
+      },
+    );
+  });
+}
