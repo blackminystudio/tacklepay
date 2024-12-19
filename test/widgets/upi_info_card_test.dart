@@ -15,41 +15,6 @@ void main() {
         ),
       );
 
-  bool _isIntegerLimited(String text) =>
-      text.length > 6 ||
-      BigInt.tryParse(text) != null && BigInt.parse(text) > BigInt.from(999999);
-
-  String _validateMaxAmountAndDecimalLimit(String text) {
-    if (text.contains('.')) {
-      final parts = text.split('.');
-      var integerPart = parts[0];
-      var decimalPart = parts.length > 1 ? parts[1] : '';
-      if (_isIntegerLimited(integerPart)) {
-        integerPart = integerPart.substring(0, 6);
-      }
-      if (decimalPart.length > 2) {
-        decimalPart = decimalPart.substring(0, 2);
-      }
-      return '$integerPart.$decimalPart';
-    }
-    if (_isIntegerLimited(text)) return text.substring(0, 6);
-    return text;
-  }
-
-  String _extractNumericText(String text) =>
-      text.replaceAll(RegExp(r'[^0-9.]'), '');
-
-  String _replaceZeroToDecimal(String text) {
-    if (text.startsWith('0') && text.length > 1 && !text.contains('.')) {
-      text = text.replaceFirst('0', '0.');
-    }
-    if (text.startsWith('.') && text.length > 1) {
-      text = text.replaceFirst('.', '0.');
-    }
-
-    return text;
-  }
-
   group('UpiInfoCard Widget Tests', () {
     testWidgets(
       'Given the widget is displayed '
@@ -125,74 +90,65 @@ void main() {
     );
   });
 
-  group('AmountFormatter Tests', () {
-    test(
-      'Given a string with special characters and numbers '
-      'When _extractNumericText is called '
-      'Then it should return a formatted numeric string with a rupee symbol',
-      () {
-        const input = '!@#\$%^&*()ABCD1234EF56';
-        const expectedOutput = '123456';
+  group('Amount Formatter Tests', () {
+    testWidgets(
+      'Given 9999999.999 '
+      'When  '
+      'Then the amount should be cleared or formatted correctly',
+      (WidgetTester tester) async {
+        // ARRANGE
+        await tester.pumpWidget(createWidgetUnderTest());
+        final amountField = find.byType(TextField).first;
 
-        final result = _extractNumericText(input);
+        // ACT
+        await tester.enterText(amountField, '9999999.999');
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+        // await tester.pumpAndSettle();
 
-        expect(result, expectedOutput);
-      },
-    );
+        // ASSERT
+        expect(find.text('₹9,99,999.99'), findsOneWidget);
 
-    test(
-      'Given a numeric input exceeding max limit '
-      'When _validateMaxAmountAndDecimalLimit is called '
-      'Then it should truncate to the maximum allowed value',
-      () {
-        const input = '1234567';
-        const expectedOutput = '123456';
+        // ARRANGE
+        await tester.pumpWidget(createWidgetUnderTest());
 
-        final result = _validateMaxAmountAndDecimalLimit(input);
+        // ACT
+        await tester.enterText(amountField, '!@#\$%^&*()ABCD1234EF56');
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+        // await tester.pumpAndSettle();
 
-        expect(result, expectedOutput);
-      },
-    );
+        // ASSERT
+        expect(find.text('₹1,23,456'), findsOneWidget);
 
-    test(
-      'Given a numeric input with excessive decimals '
-      'When _validateMaxAmountAndDecimalLimit is called '
-      'Then it should truncate to two decimal places',
-      () {
-        const input = '1234567.123';
-        const expectedOutput = '123456.12';
+        // ACT
+        await tester.enterText(amountField, '1234567');
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+        // await tester.pumpAndSettle();
 
-        final result = _validateMaxAmountAndDecimalLimit(input);
+        // ASSERT
+        expect(find.text('₹1,23,456'), findsOneWidget);
+        // ACT
+        await tester.enterText(amountField, '1234567.123');
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+        // await tester.pumpAndSettle();
 
-        expect(result, expectedOutput);
-      },
-    );
+        // ASSERT
+        expect(find.text('₹1,23,456.12'), findsOneWidget);
 
-    test(
-      'Given an input starting with 0 '
-      'When _replaceZeroToDecimal is called '
-      'Then it should replace 0 with 0.',
-      () {
-        const input = '01';
-        const expectedOutput = '0.1';
+        // ACT
+        await tester.enterText(amountField, '01');
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+        // await tester.pumpAndSettle();
 
-        final result = _replaceZeroToDecimal(input);
+        // ASSERT
+        expect(find.text('₹0.1'), findsOneWidget);
 
-        expect(result, expectedOutput);
-      },
-    );
+        // ACT
+        await tester.enterText(amountField, '1');
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+        // await tester.pumpAndSettle();
 
-    test(
-      'Given an input starting with . '
-      'When _replaceZeroToDecimal is called '
-      'Then it should prepend 0 to make it 0.',
-      () {
-        const input = '.1';
-        const expectedOutput = '0.1';
-
-        final result = _replaceZeroToDecimal(input);
-
-        expect(result, expectedOutput);
+        // ASSERT
+        expect(find.text('₹1'), findsOneWidget);
       },
     );
   });
