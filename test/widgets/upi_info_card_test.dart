@@ -103,7 +103,6 @@ void main() {
         // ACT
         await tester.enterText(amountField, '9999999.999');
         await tester.testTextInput.receiveAction(TextInputAction.done);
-        // await tester.pumpAndSettle();
 
         // ASSERT
         expect(find.text('₹9,99,999.99'), findsOneWidget);
@@ -114,7 +113,6 @@ void main() {
         // ACT
         await tester.enterText(amountField, '!@#\$%^&*()ABCD1234EF56');
         await tester.testTextInput.receiveAction(TextInputAction.done);
-        // await tester.pumpAndSettle();
 
         // ASSERT
         expect(find.text('₹1,23,456'), findsOneWidget);
@@ -122,14 +120,12 @@ void main() {
         // ACT
         await tester.enterText(amountField, '1234567');
         await tester.testTextInput.receiveAction(TextInputAction.done);
-        // await tester.pumpAndSettle();
 
         // ASSERT
         expect(find.text('₹1,23,456'), findsOneWidget);
         // ACT
         await tester.enterText(amountField, '1234567.123');
         await tester.testTextInput.receiveAction(TextInputAction.done);
-        // await tester.pumpAndSettle();
 
         // ASSERT
         expect(find.text('₹1,23,456.12'), findsOneWidget);
@@ -137,7 +133,6 @@ void main() {
         // ACT
         await tester.enterText(amountField, '01');
         await tester.testTextInput.receiveAction(TextInputAction.done);
-        // await tester.pumpAndSettle();
 
         // ASSERT
         expect(find.text('₹0.1'), findsOneWidget);
@@ -145,7 +140,6 @@ void main() {
         // ACT
         await tester.enterText(amountField, '1');
         await tester.testTextInput.receiveAction(TextInputAction.done);
-        // await tester.pumpAndSettle();
 
         // ASSERT
         expect(find.text('₹1'), findsOneWidget);
