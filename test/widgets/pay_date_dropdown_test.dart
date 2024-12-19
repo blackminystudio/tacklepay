@@ -40,18 +40,6 @@ void main() {
     });
 
     testWidgets(
-        'Given the payDateDropdown widget '
-        'When it is tapped on '
-        'Then a datepicker pops up ', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(PayDateDropdown()));
-
-      await tester.tap(find.byType(GestureDetector));
-      await tester.pumpAndSettle();
-
-      expect(find.byType(CalendarDatePicker), findsOneWidget);
-    });
-
-    testWidgets(
       'Given the payDateDropdown widget '
       'When it is tapped on and datepicker opens '
       'Then we can select any date ',
