@@ -202,7 +202,7 @@ void main() {
         await tester.testTextInput.receiveAction(TextInputAction.done);
         output = tester.widget<TextField>(messageField).controller?.text;
 
-        // Ensure the message is truncated
+        // Assert: Ensure the message is truncated
         expect(output, expectedText);
 
         // Act: Tap the message field
@@ -333,7 +333,3 @@ void main() {
     );
   });
 }
-
-
-// TODO: Consistency in GIVEN WHEN THEN, and make it short
-// Use Constants, don't hardcode
