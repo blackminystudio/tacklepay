@@ -109,6 +109,7 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
                 ],
               ),
               Container(
+                key: const Key('UPIInfoDivider'),
                 height: theme.spacing.height.s1,
                 color: theme.colors.contrastLow,
                 margin: EdgeInsets.symmetric(
