@@ -1,7 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'theme/theme.dart';
-import 'widgets/string_constants.dart';
+import '../theme/theme.dart';
+import 'string_constants.dart';
 
 enum TagType {
   info,

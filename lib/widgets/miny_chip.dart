@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'theme/theme.dart';
+import '../theme/theme.dart';
 
 class MinyChip extends StatefulWidget {
   final String label;
