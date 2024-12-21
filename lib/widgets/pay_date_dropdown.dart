@@ -32,7 +32,7 @@ class _PayDateDropDownState extends State<PayDateDropdown> {
       onTap: () => _selectDate(context),
       child: Container(
         padding: EdgeInsets.all(theme.spacing.width.s4),
-        color: Colors.transparent,
+        color: theme.colors.transparent,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,

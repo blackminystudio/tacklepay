@@ -13,4 +13,5 @@ class ColorTokens {
   static const Color dark = Color(0xFF000000);
   static const Color light = Color(0xFFFFFFFF);
   static const Color shadow = Color(0xFFBFBFBF);
+  static const Color transparent = Color(0x00000000);
 }
