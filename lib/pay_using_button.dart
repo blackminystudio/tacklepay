@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'theme/theme.dart';
 import 'widgets/string_constants.dart';
 
@@ -73,6 +72,7 @@ class _PayUsingButtonState extends State<PayUsingButton> {
       alignment: Alignment.bottomCenter,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AnimatedContainer(
             height: getHeight(),
@@ -105,8 +105,9 @@ class _PayUsingButtonState extends State<PayUsingButton> {
   ) =>
       Container(
         height: cardWidth,
+        color: theme.colors.transparent,
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(theme.sizing.width.s10),
@@ -115,6 +116,8 @@ class _PayUsingButtonState extends State<PayUsingButton> {
                 imageUrl: model.imageUrl,
                 width: theme.sizing.width.s10,
                 height: theme.sizing.width.s10,
+                errorWidget: (context, url, error) =>
+                    const Icon(MinyIcons.currencyExchange),
               ),
             ),
             SizedBox(width: theme.spacing.width.s12),
@@ -123,6 +126,7 @@ class _PayUsingButtonState extends State<PayUsingButton> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       payUsingText,
@@ -135,16 +139,20 @@ class _PayUsingButtonState extends State<PayUsingButton> {
                     ),
                     if (model == selectedModel)
                       Icon(
-                        !isExpanded ? Iconsax.arrow_up_2 : Iconsax.arrow_down_1,
+                        !isExpanded
+                            ? MinyIcons.outlineArrowUp
+                            : MinyIcons.outlineArrowDown,
                         size: theme.spacing.width.s12,
                         color: theme.colors.contrastMedium,
                       )
                   ],
                 ),
-                Text(
-                  model.providerName,
-                  style: theme.textStyle.headingSmallMedium.copyWith(
-                    color: theme.colors.contrastDark,
+                Flexible(
+                  child: Text(
+                    model.providerName,
+                    style: theme.textStyle.headingSmallMedium.copyWith(
+                      color: theme.colors.contrastDark,
+                    ),
                   ),
                 ),
               ],

@@ -171,7 +171,7 @@ class _TagCardState extends State<TagCard> {
   GestureDetector _buildCrossButton(ThemeData theme) => GestureDetector(
         onTap: widget.onDelete,
         child: Container(
-          color: Colors.transparent,
+          color: theme.colors.transparent,
           padding: EdgeInsets.only(
             top: theme.sizing.width.s3,
             left: theme.sizing.width.s3,
