@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 
-import 'firebase_options_staging.dart';
-import 'flavors.dart';
+import '../../firebase_options_staging.dart';
+import '../../flavors.dart';
 
-import 'main.dart' as runner;
+import '../../main.dart' as runner;
 
 Future<void> main() async {
   F.appFlavor = Flavor.staging;
