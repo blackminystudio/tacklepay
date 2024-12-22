@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "866511156331",
+    "project_id": "tacklepay-staging",
+    "storage_bucket": "tacklepay-staging.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866511156331:android:d2ab5abe2ebfb0b4f4ed2e",
+        "android_client_info": {
+          "package_name": "com.blackminystudio.tacklepaystaging"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-rmP3ozMETtogvvy5HP-_NgGjY6n74yo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
