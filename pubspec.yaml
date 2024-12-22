@@ -40,6 +40,7 @@ dependencies:
   dotted_border: ^2.1.0
   cached_network_image: ^3.4.1
   intl: ^0.20.1
+  flutter_flavorizr: ^2.2.3
 
 
 dev_dependencies:
