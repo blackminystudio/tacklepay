@@ -1,0 +1,41 @@
+ide: "vscode"
+flavors:
+  dev:
+    app:
+      name: "TacklePay Dev"
+
+    android:
+      applicationId: "com.blackminystudio.tacklepaydev"
+      icon: "assets/logo/icon_dev.png"
+      adaptiveIcon:
+        foreground: "assets/logo/icon_dev.png"
+        background: "assets/logo/background.png"
+    ios:
+      bundleId: "com.blackminystudio.tacklepaydev"
+      icon: "assets/logo/icon_dev.png"
+  staging:
+    app:
+      name: "TacklePay Staging"
+
+    android:
+      applicationId: "com.blackminystudio.tacklepaystaging"
+      icon: "assets/logo/icon_staging.png"
+      adaptiveIcon:
+        foreground: "assets/logo/icon_staging.png"
+        background: "assets/logo/background.png"
+    ios:
+      bundleId: "com.blackminystudio.tacklepaystaging"
+      icon: "assets/logo/icon_staging.png"
+  prod:
+    app:
+      name: "TacklePay"
+
+    android:
+      applicationId: "com.blackminystudio.tacklepay"
+      icon: "assets/logo/icon.png"
+      adaptiveIcon:
+        foreground: "assets/logo/icon.png"
+        background: "assets/logo/background.png"
+    ios:
+      bundleId: "com.blackminystudio.tacklepay"
+      icon: "assets/logo/icon.png"
