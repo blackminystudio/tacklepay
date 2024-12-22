@@ -1,14 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../firebase_options_prod.dart';
-import '../../flavors.dart';
-
-import '../../main.dart' as runner;
+import '../firebase_options/firebase_options_prod.dart';
+import '../flavors.dart';
+import '../main.dart' as runner;
 
 Future<void> main() async {
-  F.appFlavor = Flavor.prod;
   WidgetsFlutterBinding.ensureInitialized();
+  Flavors.appFlavor = FlavorTypes.prod;
   await Firebase.initializeApp(
     options: ProdFirebaseOptions.currentPlatform,
   );

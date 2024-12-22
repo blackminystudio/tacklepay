@@ -13,28 +13,6 @@
             "program": "lib/core/main/main_dev.dart"
         },
         {
-            "name": "dev Profile",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile",
-            "args": [
-                "--flavor",
-                "dev"
-            ],
-            "program": "lib/core/main/main_dev.dart"
-        },
-        {
-            "name": "dev Release",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release",
-            "args": [
-                "--flavor",
-                "dev"
-            ],
-            "program": "lib/core/main/main_dev.dart"
-        },
-        {
             "name": "staging Debug",
             "request": "launch",
             "type": "dart",
@@ -46,54 +24,10 @@
             "program": "lib/core/main/main_staging.dart"
         },
         {
-            "name": "staging Profile",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile",
-            "args": [
-                "--flavor",
-                "staging"
-            ],
-            "program": "lib/core/main/main_staging.dart"
-        },
-        {
-            "name": "staging Release",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release",
-            "args": [
-                "--flavor",
-                "staging"
-            ],
-            "program": "lib/core/main/main_staging.dart"
-        },
-        {
             "name": "prod Debug",
             "request": "launch",
             "type": "dart",
             "flutterMode": "debug",
-            "args": [
-                "--flavor",
-                "prod"
-            ],
-            "program": "lib/core/main/main_prod.dart"
-        },
-        {
-            "name": "prod Profile",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile",
-            "args": [
-                "--flavor",
-                "prod"
-            ],
-            "program": "lib/core/main/main_prod.dart"
-        },
-        {
-            "name": "prod Release",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release",
             "args": [
                 "--flavor",
                 "prod"
