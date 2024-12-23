@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tackleapp/theme/extensions/miny_colors.dart';
+import 'package:tackleapp/theme/tokens/color_tokens.dart';
 import 'package:tackleapp/widgets/string_constants.dart';
 import 'package:tackleapp/widgets/transaction_header.dart';
 
 void main() {
-  const minyColors = MinyColors();
-
   group('TransactionHeader Widget Tests', () {
+    const testValue = '03';
+
     Widget createWidgetUnderTest({
       required String value,
       VoidCallback? onSeeAllPressed,
@@ -17,7 +17,7 @@ void main() {
           builder: (context, child) {
             ScreenUtil.init(
               context,
-              designSize: const Size(375, 812),
+              designSize: const Size(440, 956),
               minTextAdapt: true,
               splitScreenMode: true,
             );
@@ -32,14 +32,11 @@ void main() {
         );
 
     testWidgets(
-      'Given TransactionHeader '
-      'When rendered '
-      'Then it should display the value badge with correct styles',
+      'Given onSeeAllPressed is not provided '
+      'When TransactionHeader is rendered '
+      'Then it does not displays the "See All" link',
       (WidgetTester tester) async {
         // Arrange
-        const testValue = '03';
-
-        // Act
         await tester.pumpWidget(
           createWidgetUnderTest(value: testValue),
         );
@@ -48,72 +45,38 @@ void main() {
         final badgeFinder = find.text(testValue);
         final badgeText = tester.widget<Text>(badgeFinder);
 
-        expect(badgeText.style?.color, minyColors.contrastMedium);
+        expect(badgeText.style?.color, ColorTokens.contrastMedium);
+        expect(find.text(seeAllText), findsNothing);
+        expect(find.text(allTransactionsText), findsOneWidget);
+        expect(find.text(transactionsText), findsNothing);
       },
     );
 
     testWidgets(
       'Given onSeeAllPressed is provided '
       'When TransactionHeader is rendered '
-      'Then it should display the "See All" link',
-      (WidgetTester tester) async {
-        // Arrange
-        const testValue = '03';
-
-        // Act
-        await tester.pumpWidget(
-          createWidgetUnderTest(
-            value: testValue,
-            onSeeAllPressed: () {},
-          ),
-        );
-
-        // Assert
-        expect(find.text(seeAllText), findsOneWidget);
-      },
-    );
-
-    testWidgets(
-      'Given onSeeAllPressed is null '
-      'When TransactionHeader is rendered '
-      'Then it should not display the "See All" link',
-      (WidgetTester tester) async {
-        // Arrange
-        const testValue = '03';
-
-        // Act
-        await tester.pumpWidget(
-          createWidgetUnderTest(value: testValue),
-        );
-
-        // Assert
-        expect(find.text(seeAllText), findsNothing);
-      },
-    );
-
-    testWidgets(
-      'Given onSeeAllPressed callback '
-      'When "See All" is tapped '
-      'Then it should trigger the callback',
+      'Then it displays the "See All" link and triggers callback ',
       (WidgetTester tester) async {
         // Arrange
         var wasPressed = false;
 
-        // Act
         await tester.pumpWidget(
           createWidgetUnderTest(
-            value: '03',
-            onSeeAllPressed: () {
-              wasPressed = true;
-            },
+            value: testValue,
+            onSeeAllPressed: () => wasPressed = true,
           ),
         );
 
+        // Act
         await tester.tap(find.text(seeAllText));
         await tester.pumpAndSettle();
 
         // Assert
+        expect(find.text(seeAllText), findsOneWidget);
         expect(wasPressed, isTrue);
+        expect(find.text(testValue), findsOneWidget);
+        expect(find.text(transactionsText), findsOneWidget);
+        expect(find.text(allTransactionsText), findsNothing);
       },
     );
   });
