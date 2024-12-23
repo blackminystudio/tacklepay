@@ -68,6 +68,7 @@ class _TagCardState extends State<TagCard> {
           height: theme.sizing.height.s11,
           child: Center(
             child: TextField(
+              key: const Key('AddTagTextField'),
               autofocus: true,
               controller: _controller,
               onSubmitted: _onSubmitted,
@@ -101,6 +102,7 @@ class _TagCardState extends State<TagCard> {
                 child: Center(
                   child: Text(
                     addTagText,
+                    key: const Key('AddTagText'),
                     style: theme.textStyle.bodyBold.copyWith(
                       color: theme.colors.contrastDark,
                     ),
