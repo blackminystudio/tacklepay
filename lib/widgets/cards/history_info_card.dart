@@ -65,7 +65,7 @@ class HistoryInfoCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            day,
+            todayText,
             style: theme.textStyle.caption.copyWith(
               color: theme.colors.contrastMedium,
             ),

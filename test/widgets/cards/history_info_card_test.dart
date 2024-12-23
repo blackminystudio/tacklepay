@@ -28,7 +28,7 @@ void main() {
     testWidgets(
         'Given correct date and amount '
         'when HistoryInfoCard is rendered '
-        'Then it should show the correct date and formatted amount',
+        'Then it shows the correct date and formatted amount',
         (WidgetTester tester) async {
       // Arrange
       const testAmount = '134234';
@@ -42,36 +42,21 @@ void main() {
       );
 
       // Assert
+      expect(find.text(todayText), findsOneWidget);
       expect(find.text(testDate), findsOneWidget);
+
+      final separatorFinder = find.byType(Container).first;
+      final separatorWidget = tester.widget<Container>(separatorFinder);
+      expect(separatorWidget.decoration, isA<BoxDecoration>());
+
       expect(find.text('$rupeeSymbol$formattedTestAmount'), findsOneWidget);
       expect(find.text(totalAmountText), findsOneWidget);
     });
 
     testWidgets(
-        'Given date and amount '
-        'when HistoryInfoCard is rendered '
-        'Then it should display a separator line between date and amount',
-        (WidgetTester tester) async {
-      // Arrange
-      const testAmount = '1234';
-      const testDate = '12 Dec 2024';
-      await tester.pumpWidget(
-        createWidgetUnderTest(
-          date: testDate,
-          amount: testAmount,
-        ),
-      );
-
-      // Assert
-      final separatorFinder = find.byType(Container).first;
-      final separatorWidget = tester.widget<Container>(separatorFinder);
-      expect(separatorWidget.decoration, isA<BoxDecoration>());
-    });
-
-    testWidgets(
         'Given a theme with specific colors '
         'when HistoryInfoCard is rendered '
-        'Then it should apply the correct styles from the theme',
+        'Then it applies the correct styles from the theme',
         (WidgetTester tester) async {
       // Arrange
       const testAmount = '1234';
@@ -99,7 +84,7 @@ void main() {
     testWidgets(
         'Given an empty amount '
         'when HistoryInfoCard is rendered '
-        'Then it should display  the rupee symbol with zero without crashing',
+        'Then it displays the rupee symbol with zero ',
         (WidgetTester tester) async {
       // Arrange
       const testDate = '12 Dec 2024';
@@ -117,12 +102,12 @@ void main() {
     testWidgets(
         'Given a smaller screen size '
         'when HistoryInfoCard is rendered '
-        'Then it should adjust the layout without overflow or truncation',
+        'Then it adjusts the layout without overflow or truncation',
         (WidgetTester tester) async {
       // Arrange
-      const testAmount = '1234';
+      const testAmount = '12323234';
       const testDate = '12 Dec 2024';
-      const formattedTestAmount = '1,234';
+      const formattedTestAmount = '1,23,23,234';
 
       await tester.pumpWidget(
         ScreenUtilInit(
