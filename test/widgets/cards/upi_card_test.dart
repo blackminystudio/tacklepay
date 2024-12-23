@@ -6,6 +6,10 @@ import 'package:tackleapp/widgets/cards/upi_card.dart';
 
 void main() {
   group('UPICard Widget Tests', () {
+    const firstName = 'jane';
+    const lastName = '  Doe midd';
+    const upiId = 'jane.doe@bank';
+
     Widget createWidgetUnderTest({
       required String payeeFirstName,
       required String payeeLastName,
@@ -27,14 +31,11 @@ void main() {
 
     testWidgets(
       'Given UPICard with short UPI ID '
-      'when the UPICard is rendered '
-      'Then it should display the full UPI ID without cropping ',
+      'When the UPICard is rendered '
+      'Then it displays the full UPI ID and initials as icon ',
       (WidgetTester tester) async {
         // Arrange
-        const firstName = 'John';
-        const lastName = 'Doe';
-        const upiId = 'john.doe@bank';
-
+        const initialsIcon = 'JD';
         await tester.pumpWidget(
           createWidgetUnderTest(
             payeeFirstName: firstName,
@@ -44,20 +45,21 @@ void main() {
         );
 
         // Assert
-        expect(find.text('$firstName $lastName'), findsOneWidget);
+        expect(find.text(initialsIcon), findsOneWidget);
+        expect(find.text('${firstName.trim()} ${lastName.trim()}'),
+            findsOneWidget);
         expect(find.text(upiId), findsOneWidget);
       },
     );
 
     testWidgets(
       'Given UPICard with long UPI ID '
-      'when the UPICard is rendered '
-      'Then it should display the cropped UPI ID ',
+      'When the UPICard is rendered '
+      'Then it displays the cropped UPI ID ',
       (WidgetTester tester) async {
         // Arrange
-        const firstName = 'Alice';
-        const lastName = 'Smith';
-        const longUpiId = 'alice.smith.verylongemail@somebank.com';
+        const longUpiId = 'janedoe.verylongemailid@somebank.com';
+        const croppedUpiId = 'jane....ilid@somebank.com';
 
         await tester.pumpWidget(
           createWidgetUnderTest(
@@ -67,48 +69,19 @@ void main() {
           ),
         );
 
-        // Correct cropped UPI ID
-        const croppedUpiId = 'alic....mail@somebank.com';
-
         // Assert
-        expect(find.text('$firstName $lastName'), findsOneWidget);
+        expect(find.text('${firstName.trim()} ${lastName.trim()}'),
+            findsOneWidget);
         expect(find.text(croppedUpiId), findsOneWidget);
       },
     );
 
     testWidgets(
-      'Given UPICard with valid initials '
-      'when the UPICard is rendered '
-      'Then it should display the correct initials in the icon',
-      (WidgetTester tester) async {
-        // Arrange
-        const firstName = 'john';
-        const lastName = 'Doe';
-        const upiId = 'john.doe@bank';
-
-        await tester.pumpWidget(
-          createWidgetUnderTest(
-            payeeFirstName: firstName,
-            payeeLastName: lastName,
-            payeeUpiId: upiId,
-          ),
-        );
-
-        // Assert
-        expect(find.text('JD'), findsOneWidget);
-      },
-    );
-
-    testWidgets(
       'Given UPICard '
-      'when the UPICard is rendered '
-      'Then it should display the correct background and border decorations',
+      'When the UPICard is rendered '
+      'Then it displays the correct background and border decorations',
       (WidgetTester tester) async {
         // Arrange
-        const firstName = 'Jane';
-        const lastName = 'Doe';
-        const upiId = 'jane.doe@bank';
-
         await tester.pumpWidget(
           createWidgetUnderTest(
             payeeFirstName: firstName,
