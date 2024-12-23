@@ -5,7 +5,7 @@ import 'package:tackleapp/miny_chip.dart';
 import 'package:tackleapp/theme/theme.dart';
 
 void main() {
-  group('MinyChip Color and Decoration Tests', () {
+  group('MinyChip Widget Tests', () {
     Widget createWidgetUnderTest({
       required String label,
       required bool selected,
@@ -29,7 +29,7 @@ void main() {
     testWidgets(
       'Given MinyChip is selected '
       'When the widget is rendered '
-      'Then it contrastDark color as bg, light color for text, display icon ',
+      'Then it has contrastDark color bg, light color text and a check icon ',
       (WidgetTester tester) async {
         // Arrange
         const label = 'Selected Chip';
@@ -50,14 +50,14 @@ void main() {
         final textWidget = tester.widget<Text>(find.text(label));
         expect(textWidget.style!.color, appTheme.colors.light);
 
-        expect(find.byIcon(Icons.check), findsOneWidget);
+        expect(find.byIcon(MinyIcons.check), findsOneWidget);
       },
     );
 
     testWidgets(
       'Given MinyChip is not selected '
       'When the widget is rendered '
-      'then it should render correct background colour and not display icon',
+      'Then it has contrastLow color bg, contrastDark color text and no icon ',
       (WidgetTester tester) async {
         // Arrange
         const label = 'Unselected Chip';
@@ -77,14 +77,14 @@ void main() {
 
         final textWidget = tester.widget<Text>(find.text(label));
         expect(textWidget.style!.color, appTheme.colors.contrastDark);
-        expect(find.byIcon(Icons.check), findsNothing);
+        expect(find.byIcon(MinyIcons.check), findsNothing);
       },
     );
 
     testWidgets(
-      'Given MinyChip with onSelected callback '
+      'Given MinyChip is rendered '
       'When it is tapped '
-      'Then it should render correct background colour and  display the icon',
+      'Then it switches from non-selected to selected state ',
       (WidgetTester tester) async {
         // Arrange
         const label = 'Toggle Chip';
@@ -100,30 +100,25 @@ void main() {
         await tester.tap(find.text(label));
         await tester.pumpAndSettle();
 
-        // Assert:
+        // Assert
         var container = tester.widget<Container>(find.byType(Container));
         expect(
           (container.decoration as BoxDecoration).color,
           appTheme.colors.contrastDark,
         );
-
-        // Act:
-        await tester.tap(find.text(label));
-        await tester.pumpAndSettle();
-
-        // Assert:
-        container = tester.widget<Container>(find.byType(Container));
-        expect(
-          (container.decoration as BoxDecoration).color,
-          appTheme.colors.contrastLow,
-        );
+        expect(find.byIcon(MinyIcons.check), findsOneWidget);
 
         // Act
         await tester.tap(find.text(label));
         await tester.pumpAndSettle();
 
         // Assert
-        expect(find.byIcon(Icons.check), findsOneWidget);
+        container = tester.widget<Container>(find.byType(Container));
+        expect(
+          (container.decoration as BoxDecoration).color,
+          appTheme.colors.contrastLow,
+        );
+        expect(find.byIcon(MinyIcons.check), findsNothing);
       },
     );
   });
