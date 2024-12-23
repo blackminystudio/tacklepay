@@ -7,7 +7,7 @@ import 'package:tackleapp/widgets/cards/greeting_card.dart';
 void main() {
   group('GreetingCard Widget Tests', () {
     const testGreetingMessage = 'Hello, Welcome!';
-    const testUserName = 'John Doe';
+    const testUserName = '   John   Doe';
     const testName = 'John';
     const testProfilePictureUrl = 'https://example.com/profile-picture.jpg';
 
@@ -32,8 +32,8 @@ void main() {
 
     testWidgets(
       'Given valid greeting message, user name, and profile picture URL '
-      'when GreetingCard is rendered '
-      'Then it should display the greeting message, username, profile picture',
+      'When GreetingCard is rendered '
+      'Then it displays the greeting message, username, profile picture',
       (WidgetTester tester) async {
         // Act
         await mockNetworkImagesFor(
@@ -61,8 +61,8 @@ void main() {
 
     testWidgets(
         'Given an empty profile picture URL '
-        'when GreetingCard is rendered '
-        'Then it should display a default placeholder for the profile picture',
+        'When GreetingCard is rendered '
+        'Then it displays a default placeholder for the profile picture',
         (WidgetTester tester) async {
       // Arrange
       const emptyProfilePictureUrl = '';
