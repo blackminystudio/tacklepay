@@ -82,7 +82,7 @@ class _MinyChipState extends State<MinyChip> {
       children: [
         SizedBox(width: theme.spacing.width.s4),
         Icon(
-          Icons.check,
+          MinyIcons.check,
           size: theme.sizing.width.s3,
           color: theme.colors.light,
         ),
