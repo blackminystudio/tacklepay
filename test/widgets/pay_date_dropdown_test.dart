@@ -73,13 +73,13 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(find.byType(CalendarDatePicker), findsOneWidget);
+        final nextDay = DateTime.now().add(const Duration(days: 1));
 
-        await tester.tap(find.text('21'));
+        await tester.tap(find.text(nextDay.day.toString()));
         await tester.tap(find.text('OK'));
         await tester.pumpAndSettle();
 
-        final formattedDate =
-            DateFormat('dd/MM/yyyy').format(DateTime.now().copyWith(day: 21));
+        final formattedDate = DateFormat('dd/MM/yyyy').format(nextDay);
         expect(find.text(formattedDate), findsNothing);
       },
     );
