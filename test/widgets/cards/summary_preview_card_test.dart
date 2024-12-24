@@ -3,11 +3,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tackleapp/theme/theme.dart';
 import 'package:tackleapp/widgets/cards/summary_preview_card.dart';
+import 'package:tackleapp/widgets/string_constants.dart';
+
+const richTextFinderKey = Key('RichText');
 
 void main() {
   group(
     'SummaryPreviewCard Widget Tests',
     () {
+      const amount = '500000';
+      const formattedamount = '₹5,00,000';
+      const positivePercentage = '+10';
+      const negativePercentage = '-10';
+
       Widget createWidgetUnderTest({
         required HeaderType header,
         required String amount,
@@ -30,19 +38,19 @@ void main() {
 
       testWidgets(
         'Given SummaryPreviewCard with HeaderType.income '
-        'Then it should display "Income" and primary background color',
+        'When amount and positive percentage is provided '
+        'Then it displays "Income" and primary background color',
         (WidgetTester tester) async {
           // Arrange
-          const amount = '5000';
-          const percentage = '10';
-
           await tester.pumpWidget(createWidgetUnderTest(
             header: HeaderType.income,
             amount: amount,
-            percentage: percentage,
+            percentage: positivePercentage,
           ));
 
-          expect(find.text('Income'), findsOneWidget);
+          // Assert
+          expect(find.text(incomeText), findsOneWidget);
+          expect(find.text(formattedamount), findsOneWidget);
 
           final headerContainer = tester.widget<Container>(
             find.descendant(
@@ -54,25 +62,34 @@ void main() {
             (headerContainer.decoration as BoxDecoration).color,
             appTheme.colors.primary,
           );
+
+          final richTextFinder = find.byKey(richTextFinderKey);
+          final richText = tester.widget<RichText>(richTextFinder);
+          final textSpan = richText.text as TextSpan;
+          final children = textSpan.children as List<InlineSpan>;
+          expect(children[0].toPlainText(), '$positivePercentage%');
+          expect(children[0].style?.color, appTheme.colors.primaryDark);
+          expect(children[1].toPlainText(), vsLastMonthText);
+          expect(children[1].style?.color, appTheme.colors.contrastDark);
         },
       );
 
       testWidgets(
         'Given SummaryPreviewCard with HeaderType.expense '
-        'Then it should display "Expense" and secondary background color',
+        'When amount and positive percentage is provided '
+        'Then it displays "Expense" and secondary background color',
         (WidgetTester tester) async {
           // Arrange
-          const amount = '2000';
-          const percentage = '5';
-
           await tester.pumpWidget(createWidgetUnderTest(
             header: HeaderType.expense,
             amount: amount,
-            percentage: percentage,
+            percentage: positivePercentage,
           ));
 
           // Assert
-          expect(find.text('Expense'), findsOneWidget);
+          expect(find.text(expenseText), findsOneWidget);
+          expect(find.text(formattedamount), findsOneWidget);
+
           final container = tester.widget<Container>(find
               .descendant(
                   of: find.byType(SummaryPreviewCard),
@@ -85,46 +102,96 @@ void main() {
             (container.decoration as BoxDecoration).color,
             appTheme.colors.secondary,
           );
+
+          final richTextFinder = find.byKey(richTextFinderKey);
+          final richText = tester.widget<RichText>(richTextFinder);
+          final textSpan = richText.text as TextSpan;
+          final children = textSpan.children as List<InlineSpan>;
+          expect(children[0].toPlainText(), '$positivePercentage%');
+          expect(children[0].style?.color, appTheme.colors.secondaryDark);
+          expect(children[1].toPlainText(), vsLastMonthText);
+          expect(children[1].style?.color, appTheme.colors.contrastDark);
         },
       );
 
       testWidgets(
-        'Given SummaryPreviewCard '
-        'Then it should display the correct amount with ₹ symbol',
+        'Given SummaryPreviewCard with HeaderType.income '
+        'When amount and negative percentage is provided '
+        'Then it displays the correct styles',
         (WidgetTester tester) async {
           // Arrange
-          const amount = '5000';
-          const percentage = '10';
-
           await tester.pumpWidget(createWidgetUnderTest(
             header: HeaderType.income,
             amount: amount,
-            percentage: percentage,
+            percentage: negativePercentage,
           ));
 
           // Assert
-          expect(find.text('₹5000'), findsOneWidget);
+          expect(find.text(incomeText), findsOneWidget);
+          expect(find.text(formattedamount), findsOneWidget);
+
+          final richTextFinder = find.byKey(richTextFinderKey);
+          final richText = tester.widget<RichText>(richTextFinder);
+          final textSpan = richText.text as TextSpan;
+          final children = textSpan.children as List<InlineSpan>;
+          expect(children[0].toPlainText(), '$negativePercentage%');
+          expect(children[0].style?.color, appTheme.colors.secondaryDark);
+          expect(children[1].toPlainText(), vsLastMonthText);
+          expect(children[1].style?.color, appTheme.colors.contrastDark);
         },
       );
 
       testWidgets(
-        'Given SummaryPreviewCard '
-        'Then it should display the correct percentage &"vs last month" text',
+        'Given SummaryPreviewCard with HeaderType.expense '
+        'When amount and negative percentage is provided '
+        'Then it displays the correct styles',
         (WidgetTester tester) async {
           // Arrange
-          const amount = '5000';
-          const percentage = '10';
-
           await tester.pumpWidget(createWidgetUnderTest(
-            header: HeaderType.income,
+            header: HeaderType.expense,
             amount: amount,
-            percentage: percentage,
+            percentage: negativePercentage,
           ));
 
-          final textWidgets =
-              tester.widgetList<Text>(find.byType(Text)).toList();
+          // Assert
+          expect(find.text(expenseText), findsOneWidget);
+          expect(find.text(formattedamount), findsOneWidget);
 
-          expect(textWidgets[1].data, contains('₹$amount'));
+          final richTextFinder = find.byKey(richTextFinderKey);
+          final richText = tester.widget<RichText>(richTextFinder);
+          final textSpan = richText.text as TextSpan;
+          final children = textSpan.children as List<InlineSpan>;
+          expect(children[0].toPlainText(), '$negativePercentage%');
+          expect(children[0].style?.color, appTheme.colors.primaryDark);
+          expect(children[1].toPlainText(), vsLastMonthText);
+          expect(children[1].style?.color, appTheme.colors.contrastDark);
+        },
+      );
+
+      testWidgets(
+        'Given SummaryPreviewCard with HeaderType.expense '
+        'When amount and 0 percentage is provided '
+        'Then it displays the correct styles',
+        (WidgetTester tester) async {
+          // Arrange
+          await tester.pumpWidget(createWidgetUnderTest(
+            header: HeaderType.expense,
+            amount: amount,
+            percentage: checkZero,
+          ));
+
+          // Assert
+          expect(find.text(expenseText), findsOneWidget);
+          expect(find.text(formattedamount), findsOneWidget);
+
+          final richTextFinder = find.byKey(richTextFinderKey);
+          final richText = tester.widget<RichText>(richTextFinder);
+          final textSpan = richText.text as TextSpan;
+          final children = textSpan.children as List<InlineSpan>;
+          expect(children[0].toPlainText(), '$checkZero%');
+          expect(children[0].style?.color, appTheme.colors.contrastDark);
+          expect(children[1].toPlainText(), vsLastMonthText);
+          expect(children[1].style?.color, appTheme.colors.contrastDark);
         },
       );
     },
