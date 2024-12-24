@@ -22,7 +22,7 @@ const tagUpdated = 'Tag updated successfully!';
 
 // HistoryInfoCard
 const totalAmountText = 'Total amount';
-const day = 'Today';
+const todayText = 'Today';
 
 const payDateText = 'Pay Date';
 const transactionsText = 'Transactions';
