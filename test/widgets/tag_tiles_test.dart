@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tackleapp/theme/tokens/color_tokens.dart';
+import 'package:tackleapp/theme/theme.dart';
 import 'package:tackleapp/widgets/tag_tiles.dart';
 
 void main() {
   group('TagTile Widget Tests', () {
     late String savedTag;
     var isSelected = false;
+    const testTag = 'TestTag';
 
     setUp(() {
       savedTag = '';
@@ -25,37 +26,41 @@ void main() {
 
     testWidgets(
         'Given a valid tagName '
-        'When rendered '
+        'When Tag Tile is rendered '
         'Then tagName is visible with correct styles ',
         (WidgetTester tester) async {
+      // Arrange
       await tester.pumpWidget(
         createTestableWidget(
           TagTile(
-            tagName: 'TestTag',
+            tagName: testTag,
             onSelection: (value) => isSelected = value,
             onSaveTag: (value) => savedTag = value,
           ),
         ),
       );
 
-      expect(find.text('TestTag'), findsOneWidget);
+      // Assert
+      expect(find.text(testTag), findsOneWidget);
       expect(
-        tester.widget<Text>(find.text('TestTag')).style?.color,
-        ColorTokens.contrastMedium,
+        tester.widget<Text>(find.text(testTag)).style?.color,
+        appTheme.colors.contrastMedium,
       );
     });
 
     testWidgets(
         'Given a tagName '
         'When the tagName is edited with long name '
-        'Then the new tagName should be visible with max 15 characters',
+        'Then the new tagName is truncated to max 15 characters',
         (WidgetTester tester) async {
-      savedTag = 'OldTag';
+      // Arrange
       isSelected = true;
+      const longTag = 'ThisTagIsTooLong1234';
+      const truncatedTag = 'ThisTagIsTooLon';
       await tester.pumpWidget(
         createTestableWidget(
           TagTile(
-            tagName: savedTag,
+            tagName: testTag,
             onSelection: (value) => isSelected = value,
             onSaveTag: (value) => savedTag = value,
             isSelected: isSelected,
@@ -64,22 +69,26 @@ void main() {
       );
 
       expect(
-        tester.widget<Text>(find.text('OldTag')).style?.color,
-        ColorTokens.contrastDark,
+        tester.widget<Text>(find.text(testTag)).style?.color,
+        appTheme.colors.contrastDark,
       );
 
-      await tester.tap(find.text('OldTag'));
+      // Act
+      await tester.tap(find.text(testTag));
       await tester.pumpAndSettle();
 
+      // Assert
       final textFieldFinder = find.byType(TextField);
       final textFieldWidgetBefore = tester.widget<TextField>(textFieldFinder);
-      expect(textFieldWidgetBefore.style?.color, ColorTokens.contrastDark);
+      expect(textFieldWidgetBefore.style?.color, appTheme.colors.contrastDark);
 
-      await tester.enterText(find.byType(TextField), 'ThisTagIsTooLong1234');
+      // Act
+      await tester.enterText(find.byType(TextField), longTag);
       await tester.testTextInput.receiveAction(TextInputAction.done);
 
-      expect(savedTag, 'ThisTagIsTooLon');
-      expect(find.text(savedTag), findsOneWidget);
+      // Assert
+      expect(savedTag, truncatedTag);
+      expect(find.text(truncatedTag), findsOneWidget);
     });
 
     testWidgets(
@@ -87,32 +96,35 @@ void main() {
       'When the check box is clicked '
       'Then it is checked and the text color is updated',
       (WidgetTester tester) async {
+        // Arrange
         await tester.pumpWidget(
           createTestableWidget(
             TagTile(
-              tagName: 'TestTag',
+              tagName: testTag,
               onSelection: (value) => isSelected = value,
               onSaveTag: (value) => savedTag = value,
             ),
           ),
         );
 
-        final textFinder = find.text('TestTag');
+        final textFinder = find.text(testTag);
         final checkBoxFinder = find.byType(Checkbox);
 
         expect(isSelected, false);
         expect(
           tester.widget<Text>(textFinder).style?.color,
-          ColorTokens.contrastMedium,
+          appTheme.colors.contrastMedium,
         );
 
+        // Act
         await tester.tap(checkBoxFinder);
         await tester.pumpAndSettle();
 
+        // Assert
         expect(isSelected, true);
         expect(
           tester.widget<Text>(textFinder).style?.color,
-          ColorTokens.contrastDark,
+          appTheme.colors.contrastDark,
         );
         expect(
           tester.widget<Checkbox>(checkBoxFinder).value,
@@ -125,51 +137,54 @@ void main() {
         'Given a tagName '
         'When tagName is edited but not submitted '
         'Then the tagName does not change', (WidgetTester tester) async {
+      // Arrange
+      const tempTag = 'TempTag';
+      const tagLength = '7 / 15';
       await tester.pumpWidget(
         createTestableWidget(
           TagTile(
-            tagName: 'OriginalTag',
+            tagName: testTag,
             onSelection: (value) => isSelected = value,
             onSaveTag: (value) => savedTag = value,
           ),
         ),
       );
 
-      await tester.tap(find.text('OriginalTag'));
+      // Act
+      await tester.tap(find.text(testTag));
       await tester.pumpAndSettle();
 
-      await tester.enterText(find.byType(TextField), 'TempTag');
+      await tester.enterText(find.byType(TextField), tempTag);
       await tester.pumpAndSettle();
 
-      // Ensure the character count is visible when editing
-      expect(find.text('7 / 15'), findsOneWidget);
+      // Assert
+      expect(find.text(tagLength), findsOneWidget);
 
-      await tester.tapAt(Offset.zero); // Tapping outside
+      // Act
+      await tester.tapAt(Offset.zero);
       await tester.pumpAndSettle();
 
-      // Ensure the tag name resets and character count is hidden
-      expect(find.text('OriginalTag'), findsOneWidget);
-      expect(find.text('7 / 15'), findsNothing);
+      // Assert
+      expect(find.text(testTag), findsOneWidget);
+      expect(find.text(tagLength), findsNothing);
     });
 
     testWidgets(
       'Given a tagName '
       'When the tagName is cleared and submitted '
-      'Then the tagName should reset to its original value',
+      'Then the tagName resets to its original value',
       (WidgetTester tester) async {
-        savedTag = 'InitialTag';
-
         await tester.pumpWidget(
           createTestableWidget(
             TagTile(
-              tagName: savedTag,
+              tagName: testTag,
               onSelection: (value) => isSelected = value,
               onSaveTag: (value) => savedTag = value,
             ),
           ),
         );
 
-        await tester.tap(find.text('InitialTag'));
+        await tester.tap(find.text(testTag));
         await tester.pumpAndSettle();
 
         final textFieldFinder = find.byType(TextField);
@@ -177,8 +192,7 @@ void main() {
         await tester.testTextInput.receiveAction(TextInputAction.done);
         await tester.pumpAndSettle();
 
-        expect(savedTag, 'InitialTag');
-        expect(find.text('InitialTag'), findsOneWidget);
+        expect(find.text(testTag), findsOneWidget);
       },
     );
   });
