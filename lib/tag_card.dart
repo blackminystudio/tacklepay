@@ -68,6 +68,7 @@ class _TagCardState extends State<TagCard> {
           height: theme.sizing.height.s11,
           child: Center(
             child: TextField(
+              key: const Key('AddTagTextField'),
               autofocus: true,
               controller: _controller,
               onSubmitted: _onSubmitted,
@@ -101,6 +102,7 @@ class _TagCardState extends State<TagCard> {
                 child: Center(
                   child: Text(
                     addTagText,
+                    key: const Key('AddTagText'),
                     style: theme.textStyle.bodyBold.copyWith(
                       color: theme.colors.contrastDark,
                     ),
@@ -124,14 +126,16 @@ class _TagCardState extends State<TagCard> {
                         left: theme.sizing.width.s4,
                         bottom: theme.sizing.width.s3,
                       ),
-                      child: Text(
-                        widget.text ?? '',
-                        style: theme.textStyle.bodyBold.copyWith(
-                          color: theme.colors.contrastDark,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                      child: widget.text?.isNotEmpty == true
+                          ? Text(
+                              widget.text!,
+                              style: theme.textStyle.bodyBold.copyWith(
+                                color: theme.colors.contrastDark,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            )
+                          : const SizedBox.shrink(),
                     ),
                   ),
                   _buildCrossButton(theme),
@@ -171,7 +175,7 @@ class _TagCardState extends State<TagCard> {
   GestureDetector _buildCrossButton(ThemeData theme) => GestureDetector(
         onTap: widget.onDelete,
         child: Container(
-          color: Colors.transparent,
+          color: theme.colors.transparent,
           padding: EdgeInsets.only(
             top: theme.sizing.width.s3,
             left: theme.sizing.width.s3,
