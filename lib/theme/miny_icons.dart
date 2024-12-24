@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 
 class MinyIcons {
   static const IconData currencyExchange = Icons.currency_exchange_rounded;
+  static const IconData check = Icons.check;
   static const IconData cross = Icons.close_rounded;
   static const IconData fillScan = Iconsax.scan5;
   static const IconData filter = Iconsax.setting_4;
