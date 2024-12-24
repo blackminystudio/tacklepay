@@ -19,7 +19,7 @@ const amountText = 'Amount';
 // HistoryInfoCard
 
 const totalAmountText = 'Total amount';
-const day = 'Today';
+const todayText = 'Today';
 
 const payDateText = 'Pay Date';
 const transactionsText = 'Transactions';
