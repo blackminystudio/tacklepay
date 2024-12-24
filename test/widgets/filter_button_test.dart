@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tackleapp/theme/theme.dart';
 import 'package:tackleapp/widgets/filter_button.dart';
 
 void main() {
@@ -26,18 +27,16 @@ void main() {
 
     testWidgets(
       'Given icon and text '
-      'When rendered '
-      'Then it triggers onTap and shows both. ',
+      'When FilterButton is tapped '
+      'Then it triggers onTap function ',
       (WidgetTester tester) async {
-        var wasTapped = false;
-
         // Arrange
-        const testIcon = Icons.filter_list;
+        var wasTapped = false;
         const testTitle = 'Filter';
 
         await tester.pumpWidget(
           createWidgetUnderTest(
-            icon: testIcon,
+            icon: MinyIcons.filter,
             title: testTitle,
             onTap: () => wasTapped = true,
           ),
@@ -48,30 +47,28 @@ void main() {
         await tester.pump();
 
         // Assert
-        expect(find.byIcon(testIcon), findsOneWidget);
+        expect(find.byIcon(MinyIcons.filter), findsOneWidget);
         expect(find.text(testTitle), findsOneWidget);
         expect(wasTapped, isTrue);
       },
     );
 
     testWidgets(
-      'Given only icon, '
-      'When rendered, '
-      'Then it triggers icon only and not text',
+      'Given FilterButton widget '
+      'When an icon and empty text is provided '
+      'Then it renders icon only and not text',
       (WidgetTester tester) async {
         // Arrange
-        const testIcon = Icons.filter_list;
-
         await tester.pumpWidget(
           createWidgetUnderTest(
-            icon: testIcon,
+            icon: MinyIcons.filter,
             title: '',
             onTap: () {},
           ),
         );
 
         // Assert
-        expect(find.byIcon(testIcon), findsOneWidget);
+        expect(find.byIcon(MinyIcons.filter), findsOneWidget);
         expect(find.text(''), findsNothing);
       },
     );
