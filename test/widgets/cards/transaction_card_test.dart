@@ -8,7 +8,8 @@ void main() {
   const testIcon = MinyIcons.outlineReceiveMoney;
   const testTransactionName = 'Transfer to Client';
   const testTransactionDateTime = 'Today, 08:23 PM';
-  const testTransactionAmount = '-₹3,200';
+  const testNegativeTransactionAmount = '-₹3,200';
+  const testPositiveTransactionAmount = '₹3,200';
   const testRemainingBalance = '₹18,110';
 
   group('TransactionCard Widget Tests', () {
@@ -38,7 +39,7 @@ void main() {
 
     testWidgets(
       'Given TransactionCard widget '
-      'When the widget is rendered '
+      'When negative amount is provided '
       'Then it displays the transaction details correctly',
       (WidgetTester tester) async {
         // Arrange
@@ -46,14 +47,14 @@ void main() {
           icon: testIcon,
           transactionName: testTransactionName,
           transactionDateTime: testTransactionDateTime,
-          transactionAmount: testTransactionAmount,
+          transactionAmount: testNegativeTransactionAmount,
           remainingBalance: testRemainingBalance,
         ));
 
         // Assert
         expect(find.text(testTransactionName), findsOneWidget);
         expect(find.text(testTransactionDateTime), findsOneWidget);
-        expect(find.text(testTransactionAmount), findsOneWidget);
+        expect(find.text(testNegativeTransactionAmount), findsOneWidget);
         expect(find.text(testRemainingBalance), findsOneWidget);
         expect(find.byIcon(testIcon), findsOneWidget);
 
@@ -63,13 +64,53 @@ void main() {
         expect(divider.constraints?.maxHeight, 1.0);
         expect(divider.constraints?.maxWidth, double.infinity);
         expect(divider.color, appTheme.colors.contrastLow);
+
+        final transactionAmountFinder =
+            tester.widget<Text>(find.text(testNegativeTransactionAmount));
+        expect(transactionAmountFinder.style?.color,
+            appTheme.colors.secondaryDark);
+      },
+    );
+
+    testWidgets(
+      'Given TransactionCard widget '
+      'When positive amount is provided '
+      'Then it displays the transaction details correctly',
+      (WidgetTester tester) async {
+        // Arrange
+        await tester.pumpWidget(createWidgetUnderTest(
+          icon: testIcon,
+          transactionName: testTransactionName,
+          transactionDateTime: testTransactionDateTime,
+          transactionAmount: testPositiveTransactionAmount,
+          remainingBalance: testRemainingBalance,
+        ));
+
+        // Assert
+        expect(find.text(testTransactionName), findsOneWidget);
+        expect(find.text(testTransactionDateTime), findsOneWidget);
+        expect(find.text(testPositiveTransactionAmount), findsOneWidget);
+        expect(find.text(testRemainingBalance), findsOneWidget);
+        expect(find.byIcon(testIcon), findsOneWidget);
+
+        final dividerFinder = find.byType(Container).last;
+        final divider = tester.widget<Container>(dividerFinder);
+
+        expect(divider.constraints?.maxHeight, 1.0);
+        expect(divider.constraints?.maxWidth, double.infinity);
+        expect(divider.color, appTheme.colors.contrastLow);
+
+        final transactionAmountFinder =
+            tester.widget<Text>(find.text(testPositiveTransactionAmount));
+        expect(
+            transactionAmountFinder.style?.color, appTheme.colors.primaryDark);
       },
     );
 
     testWidgets(
       'Given TransactionCard widget '
       'When null values are provided '
-      'Then it should display empty placeholders',
+      'Then it displays empty placeholders',
       (WidgetTester tester) async {
         await tester.pumpWidget(createWidgetUnderTest(
           icon: testIcon,
@@ -80,6 +121,7 @@ void main() {
         ));
 
         expect(find.text(''), findsNWidgets(4));
+        expect(find.byIcon(testIcon), findsOneWidget);
       },
     );
   });
