@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'theme/theme.dart';
-import 'widgets/string_constants.dart';
+import '../../theme/theme.dart';
+import '../string_constants.dart';
 
 class PayUsingModel {
   final String imageUrl;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tackleapp/widgets/cards/upi_info_card.dart';
 import 'package:tackleapp/widgets/string_constants.dart';
-import 'package:tackleapp/widgets/upi_info_card.dart';
 
-import 'constants/key_constants.dart';
+import '../constants/key_constants.dart';
 
 void main() {
   Widget _upiInfoCard() => ScreenUtilInit(

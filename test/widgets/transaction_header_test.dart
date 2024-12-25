@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tackleapp/theme/tokens/color_tokens.dart';
+import 'package:tackleapp/theme/theme.dart';
 import 'package:tackleapp/widgets/string_constants.dart';
 import 'package:tackleapp/widgets/transaction_header.dart';
 
@@ -45,7 +45,7 @@ void main() {
         final badgeFinder = find.text(testValue);
         final badgeText = tester.widget<Text>(badgeFinder);
 
-        expect(badgeText.style?.color, ColorTokens.contrastMedium);
+        expect(badgeText.style?.color, appTheme.colors.contrastMedium);
         expect(find.text(seeAllText), findsNothing);
         expect(find.text(allTransactionsText), findsOneWidget);
         expect(find.text(transactionsText), findsNothing);

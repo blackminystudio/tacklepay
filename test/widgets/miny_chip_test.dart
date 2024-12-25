@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tackleapp/miny_chip.dart';
 import 'package:tackleapp/theme/theme.dart';
+import 'package:tackleapp/widgets/miny_chip.dart';
 
 void main() {
   group('MinyChip Widget Tests', () {
+    const label = 'Toggle Chip';
     Widget createWidgetUnderTest({
       required String label,
       required bool selected,
@@ -32,8 +33,6 @@ void main() {
       'Then it has contrastDark color bg, light color text and a check icon ',
       (WidgetTester tester) async {
         // Arrange
-        const label = 'Selected Chip';
-
         await tester.pumpWidget(createWidgetUnderTest(
           label: label,
           selected: true,
@@ -60,8 +59,6 @@ void main() {
       'Then it has contrastLow color bg, contrastDark color text and no icon ',
       (WidgetTester tester) async {
         // Arrange
-        const label = 'Unselected Chip';
-
         await tester.pumpWidget(createWidgetUnderTest(
           label: label,
           selected: false,
@@ -87,7 +84,6 @@ void main() {
       'Then it switches from non-selected to selected state ',
       (WidgetTester tester) async {
         // Arrange
-        const label = 'Toggle Chip';
         var isSelected = false;
 
         await tester.pumpWidget(createWidgetUnderTest(

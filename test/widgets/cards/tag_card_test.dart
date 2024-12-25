@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tackleapp/tag_card.dart';
 import 'package:tackleapp/theme/theme.dart';
+import 'package:tackleapp/widgets/cards/tag_card.dart';
 
-const addTagTextKey = Key('AddTagText');
-const addTagTextFieldKey = Key('AddTagTextField');
+import '../constants/key_constants.dart';
 
 void main() {
   group('TagCard Widget Tests', () {
+    const newTag = 'NewTag';
     Widget createWidgetUnderTest({
       String? text,
       required TagType tagType,
@@ -57,13 +57,13 @@ void main() {
       expect(find.byType(TextField), findsOneWidget);
 
       // Act
-      await tester.enterText(find.byType(TextField), 'NewTag');
+      await tester.enterText(find.byType(TextField), newTag);
       await tester.testTextInput.receiveAction(TextInputAction.done);
       await tester.pump();
 
       // Assert
       expect(find.byType(TextField), findsNothing);
-      expect(onTextSubmitCallback.value, equals('NewTag'));
+      expect(onTextSubmitCallback.value, equals(newTag));
     });
 
     testWidgets(
@@ -72,19 +72,18 @@ void main() {
         'Then it displays the given text and a cross icon',
         (WidgetTester tester) async {
       // Arrange
-      const testText = 'SampleTag';
       var deleteTapped = false;
 
       await tester.pumpWidget(
         createWidgetUnderTest(
-          text: testText,
+          text: newTag,
           tagType: TagType.info,
           onDelete: () => deleteTapped = true,
         ),
       );
 
       // Assert
-      expect(find.text(testText), findsOneWidget);
+      expect(find.text(newTag), findsOneWidget);
       expect(find.byIcon(MinyIcons.cross), findsOneWidget);
 
       // Act
@@ -114,7 +113,7 @@ void main() {
     testWidgets(
       'Given a TagCard with TagType.create '
       'When the user taps outside the TextField '
-      'Then it should dismiss the TextField and revert to the initial state',
+      'Then it dismisses the TextField and reverts to the initial state',
       (WidgetTester tester) async {
         // Arrange
         await tester.pumpWidget(
