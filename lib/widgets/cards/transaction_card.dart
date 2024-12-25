@@ -23,25 +23,28 @@ class TransactionCard extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             buildIcon(theme),
             SizedBox(width: theme.sizing.width.s3),
             Expanded(
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  buildTitle(theme),
-                  buildPrice(theme),
+                  Flexible(child: buildTitle(theme)),
+                  Flexible(child: buildPrice(theme)),
                 ],
               ),
             ),
           ],
         ),
-        SizedBox(
-          height: theme.spacing.height.s20,
-        ),
+        SizedBox(height: theme.spacing.height.s20),
         Container(
           height: 1,
           width: double.infinity,
@@ -57,7 +60,8 @@ class TransactionCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: theme.colors.light,
           borderRadius: BorderRadius.circular(
-              theme.borderradius.full(theme.sizing.width.s14)),
+            theme.borderradius.full(theme.sizing.width.s14),
+          ),
         ),
         child: Icon(
           icon,
@@ -68,6 +72,7 @@ class TransactionCard extends StatelessWidget {
 
   Column buildPrice(ThemeData theme) => Column(
         crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             transactionAmount,
@@ -75,6 +80,7 @@ class TransactionCard extends StatelessWidget {
               color: ThemeStore.getColor(
                 theme: theme,
                 amount: transactionAmount,
+                isReversed: true,
               ),
             ),
           ),
@@ -90,6 +96,7 @@ class TransactionCard extends StatelessWidget {
 
   Column buildTitle(ThemeData theme) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             transactionName,
