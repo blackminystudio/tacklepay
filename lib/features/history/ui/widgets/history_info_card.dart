@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../theme/theme.dart';
-import '../string_constants.dart';
+import '../../../../theme/theme.dart';
+import '../../../../widgets/string_constants.dart';
 
 class HistoryInfoCard extends StatelessWidget {
   final String date;
