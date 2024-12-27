@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tackleapp/theme/theme.dart';
 import 'package:tackleapp/features/home/ui/widgets/summary_preview_card.dart';
+import 'package:tackleapp/theme/theme.dart';
 import 'package:tackleapp/widgets/string_constants.dart';
 
 import '../../../../widgets/constants/key_constants.dart';
