@@ -3,7 +3,7 @@ import '../../../../theme/theme.dart';
 import '../../../../widgets/cards/transaction_card.dart';
 import '../../../../widgets/transaction_header.dart';
 import '../widgets/filter_button.dart' as miny;
-import '../widgets/history_info_card.dart.';
+import '../widgets/history_info_card.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({super.key});
