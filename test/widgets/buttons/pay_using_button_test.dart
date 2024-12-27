@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tackleapp/pay_using_button.dart';
 import 'package:tackleapp/theme/theme.dart';
+import 'package:tackleapp/widgets/buttons/pay_using_button.dart';
 import 'package:tackleapp/widgets/string_constants.dart';
 
 void main() {
   group('PayUsingButton Widget Tests', () {
+    const provider1Text = 'Provider 1';
+    const provider2Text = 'Provider 2';
+    const provider3Text = 'Provider 3';
+
     final listOfPayUsing = [
       PayUsingModel(
         'https://example.com/image1.png',
-        'Provider 1',
+        provider1Text,
         'prefix1',
       ),
       PayUsingModel(
         'https://example.com/image2.png',
-        'Provider 2',
+        provider2Text,
         'prefix2',
       ),
       PayUsingModel(
         'https://example.com/image3.png',
-        'Provider 3',
+        provider3Text,
         'prefix3',
       ),
     ];
@@ -50,8 +54,8 @@ void main() {
       );
 
       expect(find.byType(GestureDetector), findsNWidgets(1));
-      expect(find.text('Provider 1'), findsOneWidget);
-      expect(find.text('Provider 2'), findsNothing);
+      expect(find.text(provider1Text), findsOneWidget);
+      expect(find.text(provider2Text), findsNothing);
       expect(find.text(payUsingText), findsOneWidget);
 
       expect(find.byType(Image), findsOneWidget);
@@ -79,12 +83,12 @@ void main() {
         ),
       );
 
-      await tester.tap(find.text('Provider 1'));
+      await tester.tap(find.text(provider1Text));
       await tester.pumpAndSettle();
 
-      expect(find.text('Provider 1'), findsOneWidget);
-      expect(find.text('Provider 2'), findsOneWidget);
-      expect(find.text('Provider 3'), findsOneWidget);
+      expect(find.text(provider1Text), findsOneWidget);
+      expect(find.text(provider2Text), findsOneWidget);
+      expect(find.text(provider3Text), findsOneWidget);
       expect(find.byIcon(MinyIcons.outlineArrowDown), findsOneWidget);
     });
 
@@ -101,14 +105,14 @@ void main() {
         ),
       );
 
-      await tester.tap(find.text('Provider 1'));
+      await tester.tap(find.text(provider1Text));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.text('Provider 2'));
+      await tester.tap(find.text(provider2Text));
       await tester.pumpAndSettle();
 
-      expect(find.text('Provider 2'), findsOneWidget);
-      expect(find.text('Provider 1'), findsNothing);
+      expect(find.text(provider2Text), findsOneWidget);
+      expect(find.text(provider1Text), findsNothing);
     });
 
     testWidgets(
@@ -124,15 +128,15 @@ void main() {
         ),
       );
 
-      await tester.tap(find.text('Provider 1'));
+      await tester.tap(find.text(provider1Text));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.text('Provider 1'));
+      await tester.tap(find.text(provider1Text));
       await tester.pumpAndSettle();
 
-      expect(find.text('Provider 1'), findsOneWidget);
-      expect(find.text('Provider 2'), findsNothing);
-      expect(find.text('Provider 3'), findsNothing);
+      expect(find.text(provider1Text), findsOneWidget);
+      expect(find.text(provider2Text), findsNothing);
+      expect(find.text(provider3Text), findsNothing);
     });
   });
 }

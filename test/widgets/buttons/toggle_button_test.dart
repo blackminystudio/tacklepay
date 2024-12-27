@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tackleapp/theme/tokens/color_tokens.dart';
+import 'package:tackleapp/theme/theme.dart';
 import 'package:tackleapp/widgets/buttons/toggle_button.dart';
 
 import '../constants/key_constants.dart';
@@ -45,7 +45,7 @@ void main() {
     expect(buttonBackground.alignment, Alignment.centerLeft);
     expect(
       (buttonSlider.decoration as BoxDecoration).color,
-      ColorTokens.secondary,
+      appTheme.colors.secondary,
     );
 
     // Tap to change to true
@@ -59,7 +59,7 @@ void main() {
     expect(buttonBackground.alignment, Alignment.centerRight);
     expect(
       (buttonSlider.decoration as BoxDecoration).color,
-      ColorTokens.primary,
+      appTheme.colors.primary,
     );
   });
 
@@ -84,7 +84,7 @@ void main() {
     expect(buttonBackground.alignment, Alignment.centerRight);
     expect(
       (buttonSlider.decoration as BoxDecoration).color,
-      ColorTokens.primary,
+      appTheme.colors.primary,
     );
 
     // Tap to change back to false
@@ -98,7 +98,7 @@ void main() {
     expect(buttonBackground.alignment, Alignment.centerLeft);
     expect(
       (buttonSlider.decoration as BoxDecoration).color,
-      ColorTokens.secondary,
+      appTheme.colors.secondary,
     );
   });
 
@@ -126,7 +126,7 @@ void main() {
     expect(buttonBackground.alignment, Alignment.centerRight);
     expect(
       (buttonSlider.decoration as BoxDecoration).color,
-      ColorTokens.primary,
+      appTheme.colors.primary,
     );
   });
 }

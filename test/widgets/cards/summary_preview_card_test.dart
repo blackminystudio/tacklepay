@@ -5,12 +5,13 @@ import 'package:tackleapp/theme/theme.dart';
 import 'package:tackleapp/widgets/cards/summary_preview_card.dart';
 import 'package:tackleapp/widgets/string_constants.dart';
 
-const richTextFinderKey = Key('RichText');
+import '../constants/key_constants.dart';
 
 void main() {
   group(
     'SummaryPreviewCard Widget Tests',
     () {
+      final richTextFinder = find.byKey(richTextFinderKey);
       const amount = '500000';
       const formattedamount = '₹5,00,000';
       const positivePercentage = '+10';
@@ -63,7 +64,6 @@ void main() {
             appTheme.colors.primary,
           );
 
-          final richTextFinder = find.byKey(richTextFinderKey);
           final richText = tester.widget<RichText>(richTextFinder);
           final textSpan = richText.text as TextSpan;
           final children = textSpan.children as List<InlineSpan>;
@@ -103,7 +103,6 @@ void main() {
             appTheme.colors.secondary,
           );
 
-          final richTextFinder = find.byKey(richTextFinderKey);
           final richText = tester.widget<RichText>(richTextFinder);
           final textSpan = richText.text as TextSpan;
           final children = textSpan.children as List<InlineSpan>;
@@ -130,7 +129,6 @@ void main() {
           expect(find.text(incomeText), findsOneWidget);
           expect(find.text(formattedamount), findsOneWidget);
 
-          final richTextFinder = find.byKey(richTextFinderKey);
           final richText = tester.widget<RichText>(richTextFinder);
           final textSpan = richText.text as TextSpan;
           final children = textSpan.children as List<InlineSpan>;
@@ -157,7 +155,6 @@ void main() {
           expect(find.text(expenseText), findsOneWidget);
           expect(find.text(formattedamount), findsOneWidget);
 
-          final richTextFinder = find.byKey(richTextFinderKey);
           final richText = tester.widget<RichText>(richTextFinder);
           final textSpan = richText.text as TextSpan;
           final children = textSpan.children as List<InlineSpan>;
@@ -184,7 +181,6 @@ void main() {
           expect(find.text(expenseText), findsOneWidget);
           expect(find.text(formattedamount), findsOneWidget);
 
-          final richTextFinder = find.byKey(richTextFinderKey);
           final richText = tester.widget<RichText>(richTextFinder);
           final textSpan = richText.text as TextSpan;
           final children = textSpan.children as List<InlineSpan>;
