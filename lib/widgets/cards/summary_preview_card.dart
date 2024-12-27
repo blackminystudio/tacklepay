@@ -22,6 +22,21 @@ class SummaryPreviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String _formatIndianNumber(String number) {
+      if (number.isEmpty) return number;
+      final length = number.length;
+      if (length <= 3) return number;
+      final lastThree = number.substring(length - 3);
+      final remaining = number.substring(0, length - 3);
+      final regExp = RegExp(r'(\d)(?=(\d{2})+(?!\d))');
+      final formattedRemaining = remaining.replaceAllMapped(
+        regExp,
+        (Match match) => '${match[1]},',
+      );
+      return '$formattedRemaining,$lastThree';
+    }
+
+    final formattedAmount = _formatIndianNumber(amount);
     final isIncome = header == HeaderType.income;
     final theme = Theme.of(context);
     final title = header == HeaderType.income ? incomeText : expenseText;
@@ -72,23 +87,26 @@ class SummaryPreviewCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '₹$amount',
+                  '₹$formattedAmount',
                   style: theme.textStyle.titleBold.copyWith(
                     color: theme.colors.contrastDark,
                   ),
                 ),
                 SizedBox(height: theme.spacing.height.s4),
-                Text.rich(
-                  TextSpan(
-                    text: '$percentage%',
-                    style: theme.textStyle.bodyBold.copyWith(
-                      color: ThemeStore.getColor(
-                        theme: theme,
-                        isReversed: isIncome,
-                        amount: percentage,
-                      ),
-                    ),
+                RichText(
+                  key: const Key('RichText'),
+                  text: TextSpan(
                     children: [
+                      TextSpan(
+                        text: '$percentage%',
+                        style: theme.textStyle.bodyBold.copyWith(
+                          color: ThemeStore.getColor(
+                            theme: theme,
+                            isReversed: isIncome,
+                            amount: percentage,
+                          ),
+                        ),
+                      ),
                       TextSpan(
                         text: vsLastMonthText,
                         style: theme.textStyle.quote.copyWith(
@@ -97,7 +115,7 @@ class SummaryPreviewCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),

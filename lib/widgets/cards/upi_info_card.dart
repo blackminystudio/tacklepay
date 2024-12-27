@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '/theme/theme.dart';
-import 'string_constants.dart';
+import '../string_constants.dart';
 
 class UpiInfoCard extends StatefulWidget {
   const UpiInfoCard({super.key});
@@ -109,6 +109,7 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
                 ],
               ),
               Container(
+                key: const Key('UPIInfoDivider'),
                 height: theme.spacing.height.s1,
                 color: theme.colors.contrastLow,
                 margin: EdgeInsets.symmetric(
