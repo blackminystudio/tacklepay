@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: const ActionButton(
         icon: MinyIcons.fillScan,
       ),
-      // TODO: Correct Implementation of BottomAppBar with Top Shadow
+      //  TODO: Correct Implementation of BottomAppBar with Top Shadow
 
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(
@@ -147,10 +147,11 @@ class CustomShapePainter extends CustomPainter {
 
       // Close the path
       ..close();
-    canvas.drawShadow(path, Colors.black.withAlpha(50), 6.0, false);
+    canvas
+      ..drawShadow(path, Colors.black.withAlpha(50), 6.0, false)
 
-    // Draw the shape
-    canvas.drawPath(path, paint);
+      // Draw the shape
+      ..drawPath(path, paint);
   }
 
   @override
