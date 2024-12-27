@@ -47,7 +47,7 @@ class HistoryPage extends StatelessWidget {
                   title: 'FILTER',
                   icon: MinyIcons.filter,
                   onTap: () {
-                    print('Filter button tapped');
+                    print('Filter Button tapped');
                   },
                 ),
               ],
