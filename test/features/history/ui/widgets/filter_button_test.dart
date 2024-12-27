@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tackleapp/features/history/ui/widgets/filter_button.dart';
 import 'package:tackleapp/theme/theme.dart';
-import 'package:tackleapp/widgets/buttons/filter_button.dart';
 
 void main() {
   group('FilterButton Widget Tests', () {

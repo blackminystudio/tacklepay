@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../theme/theme.dart';
-import '../store/theme_store.dart';
-import '../string_constants.dart';
+import '../../../../theme/theme.dart';
+import '../../../../widgets/store/theme_store.dart';
+import '../../../../widgets/string_constants.dart';
 
 enum HeaderType {
   income,
