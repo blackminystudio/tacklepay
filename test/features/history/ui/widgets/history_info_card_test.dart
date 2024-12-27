@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tackleapp/theme/theme.dart';
 
-import 'package:tackleapp/widgets/cards/history_info_card.dart';
+import 'package:tackleapp/features/history/ui/widgets/history_info_card.dart';
 import 'package:tackleapp/widgets/string_constants.dart';
 
 void main() {
