@@ -54,7 +54,7 @@ class HistoryPage extends StatelessWidget {
               amount: '53500',
             ),
             SizedBox(height: theme.sizing.height.s8),
-            const TransactionHeader(value: '03'),
+            TransactionHeader(value: transactionList.length.toString()),
             SizedBox(height: theme.sizing.height.s7),
             Expanded(
               child: ListView.builder(
@@ -103,6 +103,12 @@ final transactionList = [
     amount: '-₹300',
     balance: '₹ 21,310',
     dateTime: 'Yesterday, 10:20 AM',
+  ),
+  TransactionModel(
+    name: 'Transfer to Client',
+    amount: '-₹50,000',
+    balance: '₹ 21,610',
+    dateTime: '10th Nov, 04:35 PM',
   ),
   TransactionModel(
     name: 'Transfer to Client',
