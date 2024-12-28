@@ -23,8 +23,8 @@ class UPICard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final firstNameInitial = payeeFirstName[0].toUpperCase();
-    final lastNameInitial = payeeLastName[0].toUpperCase();
+    final firstNameInitial = payeeFirstName.trim()[0].toUpperCase();
+    final lastNameInitial = payeeLastName.trim()[0].toUpperCase();
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(theme.spacing.width.s12),
@@ -53,7 +53,7 @@ class UPICard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              '$payeeFirstName $payeeLastName',
+              '${payeeFirstName.trim()} ${payeeLastName.trim()}',
               style: theme.textStyle.headingSmallRegular.copyWith(
                 color: theme.colors.contrastDark,
               ),
