@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../theme/theme.dart';
 import '../../../../widgets/store/theme_store.dart';
-import '../../../../widgets/string_constants.dart';
+import '../../utilities/constants/home_constant.dart';
 
 enum HeaderType {
   income,
@@ -39,7 +39,9 @@ class SummaryPreviewCard extends StatelessWidget {
     final formattedAmount = _formatIndianNumber(amount);
     final isIncome = header == HeaderType.income;
     final theme = Theme.of(context);
-    final title = header == HeaderType.income ? incomeText : expenseText;
+    final title = header == HeaderType.income
+        ? HomeConstants.incomeText
+        : HomeConstants.expenseText;
     final headerColor = header == HeaderType.income
         ? theme.colors.primary
         : theme.colors.secondary;
@@ -108,7 +110,7 @@ class SummaryPreviewCard extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: vsLastMonthText,
+                        text: HomeConstants.vsLastMonthText,
                         style: theme.textStyle.quote.copyWith(
                           color: theme.colors.contrastDark,
                         ),

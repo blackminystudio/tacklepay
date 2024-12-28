@@ -56,7 +56,7 @@ class TransactionCard extends StatelessWidget {
         height: theme.sizing.width.s14,
         width: theme.sizing.width.s14,
         decoration: BoxDecoration(
-          color: theme.colors.light,
+          color: theme.colors.contrastLight,
           borderRadius: BorderRadius.circular(
             theme.borderradius.full(theme.sizing.width.s14),
           ),
@@ -65,7 +65,9 @@ class TransactionCard extends StatelessWidget {
           transactionAmount.startsWith('-')
               ? MinyIcons.outlineSendMoney
               : MinyIcons.outlineReceiveMoney,
-          color: theme.colors.dark,
+          color: transactionAmount.startsWith('-')
+              ? theme.colors.secondaryDark
+              : theme.colors.primaryDark,
           size: theme.sizing.width.s6,
         ),
       );

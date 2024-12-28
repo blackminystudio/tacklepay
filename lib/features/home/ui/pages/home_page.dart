@@ -4,6 +4,7 @@ import '../../../../widgets/balance_amount.dart';
 import '../../../../widgets/buttons/action_button.dart';
 import '../../../../widgets/cards/transaction_card.dart';
 import '../../../../widgets/transaction_header.dart';
+import '../../utilities/constants/home_constant.dart';
 import '../widgets/greeting_card.dart';
 import '../widgets/summary_preview_card.dart';
 
@@ -56,7 +57,7 @@ class _HomePageState extends State<HomePage> {
                   amount: '50300',
                   percentage: '18',
                   header: HeaderType.expense,
-                )
+                ),
               ],
             ),
             SizedBox(height: theme.sizing.height.s13),
@@ -72,9 +73,6 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) => Padding(
                   padding: EdgeInsets.only(bottom: theme.sizing.height.s5),
                   child: TransactionCard(
-                    icon: transactionList[index].amount.startsWith('-')
-                        ? MinyIcons.outlineSendMoney
-                        : MinyIcons.outlineReceiveMoney,
                     transactionName: transactionList[index].name,
                     transactionAmount: transactionList[index].amount,
                     transactionDateTime: transactionList[index].dateTime,
@@ -89,7 +87,8 @@ class _HomePageState extends State<HomePage> {
               children: [
                 const BalanceAmount(balanceamount: '1000'),
                 ActionButton(
-                  title: 'New Transaction',
+                  padding: theme.spacing.width.s10,
+                  title: HomeConstants.addTransacButtonText,
                   onTap: () {},
                 ),
               ],
@@ -99,49 +98,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
-
-class CustomShapePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.white
-      ..style = PaintingStyle.fill;
-
-    final path = Path()
-
-      // Start at the top-left corner
-      ..moveTo(0, 0)
-
-      // Draw the top straight line to where the circular indentation starts
-      ..lineTo(size.width / 2 - 50, 0)
-
-      // Add the circular indentation
-      ..arcToPoint(
-        Offset(size.width / 2 + 50, 0),
-        radius: const Radius.circular(50),
-      )
-
-      // Draw the remaining top straight line
-      ..lineTo(size.width, 0)
-
-      // Draw the right vertical line
-      ..lineTo(size.width, size.height)
-
-      // Draw the bottom horizontal line
-      ..lineTo(0, size.height)
-
-      // Close the path
-      ..close();
-    canvas
-      ..drawShadow(path, Colors.black.withAlpha(50), 6.0, false)
-
-      // Draw the shape
-      ..drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
 
 class TransactionModel {
@@ -176,6 +132,12 @@ final transactionList = [
     amount: '-₹300',
     balance: '₹21,310',
     dateTime: 'Yesterday, 10:20 AM',
+  ),
+  TransactionModel(
+    name: 'Transfer to Client',
+    amount: '-₹50,000',
+    balance: '₹21,610',
+    dateTime: '10th Nov, 04:35 PM',
   ),
   TransactionModel(
     name: 'Transfer to Client',

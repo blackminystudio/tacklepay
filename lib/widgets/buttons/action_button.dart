@@ -22,12 +22,12 @@ class ActionButton extends StatelessWidget {
 
   Widget buildIcon(ThemeData theme) => Transform.translate(
         offset: icon == MinyIcons.fillScan
-            ? Offset(-theme.spacing.width.s48 / 2, 0)
+            ? Offset(-theme.sizing.width.s9 / 2, 0)
             : const Offset(0, 0),
         child: Icon(
           icon,
           color: theme.colors.light,
-          size: theme.spacing.width.s48,
+          size: theme.sizing.width.s9,
         ),
       );
 
@@ -73,7 +73,7 @@ class ActionButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(theme.spacing.width.s16),
+        padding: EdgeInsets.all(theme.spacing.width.s12),
         decoration: BoxDecoration(
           boxShadow:
               title == null && icon != null ? [theme.elevation.e1] : null,
