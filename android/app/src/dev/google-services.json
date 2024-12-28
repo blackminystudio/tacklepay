@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "911090474857",
+    "project_id": "tacklepay-dev",
+    "storage_bucket": "tacklepay-dev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911090474857:android:d128aa5f85c4c126a9e7f8",
+        "android_client_info": {
+          "package_name": "com.blackminystudio.tacklepaydev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQUss85fygRo2G2bdiahvh2VmHbX13Em8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

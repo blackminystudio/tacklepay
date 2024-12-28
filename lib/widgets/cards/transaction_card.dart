@@ -3,7 +3,6 @@ import '/theme/theme.dart';
 import '../store/theme_store.dart';
 
 class TransactionCard extends StatelessWidget {
-  final IconData icon;
   final String transactionName;
   final String transactionDateTime;
   final String transactionAmount;
@@ -11,7 +10,6 @@ class TransactionCard extends StatelessWidget {
 
   const TransactionCard({
     super.key,
-    required this.icon,
     required this.transactionName,
     required this.transactionDateTime,
     required this.transactionAmount,
@@ -38,7 +36,7 @@ class TransactionCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Flexible(child: buildTitle(theme)),
-                  Flexible(child: buildPrice(theme)),
+                  buildPrice(theme),
                 ],
               ),
             ),
@@ -64,7 +62,9 @@ class TransactionCard extends StatelessWidget {
           ),
         ),
         child: Icon(
-          icon,
+          transactionAmount.startsWith('-')
+              ? MinyIcons.outlineSendMoney
+              : MinyIcons.outlineReceiveMoney,
           color: theme.colors.dark,
           size: theme.sizing.width.s6,
         ),
