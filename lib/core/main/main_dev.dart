@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 
@@ -12,7 +11,5 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DevFirebaseOptions.currentPlatform,
   );
-  final data = {'msg': 'Hello'};
-  await FirebaseFirestore.instance.collection('Test').add(data);
   await runner.main();
 }
