@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../theme/theme.dart';
 import '../../../../widgets/cards/transaction_card.dart';
 import '../../../../widgets/transaction_header.dart';
+import '../../utilities/constants/history_constant.dart';
 import '../widgets/filter_button.dart' as miny;
 import '../widgets/history_info_card.dart';
 
@@ -16,7 +17,7 @@ class HistoryPage extends StatelessWidget {
       backgroundColor: theme.colors.light,
       appBar: AppBar(
         backgroundColor: theme.colors.contrastLight,
-        title: const Text('History'),
+        title: const Text(HistoryConstants.pageName),
         leading: IconButton(
           icon: const Icon(MinyIcons.outlineArrowLeft),
           onPressed: () {
@@ -36,18 +37,14 @@ class HistoryPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 miny.FilterButton(
-                  title: 'TAGS',
+                  title: HistoryConstants.tagButtonText,
                   icon: MinyIcons.tag,
-                  onTap: () {
-                    print('Filter button tapped');
-                  },
+                  onTap: () {},
                 ),
                 miny.FilterButton(
-                  title: 'FILTER',
+                  title: HistoryConstants.filterButtonText,
                   icon: MinyIcons.filter,
-                  onTap: () {
-                    print('Filter Button tapped');
-                  },
+                  onTap: () {},
                 ),
               ],
             ),
