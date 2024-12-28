@@ -8,7 +8,9 @@
             "flutterMode": "debug",
             "args": [
                 "--flavor",
-                "dev"
+                "dev",
+                "--dart-define",
+                "USE_FIREBASE_EMULATOR=true"
             ],
             "program": "lib/core/main/main_dev.dart"
         },
