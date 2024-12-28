@@ -18,10 +18,9 @@ class HistoryPage extends StatelessWidget {
         backgroundColor: theme.colors.contrastLight,
         title: const Text('History'),
         leading: IconButton(
-          // TODO: needs to be changed to arrowLeft
-          icon: const Icon(MinyIcons.outlineArrowDown),
+          icon: const Icon(MinyIcons.outlineArrowLeft),
           onPressed: () {
-            Navigator.of(context).pop();
+            // Navigator.of(context).pop();
           },
         ),
       ),
@@ -37,8 +36,8 @@ class HistoryPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 miny.FilterButton(
-                  title: 'Tags',
-                  icon: MinyIcons.filter,
+                  title: 'TAGS',
+                  icon: MinyIcons.tag,
                   onTap: () {
                     print('Filter button tapped');
                   },
@@ -58,24 +57,21 @@ class HistoryPage extends StatelessWidget {
               amount: '53500',
             ),
             SizedBox(height: theme.sizing.height.s8),
-            TransactionHeader(
-              value: '03',
-              onSeeAllPressed: () {},
-            ),
+            const TransactionHeader(value: '03'),
             SizedBox(height: theme.sizing.height.s7),
             Expanded(
               child: ListView.builder(
-                  itemCount: 3,
-                  itemBuilder: (context, index) => Padding(
-                        padding:
-                            EdgeInsets.only(bottom: theme.sizing.height.s5),
-                        child: const TransactionCard(
-                            icon: MinyIcons.outlineSendMoney,
-                            transactionName: 'title',
-                            transactionAmount: 'amount',
-                            transactionDateTime: 'dateTime',
-                            remainingBalance: 'balance'),
-                      )),
+                itemCount: transactionList.length,
+                itemBuilder: (context, index) => Padding(
+                  padding: EdgeInsets.only(bottom: theme.sizing.height.s5),
+                  child: TransactionCard(
+                    transactionName: transactionList[index].name,
+                    transactionAmount: transactionList[index].amount,
+                    transactionDateTime: transactionList[index].dateTime,
+                    remainingBalance: transactionList[index].balance,
+                  ),
+                ),
+              ),
             ),
           ],
         ),
@@ -83,3 +79,38 @@ class HistoryPage extends StatelessWidget {
     );
   }
 }
+
+class TransactionModel {
+  final String name;
+  final String amount;
+  final String dateTime;
+  final String balance;
+
+  TransactionModel({
+    required this.name,
+    required this.amount,
+    required this.dateTime,
+    required this.balance,
+  });
+}
+
+final transactionList = [
+  TransactionModel(
+    name: 'Refund ..........',
+    amount: '₹3200',
+    balance: '₹ 18,110',
+    dateTime: 'Today, 08:23 PM',
+  ),
+  TransactionModel(
+    name: 'Coffee',
+    amount: '-₹300',
+    balance: '₹ 21,310',
+    dateTime: 'Yesterday, 10:20 AM',
+  ),
+  TransactionModel(
+    name: 'Transfer to Client',
+    amount: '-₹50,000',
+    balance: '₹ 21,610',
+    dateTime: '10th Nov, 04:35 PM',
+  ),
+];

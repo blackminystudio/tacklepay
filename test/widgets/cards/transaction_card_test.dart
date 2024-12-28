@@ -5,7 +5,8 @@ import 'package:tackleapp/theme/theme.dart';
 import 'package:tackleapp/widgets/cards/transaction_card.dart';
 
 void main() {
-  const testIcon = MinyIcons.outlineReceiveMoney;
+  const testIconRecieve = MinyIcons.outlineReceiveMoney;
+  const testIconSend = MinyIcons.outlineSendMoney;
   const testTransactionName = 'Transfer to Client';
   const testTransactionDateTime = 'Today, 08:23 PM';
   const testNegativeTransactionAmount = '-₹3,200';
@@ -14,7 +15,6 @@ void main() {
 
   group('TransactionCard Widget Tests', () {
     Widget createWidgetUnderTest({
-      required IconData icon,
       required String transactionName,
       required String transactionDateTime,
       required String transactionAmount,
@@ -27,7 +27,6 @@ void main() {
             theme: appTheme,
             home: Scaffold(
               body: TransactionCard(
-                icon: icon,
                 transactionName: transactionName,
                 transactionDateTime: transactionDateTime,
                 transactionAmount: transactionAmount,
@@ -44,7 +43,6 @@ void main() {
       (WidgetTester tester) async {
         // Arrange
         await tester.pumpWidget(createWidgetUnderTest(
-          icon: testIcon,
           transactionName: testTransactionName,
           transactionDateTime: testTransactionDateTime,
           transactionAmount: testNegativeTransactionAmount,
@@ -56,7 +54,7 @@ void main() {
         expect(find.text(testTransactionDateTime), findsOneWidget);
         expect(find.text(testNegativeTransactionAmount), findsOneWidget);
         expect(find.text(testRemainingBalance), findsOneWidget);
-        expect(find.byIcon(testIcon), findsOneWidget);
+        expect(find.byIcon(testIconSend), findsOneWidget);
 
         final dividerFinder = find.byType(Container).last;
         final divider = tester.widget<Container>(dividerFinder);
@@ -65,10 +63,13 @@ void main() {
         expect(divider.constraints?.maxWidth, double.infinity);
         expect(divider.color, appTheme.colors.contrastLow);
 
-        final transactionAmountFinder =
-            tester.widget<Text>(find.text(testNegativeTransactionAmount));
-        expect(transactionAmountFinder.style?.color,
-            appTheme.colors.secondaryDark);
+        final transactionAmountFinder = tester.widget<Text>(
+          find.text(testNegativeTransactionAmount),
+        );
+        expect(
+          transactionAmountFinder.style?.color,
+          appTheme.colors.secondaryDark,
+        );
       },
     );
 
@@ -79,7 +80,6 @@ void main() {
       (WidgetTester tester) async {
         // Arrange
         await tester.pumpWidget(createWidgetUnderTest(
-          icon: testIcon,
           transactionName: testTransactionName,
           transactionDateTime: testTransactionDateTime,
           transactionAmount: testPositiveTransactionAmount,
@@ -91,7 +91,7 @@ void main() {
         expect(find.text(testTransactionDateTime), findsOneWidget);
         expect(find.text(testPositiveTransactionAmount), findsOneWidget);
         expect(find.text(testRemainingBalance), findsOneWidget);
-        expect(find.byIcon(testIcon), findsOneWidget);
+        expect(find.byIcon(testIconRecieve), findsOneWidget);
 
         final dividerFinder = find.byType(Container).last;
         final divider = tester.widget<Container>(dividerFinder);
@@ -113,7 +113,6 @@ void main() {
       'Then it displays empty placeholders',
       (WidgetTester tester) async {
         await tester.pumpWidget(createWidgetUnderTest(
-          icon: testIcon,
           transactionName: '',
           transactionDateTime: '',
           transactionAmount: '',
@@ -121,7 +120,7 @@ void main() {
         ));
 
         expect(find.text(''), findsNWidgets(4));
-        expect(find.byIcon(testIcon), findsOneWidget);
+        expect(find.byIcon(testIconRecieve), findsOneWidget);
       },
     );
   });

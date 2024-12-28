@@ -17,7 +17,6 @@ class TransactionHeader extends StatelessWidget {
     final theme = Theme.of(context);
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: theme.sizing.width.s4,
         vertical: theme.sizing.height.s2,
       ),
       child: Row(
