@@ -24,28 +24,36 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: theme.colors.light,
       body: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: theme.sizing.width.s20,
-          horizontal: theme.sizing.width.s10,
+        padding: EdgeInsets.only(
+          top: theme.sizing.width.s20,
+          left: theme.sizing.width.s10,
+          right: theme.sizing.width.s10,
+          bottom: theme.sizing.width.s10,
         ),
         child: Column(
           children: [
-            GreetingCard(
-              profilePictureUrl: imageUrl,
-              userName: 'Satyabrata Nayak',
-              greetingMessage: 'Good Morning',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GreetingCard(
+                  profilePictureUrl: imageUrl,
+                  userName: 'Satyabrata Nayak',
+                  greetingMessage: 'Good Morning',
+                ),
+                const ActionButton(icon: MinyIcons.fillScan)
+              ],
             ),
             SizedBox(height: theme.sizing.height.s9),
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SummaryPreviewCard(
-                  amount: '71610',
+                  amount: '3200',
                   percentage: '18',
                   header: HeaderType.income,
                 ),
                 SummaryPreviewCard(
-                  amount: '71610',
+                  amount: '50300',
                   percentage: '18',
                   header: HeaderType.expense,
                 )
@@ -53,28 +61,29 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(height: theme.sizing.height.s13),
             TransactionHeader(
-              value: '03',
+              value: transactionList.length.toString(),
               onSeeAllPressed: () {},
             ),
-            SizedBox(height: theme.sizing.height.s8),
+            SizedBox(height: theme.sizing.height.s7),
             Expanded(
               child: ListView.builder(
-                itemCount: 3,
+                itemCount: transactionList.length,
+                padding: EdgeInsets.zero,
                 itemBuilder: (context, index) => Padding(
-                  padding: EdgeInsets.only(
-                    bottom: theme.sizing.height.s5,
-                  ),
-                  child: const TransactionCard(
-                    icon: MinyIcons.outlineSendMoney,
-                    transactionName: 'Transfer ',
-                    transactionDateTime: 'Today,08:23 PM',
-                    transactionAmount: '3200',
-                    remainingBalance: '18110',
+                  padding: EdgeInsets.only(bottom: theme.sizing.height.s5),
+                  child: TransactionCard(
+                    icon: transactionList[index].amount.startsWith('-')
+                        ? MinyIcons.outlineSendMoney
+                        : MinyIcons.outlineReceiveMoney,
+                    transactionName: transactionList[index].name,
+                    transactionAmount: transactionList[index].amount,
+                    transactionDateTime: transactionList[index].dateTime,
+                    remainingBalance: transactionList[index].balance,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: theme.sizing.height.s13),
+            SizedBox(height: theme.sizing.height.s5),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -86,29 +95,6 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ],
-        ),
-      ),
-      floatingActionButton: const ActionButton(
-        icon: MinyIcons.fillScan,
-      ),
-      //  TODO: Correct Implementation of BottomAppBar with Top Shadow
-
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withAlpha(30), // Shadow color with opacity
-              offset: const Offset(0, -5), // Offset for shadow on Y-axis
-              blurRadius: 10, // Blur radius for softness
-            ),
-          ],
-        ),
-        child: CustomPaint(
-          size: const Size(300, 150),
-          painter: CustomShapePainter(),
         ),
       ),
     );
@@ -157,3 +143,44 @@ class CustomShapePainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
+
+class TransactionModel {
+  final String name;
+  final String amount;
+  final String dateTime;
+  final String balance;
+
+  TransactionModel({
+    required this.name,
+    required this.amount,
+    required this.dateTime,
+    required this.balance,
+  });
+}
+
+final transactionList = [
+  TransactionModel(
+    name: 'Refund',
+    amount: '₹3200',
+    balance: '₹18,110',
+    dateTime: 'Today, 08:23 PM',
+  ),
+  TransactionModel(
+    name: 'Coffee',
+    amount: '-₹300',
+    balance: '₹21,310',
+    dateTime: 'Yesterday, 10:20 AM',
+  ),
+  TransactionModel(
+    name: 'Coffee',
+    amount: '-₹300',
+    balance: '₹21,310',
+    dateTime: 'Yesterday, 10:20 AM',
+  ),
+  TransactionModel(
+    name: 'Transfer to Client',
+    amount: '-₹50,000',
+    balance: '₹21,610',
+    dateTime: '10th Nov, 04:35 PM',
+  ),
+];
