@@ -3,16 +3,14 @@
 const appName = 'Tackle Pay';
 const rupeeSymbol = '₹';
 const emptyString = '';
-const incomeText = 'Income';
-const expenseText = 'Expense';
+
 const checkZero = '0';
 const checkMinus = '-';
-const newExpense = 'New Expense';
 const addTagText = 'Add Tag';
 const hintTextAmount = 'Enter Amount';
 const hintTextMessage = 'Enter Message';
 const payUsingText = 'Pay Using';
-const vsLastMonthText = '  vs. last month';
+
 const balanceAmountText = 'Balance Amount';
 const messageText = 'Message';
 const amountText = 'Amount';

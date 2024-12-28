@@ -21,6 +21,7 @@ class GreetingCard extends StatelessWidget {
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
         CircleAvatar(
           radius: theme.borderradius.full(theme.sizing.width.s15),
