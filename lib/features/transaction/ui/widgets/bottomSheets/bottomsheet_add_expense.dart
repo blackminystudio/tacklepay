@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../theme/theme.dart';
 import '../../../../../widgets/bottomSheets/bottomsheet_scaffold.dart';
@@ -10,42 +11,49 @@ import '../../../../../widgets/buttons/toggle_button.dart';
 import '../../../../../widgets/cards/tag_card.dart';
 import '../../../../../widgets/cards/upi_info_card.dart';
 import '../../../../../widgets/pay_date_dropdown.dart';
+import '../../../store/transaction_store.dart';
 
 Future showAddExpenseBottomSheet(BuildContext context) async {
   final theme = Theme.of(context);
-  var isExpense = false;
-  log(isExpense.toString());
+  final store = Provider.of<TransactionStore>(context, listen: false);
+
   await showScaffoldBottomsheet(
-    title: isExpense ? 'Expense' : 'Income',
     context,
     actionButton: _buildMinyToggleButton(
-      isExpense: isExpense,
+      isExpense: store.isExpense,
       onChanged: (value) {
-        isExpense = value;
-        // log(isExpense.toString());
+        store.setIsExpense(value);
       },
     ),
     children: [
-      _buildScanPayNowBody(theme),
-      _buildPayNowButtonBody(),
+      _buildScanPayNowBody(theme, store),
+      StatefulBuilder(
+        builder: (context, _) => _buildPayNowButtonBody(context),
+      ),
     ],
   );
 }
 
-Row _buildPayNowButtonBody() => Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Expanded(
-          child: PayDateDropdown(),
-        ),
-        const ActionButton(
-          title: 'Add Expense',
-        )
-      ],
-    );
+Row _buildPayNowButtonBody(BuildContext context) {
+  final store = Provider.of<TransactionStore>(context);
+  final theme = Theme.of(context);
+  log('valuse:${store.isExpense}');
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    crossAxisAlignment: CrossAxisAlignment.end,
+    children: [
+      Expanded(
+        child: PayDateDropdown(),
+      ),
+      ActionButton(
+        color: !store.isExpense ? theme.colors.primary : null,
+        title: store.isExpense ? 'Add Expense' : 'Add Income',
+      )
+    ],
+  );
+}
 
-StatefulBuilder _buildScanPayNowBody(ThemeData theme) {
+StatefulBuilder _buildScanPayNowBody(ThemeData theme, TransactionStore store) {
   final tagList = <String>['Groc', 'Home2'];
   return StatefulBuilder(builder: (context, setState) {
     final scrollController = ScrollController();
@@ -76,7 +84,8 @@ StatefulBuilder _buildScanPayNowBody(ThemeData theme) {
                       text: e,
                       onDelete: () {
                         setState(() {
-                          tagList.remove(e);
+                          store.tagList.remove(e);
+                          // notifyListeners
                         });
                       },
                     ),
@@ -85,7 +94,7 @@ StatefulBuilder _buildScanPayNowBody(ThemeData theme) {
                     tagType: TagType.create,
                     onTextSubmit: (value) {
                       setState(() {
-                        tagList.add(value);
+                        store.addTag(value);
                       });
                     },
                   ),
