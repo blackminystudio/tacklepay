@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../../../../../theme/theme.dart';
@@ -11,9 +13,18 @@ import '../../../../../widgets/pay_date_dropdown.dart';
 
 Future showAddExpenseBottomSheet(BuildContext context) async {
   final theme = Theme.of(context);
+  var isExpense = false;
+  log(isExpense.toString());
   await showScaffoldBottomsheet(
+    title: isExpense ? 'Expense' : 'Income',
     context,
-    actionButton: _buildMinyToggleButton(),
+    actionButton: _buildMinyToggleButton(
+      isExpense: isExpense,
+      onChanged: (value) {
+        isExpense = value;
+        // log(isExpense.toString());
+      },
+    ),
     children: [
       _buildScanPayNowBody(theme),
       _buildPayNowButtonBody(),
@@ -91,7 +102,11 @@ StatefulBuilder _buildScanPayNowBody(ThemeData theme) {
   });
 }
 
-MinyToggleButton _buildMinyToggleButton() => MinyToggleButton(
-      value: false,
-      onChanged: (value) {},
+MinyToggleButton _buildMinyToggleButton({
+  required bool isExpense,
+  required Function(bool value) onChanged,
+}) =>
+    MinyToggleButton(
+      value: isExpense,
+      onChanged: (value) => onChanged.call(value),
     );
