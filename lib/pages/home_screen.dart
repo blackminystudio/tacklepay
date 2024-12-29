@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../core/flavors.dart';
+import '../features/scanpay/ui/widgets/bottomsheets/bottomsheet_scan_n_pay.dart';
 import '../theme/theme.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -17,7 +18,8 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
-                await testWriteData();
+                // await testWriteData();
+                await showScanNPayBottomSheet(context);
               },
               child: const Text('Add Data'),
             )
