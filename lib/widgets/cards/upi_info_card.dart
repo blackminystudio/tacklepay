@@ -4,7 +4,13 @@ import '/theme/theme.dart';
 import '../string_constants.dart';
 
 class UpiInfoCard extends StatefulWidget {
-  const UpiInfoCard({super.key});
+  final Function(String value) onAmountChanged;
+  final Function(String value) onMessageChanged;
+  const UpiInfoCard({
+    super.key,
+    required this.onAmountChanged,
+    required this.onMessageChanged,
+  });
 
   @override
   State<UpiInfoCard> createState() => _UpiInfoCardState();
@@ -13,7 +19,7 @@ class UpiInfoCard extends StatefulWidget {
 class _UpiInfoCardState extends State<UpiInfoCard> {
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _messageController = TextEditingController();
-  String _originalText = '';
+  String _messageText = '';
 
   final FocusNode _amountFocusNode = FocusNode();
   final FocusNode _messageFocusNode = FocusNode();
@@ -35,7 +41,7 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
         if (_messageFocusNode.hasFocus) {
           onTapMessageField();
         } else {
-          onSubmitMessageField(_originalText);
+          onSubmitMessageField(_messageText);
         }
       },
     );
@@ -53,11 +59,12 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
     } else {
       _messageFocusNode.requestFocus();
     }
+    widget.onAmountChanged.call(_amountController.text);
   }
 
   void onSubmitMessageField(String text) {
     // Update the original
-    _originalText = text;
+    _messageText = text;
     if (text.length > 15) {
       _messageController
         ..text = '${text.substring(0, 15)}...'
@@ -65,12 +72,13 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
           TextPosition(offset: _messageController.text.length),
         );
     }
+    widget.onMessageChanged.call(_messageText);
   }
 
   void onTapMessageField() {
     // Restore the original text
     _messageController
-      ..text = _originalText
+      ..text = _messageText
       ..selection = TextSelection.fromPosition(
         TextPosition(offset: _messageController.text.length),
       );
