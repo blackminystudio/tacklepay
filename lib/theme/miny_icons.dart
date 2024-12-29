@@ -12,6 +12,7 @@ class MinyIcons {
   static const IconData outlineArrowDown = Iconsax.arrow_down_1;
   static const IconData outlineArrowUp = Iconsax.arrow_up_2;
   static const IconData outlineArrowLeft = Iconsax.arrow_left_2;
+  static const IconData navArrowLeft = Iconsax.arrow_left;
   static const IconData outlineReceiveMoney = Iconsax.card_receive;
   static const IconData outlineSendMoney = Iconsax.card_send;
   static const IconData plus = Icons.add_rounded;
