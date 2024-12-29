@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../theme/theme.dart';
-import '../buttons/toggle_button.dart';
+// import '../buttons/toggle_button.dart';
 
 Future<dynamic> showScaffoldBottomsheet(
   BuildContext context, {
   Widget? actionButton,
+  String? title,
   List<Widget>? children,
 }) {
   final theme = Theme.of(context);
@@ -41,7 +42,7 @@ Future<dynamic> showScaffoldBottomsheet(
                         const Icon(MinyIcons.navArrowLeft),
                         SizedBox(width: theme.sizing.width.s4),
                         Text(
-                          'Expense',
+                          title ?? 'Expense',
                           style: theme.textStyle.titleRegular,
                         ),
                       ],
@@ -60,28 +61,28 @@ Future<dynamic> showScaffoldBottomsheet(
   );
 }
 
-MinyToggleButton _buildMinyToggleButton() => MinyToggleButton(
-      value: true,
-      onChanged: (value) {},
-    );
+// MinyToggleButton _buildMinyToggleButton() => MinyToggleButton(
+//       value: true,
+//       onChanged: (value) {},
+//     );
 
-GestureDetector _buildTextActionButton(
-  BuildContext context,
-) {
-  final theme = Theme.of(context);
-  return GestureDetector(
-    onTap: () => Navigator.pop(context),
-    child: Container(
-      color: theme.colors.transparent,
-      padding: EdgeInsets.only(
-        top: theme.spacing.width.s4,
-        left: theme.spacing.width.s4,
-        bottom: theme.spacing.width.s4,
-      ),
-      child: Text(
-        'Merge',
-        style: theme.textStyle.bodyRegular,
-      ),
-    ),
-  );
-}
+// GestureDetector _buildTextActionButton(
+//   BuildContext context,
+// ) {
+//   final theme = Theme.of(context);
+//   return GestureDetector(
+//     onTap: () => Navigator.pop(context),
+//     child: Container(
+//       color: theme.colors.transparent,
+//       padding: EdgeInsets.only(
+//         top: theme.spacing.width.s4,
+//         left: theme.spacing.width.s4,
+//         bottom: theme.spacing.width.s4,
+//       ),
+//       child: Text(
+//         'Merge',
+//         style: theme.textStyle.bodyRegular,
+//       ),
+//     ),
+//   );
+// }
