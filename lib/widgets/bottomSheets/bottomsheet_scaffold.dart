@@ -39,11 +39,11 @@ Future<dynamic> showScaffoldBottomsheet(
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(MinyIcons.navArrowLeft),
-                        SizedBox(width: theme.sizing.width.s4),
+                        const Icon(MinyIcons.outlineArrowLeft),
+                        SizedBox(width: theme.sizing.width.s22),
                         Text(
                           title ?? 'Expense',
-                          style: theme.textStyle.titleRegular,
+                          style: theme.textStyle.headingLargeBold,
                         ),
                       ],
                     ),
