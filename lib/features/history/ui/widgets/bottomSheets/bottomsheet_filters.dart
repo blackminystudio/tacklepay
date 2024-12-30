@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import '../../../../../theme/theme.dart';
 import '../../../../../widgets/bottomSheets/bottomsheet_scaffold.dart';
 import '../../../../../widgets/buttons/action_button.dart';
 import '../../../../../widgets/miny_chip.dart';
+import '../../../../../widgets/string_constants.dart';
 
 Future showFiltersButtomSheet(BuildContext context) async {
   final theme = Theme.of(context);
@@ -13,7 +12,7 @@ Future showFiltersButtomSheet(BuildContext context) async {
     context,
     actionButton: _buildTextActionButton(context),
     children: [
-      _buildFilterView(context),
+      const FilterView(),
       Center(
         child: ActionButton(
           title: 'Apply',
@@ -22,6 +21,119 @@ Future showFiltersButtomSheet(BuildContext context) async {
       ),
     ],
   );
+}
+
+class FilterView extends StatefulWidget {
+  const FilterView({super.key});
+
+  @override
+  State<FilterView> createState() => _FilterViewState();
+}
+
+class _FilterViewState extends State<FilterView> {
+  RangeValues range = const RangeValues(0, 5000);
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final rangeValue =
+        '$rupeeSymbol${range.start.toInt()} - $rupeeSymbol${range.end.toInt()}';
+    return Expanded(
+      child: ListView(
+        children: [
+          // _buildSelectType(theme, isIncome, isExpense, setState),
+          _buildSelectDate(theme),
+          _buildSelectYear(theme),
+          _buildSelectMonths(theme),
+          Container(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: theme.colors.contrastLight),
+              ),
+            ),
+            padding: EdgeInsets.only(
+              top: theme.sizing.height.s7,
+              bottom: theme.sizing.height.s6,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Price Range',
+                      style: theme.textStyle.bodyRegular,
+                    ),
+                    const Spacer(),
+                    Text(
+                      rangeValue,
+                      style: theme.textStyle.labelRegular,
+                    ),
+                    SizedBox(width: theme.spacing.width.s8),
+                    Icon(
+                      MinyIcons.outlineArrowDown,
+                      size: theme.sizing.height.s3,
+                      color: theme.colors.contrastDark,
+                    )
+                  ],
+                ),
+                SizedBox(height: theme.sizing.height.s6),
+                SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                    // trackHeight: 4.0, // Set the desired height for the track
+                    overlayShape: SliderComponentShape.noThumb,
+                    // thumbShape: const RoundSliderThumbShape(
+                    //   enabledThumbRadius: 8.0,
+                    // ), // Adjust thumb size
+                    // rangeThumbShape: const RoundRangeSliderThumbShape(
+                    //   enabledThumbRadius: 8.0,
+                    // ), // For RangeSlider
+                    // activeTrackColor:
+                    //     Colors.blue, // Customize active track color
+                    // inactiveTrackColor:
+                    //     Colors.grey, // Customize inactive track color
+                  ),
+                  child: RangeSlider(
+                    values: range,
+                    divisions: 50,
+                    activeColor: theme.colors.contrastDark,
+                    inactiveColor: theme.colors.contrastLow,
+                    max: 5000,
+                    onChanged: (value) {
+                      setState(() {
+                        range = value;
+                      });
+                    },
+                  ),
+                )
+                // RangeSlider(
+                //   max: 5000,
+                //   // activeColor: theme.colors.contrastDark,
+                //   // inactiveColor: theme.colors.contrastLow,
+                //   values: rangeValues,
+                //   onChangeStart: (value) {
+                //     setState(() {
+                //       rangeValues = value;
+                //     });
+                //   },
+                //   onChangeEnd: (value) {
+                //     setState(() {
+                //       rangeValues = value;
+                //     });
+                //   },
+                //   onChanged: (values) {
+                //     setState(() {
+                //       rangeValues = values;
+                //     });
+                //   },
+                // ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 GestureDetector _buildTextActionButton(
@@ -45,88 +157,21 @@ GestureDetector _buildTextActionButton(
   );
 }
 
-/// - x
-/// x -
-/// - -
+// Widget _buildFilterView(BuildContext context) {
+//   final theme = Theme.of(context);
+//   const isExpense = true;
+//   const isIncome = false;
+//   log('T:isExpense: $isExpense , isIncome: $isIncome');
 
-Widget _buildFilterView(BuildContext context) {
-  final theme = Theme.of(context);
-  const isExpense = true;
-  const isIncome = false;
-  log('T:isExpense: $isExpense , isIncome: $isIncome');
+//   return StatefulBuilder(
+//       builder: (context, setState) => );
+// }
 
-  return StatefulBuilder(
-      builder: (context, setState) => Expanded(
-            child: ListView(
-              children: [
-                _buildSelectType(theme, isIncome, isExpense, setState),
-                _buildSelectDate(theme),
-                _buildSelectYear(theme),
-                _buildSelectMonths(theme),
-                _buildSelectPriceRange(theme),
-              ],
-            ),
-          ));
-}
-
-Container _buildSelectPriceRange(ThemeData theme) => Container(
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: theme.colors.contrastLight),
-        ),
-      ),
-      padding: EdgeInsets.only(
-        top: theme.sizing.height.s7,
-        bottom: theme.sizing.height.s6,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Price Range',
-                style: theme.textStyle.bodyRegular,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    theme.borderradius.xSmall,
-                  ),
-                ),
-                padding: EdgeInsets.symmetric(
-                  vertical: theme.sizing.height.s2,
-                  horizontal: theme.sizing.height.s4,
-                ),
-                child: Row(
-                  children: [
-                    Text(
-                      '₹149 - ₹3,000',
-                      style: theme.textStyle.labelRegular,
-                    ),
-                    SizedBox(width: theme.spacing.width.s8),
-                    Icon(
-                      // change Icon from MinyIcons
-                      MinyIcons.outlineArrowDown,
-                      size: theme.sizing.height.s3,
-                      color: theme.colors.contrastDark,
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
-          RangeSlider(
-            max: 5000,
-            activeColor: theme.colors.contrastDark,
-            inactiveColor: theme.colors.contrastLow,
-            values: const RangeValues(149, 3000),
-            onChanged: (values) {},
-          ),
-        ],
-      ),
-    );
+// Widget _buildSelectPriceRange(ThemeData theme) =>
+//     StatefulBuilder(builder: (context, setState) {
+//       var range = 0.00;
+//       return
+//     });
 
 Container _buildSelectMonths(ThemeData theme) => Container(
       decoration: BoxDecoration(
