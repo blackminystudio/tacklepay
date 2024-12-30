@@ -78,44 +78,49 @@ void main() {
       },
     );
 
-    testWidgets(
-      'Given MinyChip is rendered '
-      'When it is tapped '
-      'Then it switches from non-selected to selected state ',
-      (WidgetTester tester) async {
-        // Arrange
-        var isSelected = false;
+    /// No longer required as now the updated minychip is
+    /// dependent on the parent widget
+    ///
+    ///
+    ///
+    // testWidgets(
+    //   'Given MinyChip is rendered '
+    //   'When it is tapped '
+    //   'Then it switches from non-selected to selected state ',
+    //   (WidgetTester tester) async {
+    //     // Arrange
+    //     var isSelected = false;
 
-        await tester.pumpWidget(createWidgetUnderTest(
-          label: label,
-          selected: isSelected,
-          onSelected: (value) => isSelected = value,
-        ));
+    //     await tester.pumpWidget(createWidgetUnderTest(
+    //       label: label,
+    //       selected: isSelected,
+    //       onSelected: (value) => isSelected = value,
+    //     ));
 
-        // Act
-        await tester.tap(find.text(label));
-        await tester.pumpAndSettle();
+    //     // Act
+    //     await tester.tap(find.text(label));
+    //     await tester.pumpAndSettle();
 
-        // Assert
-        var container = tester.widget<Container>(find.byType(Container));
-        expect(
-          (container.decoration as BoxDecoration).color,
-          appTheme.colors.contrastDark,
-        );
-        expect(find.byIcon(MinyIcons.check), findsOneWidget);
+    //     // Assert
+    //     var container = tester.widget<Container>(find.byType(Container));
+    //     expect(
+    //       (container.decoration as BoxDecoration).color,
+    //       appTheme.colors.contrastDark,
+    //     );
+    //     expect(find.byIcon(MinyIcons.check), findsOneWidget);
 
-        // Act
-        await tester.tap(find.text(label));
-        await tester.pumpAndSettle();
+    //     // Act
+    //     await tester.tap(find.text(label));
+    //     await tester.pumpAndSettle();
 
-        // Assert
-        container = tester.widget<Container>(find.byType(Container));
-        expect(
-          (container.decoration as BoxDecoration).color,
-          appTheme.colors.contrastLow,
-        );
-        expect(find.byIcon(MinyIcons.check), findsNothing);
-      },
-    );
+    //     // Assert
+    //     container = tester.widget<Container>(find.byType(Container));
+    //     expect(
+    //       (container.decoration as BoxDecoration).color,
+    //       appTheme.colors.contrastLow,
+    //     );
+    //     expect(find.byIcon(MinyIcons.check), findsNothing);
+    //   },
+    // );
   });
 }
