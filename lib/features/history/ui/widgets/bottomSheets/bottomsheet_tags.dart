@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import '../../../../../theme/theme.dart';
-import '../../../../../widgets/bottomSheets/bottomsheet_scaffold.dart';
+import '../../../../../widgets/bottomsheet/bottomsheet_scaffold.dart';
 import '../../../../../widgets/buttons/action_button.dart';
 import '../../../../../widgets/tag_tiles.dart';
 
@@ -15,26 +15,55 @@ Future showTagsBottomSheet(BuildContext context) async {
   await showScaffoldBottomsheet(context,
       title: 'All Tags',
       actionButton: const Icon(MinyIcons.plus),
-      children: [
-        _buildSearchBar(theme),
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: theme.spacing.width.s12,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header Actions
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  color: theme.colors.transparent,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(MinyIcons.navArrowLeft),
+                      SizedBox(width: theme.sizing.width.s4),
+                      Text(
+                        'Expense',
+                        style: theme.textStyle.titleRegular,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const Spacer(),
+            ],
           ),
-          child: TagTile(
-            tagName: 'All',
-            isSelected: allSelected,
-            onSelection: (value) {
-              toggleTagList(value, tagList);
-            },
+
+          _buildSearchBar(theme),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: theme.spacing.width.s12,
+            ),
+            child: TagTile(
+              tagName: 'All',
+              isSelected: allSelected,
+              onSelection: (value) {
+                toggleTagList(value, tagList);
+              },
+            ),
           ),
-        ),
-        _buildTagTiles(theme, tagList),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: ActionButton(title: 'Apply', padding: theme.spacing.width.s64),
-        )
-      ]);
+          _buildTagTiles(theme, tagList),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child:
+                ActionButton(title: 'Apply', padding: theme.spacing.width.s64),
+          )
+        ],
+      ));
 }
 
 void toggleTagList(bool value, List<TagModel> tagList) {

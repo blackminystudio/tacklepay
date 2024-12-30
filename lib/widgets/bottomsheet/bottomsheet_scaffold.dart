@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-
 import '../../theme/theme.dart';
-// import '../buttons/toggle_button.dart';
 
 Future<dynamic> showScaffoldBottomsheet(
   BuildContext context, {
   Widget? actionButton,
   String? title,
-  List<Widget>? children,
+  Widget? child,
 }) {
   final theme = Theme.of(context);
 
@@ -25,37 +23,7 @@ Future<dynamic> showScaffoldBottomsheet(
       ),
       child: Padding(
         padding: EdgeInsets.all(theme.sizing.width.s10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Header Actions
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: Container(
-                    color: theme.colors.transparent,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(MinyIcons.navArrowLeft),
-                        SizedBox(width: theme.sizing.width.s4),
-                        Text(
-                          title ?? 'Expense',
-                          style: theme.textStyle.titleRegular,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const Spacer(),
-                actionButton ?? const SizedBox.shrink(),
-              ],
-            ),
-            ...?children,
-          ],
-        ),
+        child: child,
       ),
     ),
   );

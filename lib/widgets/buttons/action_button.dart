@@ -6,12 +6,14 @@ class ActionButton extends StatelessWidget {
   final String? title;
   final IconData? icon;
   final double? padding;
+  final Color? color;
   const ActionButton({
     super.key,
     this.onTap,
     this.title,
     this.icon,
     this.padding,
+    this.color,
   });
 
   Widget getButtonType(ThemeData theme) {
@@ -77,7 +79,7 @@ class ActionButton extends StatelessWidget {
         decoration: BoxDecoration(
           boxShadow:
               title == null && icon != null ? [theme.elevation.e1] : null,
-          color: theme.colors.secondary,
+          color: color ?? theme.colors.secondary,
           borderRadius: title == null && icon != null
               ? BorderRadius.circular(
                   theme.borderradius.full(

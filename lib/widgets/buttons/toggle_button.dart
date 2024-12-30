@@ -46,13 +46,13 @@ class _MinyToggleButtonState extends State<MinyToggleButton> {
               theme.borderradius.medium,
             ),
           ),
-          alignment: value ? Alignment.centerRight : Alignment.centerLeft,
+          alignment: !value ? Alignment.centerRight : Alignment.centerLeft,
           child: Container(
             key: const Key('ToggleButtonSlider'),
             height: theme.sizing.height.s8,
             width: theme.sizing.width.s12,
             decoration: BoxDecoration(
-              color: value ? theme.colors.primary : theme.colors.secondary,
+              color: !value ? theme.colors.primary : theme.colors.secondary,
               borderRadius: BorderRadius.circular(
                 theme.borderradius.medium,
               ),
