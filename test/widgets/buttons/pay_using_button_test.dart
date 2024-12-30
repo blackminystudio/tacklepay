@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tackleapp/features/scanpay/store/models/model_payusing.dart';
 import 'package:tackleapp/theme/theme.dart';
 import 'package:tackleapp/widgets/buttons/pay_using_button.dart';
 import 'package:tackleapp/widgets/string_constants.dart';
