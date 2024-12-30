@@ -4,12 +4,12 @@ import '/theme/theme.dart';
 import '../string_constants.dart';
 
 class UpiInfoCard extends StatefulWidget {
-  final Function(String value) onAmountChanged;
-  final Function(String value) onMessageChanged;
+  final Function(String value)? onAmountChanged;
+  final Function(String value)? onMessageChanged;
   const UpiInfoCard({
     super.key,
-    required this.onAmountChanged,
-    required this.onMessageChanged,
+    this.onAmountChanged,
+    this.onMessageChanged,
   });
 
   @override
@@ -59,7 +59,7 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
     } else {
       _messageFocusNode.requestFocus();
     }
-    widget.onAmountChanged.call(_amountController.text);
+    widget.onAmountChanged?.call(_amountController.text);
   }
 
   void onSubmitMessageField(String text) {
@@ -72,7 +72,7 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
           TextPosition(offset: _messageController.text.length),
         );
     }
-    widget.onMessageChanged.call(_messageText);
+    widget.onMessageChanged?.call(_messageText);
   }
 
   void onTapMessageField() {
