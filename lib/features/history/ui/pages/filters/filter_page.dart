@@ -9,6 +9,69 @@ import '../../../../../widgets/string_constants.dart';
 import '../../widgets/bottomSheets/bottomsheet_filters.dart';
 import '../../widgets/circular_toggle.dart';
 
+class FilterPage extends StatelessWidget {
+  const FilterPage({
+    super.key,
+    required this.theme,
+  });
+
+  final ThemeData theme;
+
+  @override
+  Widget build(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header Actions
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  color: theme.colors.transparent,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(MinyIcons.navArrowLeft),
+                      SizedBox(width: theme.sizing.width.s4),
+                      Text(
+                        'All Filters',
+                        style: theme.textStyle.titleRegular,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const Spacer(),
+              _buildTextActionButton(context),
+            ],
+          ),
+          const FilterView(),
+        ],
+      );
+}
+
+GestureDetector _buildTextActionButton(
+  BuildContext context,
+) {
+  final theme = Theme.of(context);
+  return GestureDetector(
+    onTap: () => Navigator.pop(context),
+    child: Container(
+      color: theme.colors.transparent,
+      padding: EdgeInsets.only(
+        top: theme.spacing.width.s4,
+        left: theme.spacing.width.s4,
+        bottom: theme.spacing.width.s4,
+      ),
+      child: Text(
+        'Reset',
+        style: theme.textStyle.bodyRegular,
+      ),
+    ),
+  );
+}
+
 class FilterView extends StatefulWidget {
   const FilterView({super.key});
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../widgets/bottomSheets/bottomsheet_scaffold.dart';
+import '../../../../../widgets/bottomsheet/bottomsheet_scaffold.dart';
 import '../../pages/filters/filter_page.dart';
 
 // Data From Database
@@ -23,33 +23,9 @@ List<String> monthList = [
 ];
 
 Future showFiltersButtomSheet(BuildContext context) async {
+  final theme = Theme.of(context);
   await showScaffoldBottomsheet(
-    title: 'All Filters',
     context,
-    // actionButton: _buildTextActionButton(context),
-    children: [
-      const FilterView(),
-    ],
+    child: FilterPage(theme: theme),
   );
 }
-
-// GestureDetector _buildTextActionButton(
-//   BuildContext context,
-// ) {
-//   final theme = Theme.of(context);
-//   return GestureDetector(
-//     onTap: () => Navigator.pop(context),
-//     child: Container(
-//       color: theme.colors.transparent,
-//       padding: EdgeInsets.only(
-//         top: theme.spacing.width.s4,
-//         left: theme.spacing.width.s4,
-//         bottom: theme.spacing.width.s4,
-//       ),
-//       child: Text(
-//         'Reset',
-//         style: theme.textStyle.bodyRegular,
-//       ),
-//     ),
-//   );
-// }
