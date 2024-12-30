@@ -8,14 +8,14 @@ class TagTile extends StatefulWidget {
   final String tagName;
   final bool isSelected;
   final Function(bool value) onSelection;
-  final Function(String value) onSaveTag;
+  final Function(String value)? onSaveTag;
   final int maxLength;
 
   TagTile({
     required this.tagName,
     this.isSelected = false,
     required this.onSelection,
-    required this.onSaveTag,
+    this.onSaveTag,
     this.maxLength = 15,
   });
 
@@ -70,7 +70,7 @@ class _TagTileState extends State<TagTile> {
   void _onSubmitted(String value, ThemeData theme) {
     final trimmedValue = value.trim(); // Trim extra spaces
     if (trimmedValue.isNotEmpty && trimmedValue != widget.tagName) {
-      widget.onSaveTag(trimmedValue);
+      widget.onSaveTag!(trimmedValue);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(tagUpdated, style: theme.textStyle.bodyBold),
@@ -109,6 +109,7 @@ class _TagTileState extends State<TagTile> {
         children: [
           Expanded(
             child: TextField(
+              enabled: widget.onSaveTag != null ? true : false,
               focusNode: _focusNode,
               autofocus: true,
               onSubmitted: (value) => _onSubmitted(value, theme),
@@ -127,12 +128,13 @@ class _TagTileState extends State<TagTile> {
               ),
             ),
           ),
-          Text(
-            '${_tagNameController.text.length} / ${widget.maxLength}',
-            style: theme.textStyle.caption.copyWith(
-              color: theme.colors.contrastMedium,
+          if (widget.onSaveTag != null)
+            Text(
+              '${_tagNameController.text.length} / ${widget.maxLength}',
+              style: theme.textStyle.caption.copyWith(
+                color: theme.colors.contrastMedium,
+              ),
             ),
-          ),
         ],
       );
 

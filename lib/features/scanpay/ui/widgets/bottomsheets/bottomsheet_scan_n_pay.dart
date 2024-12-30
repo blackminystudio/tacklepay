@@ -12,7 +12,6 @@ Future showScanNPayBottomSheet(BuildContext context) async {
   final theme = Theme.of(context);
   await showScaffoldBottomsheet(
     context,
-    // actionButton: _buildTextActionButton(context),
     children: [
       _buildScanPayNowBody(theme),
       _buildPayNowButtonBody(),

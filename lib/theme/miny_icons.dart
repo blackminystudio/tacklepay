@@ -16,4 +16,5 @@ class MinyIcons {
   static const IconData outlineReceiveMoney = Iconsax.card_receive;
   static const IconData outlineSendMoney = Iconsax.card_send;
   static const IconData plus = Icons.add_rounded;
+  static const IconData search = Iconsax.search_normal_1;
 }
