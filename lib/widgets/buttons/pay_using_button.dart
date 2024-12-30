@@ -1,18 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import '../../features/scanpay/store/models/model_payusing.dart';
 import '../../theme/theme.dart';
 import '../string_constants.dart';
-
-class PayUsingModel {
-  final String imageUrl;
-  final String providerName;
-  final String upiPrefix;
-  PayUsingModel(
-    this.imageUrl,
-    this.providerName,
-    this.upiPrefix,
-  );
-}
 
 class PayUsingButton extends StatefulWidget {
   final List<PayUsingModel> listOfPayUsing;
