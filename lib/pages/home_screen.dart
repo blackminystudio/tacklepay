@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../core/flavors.dart';
+import '../features/history/ui/widgets/bottomSheets/bottomsheet_tags.dart';
 import '../theme/theme.dart';
-import '../widgets/bottomsheet/bottomsheet_scaffold.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -18,10 +18,10 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
-                // await testWriteData();
-                // await showScanNPayBottomSheet(context);
+                // await showScaffoldBottomsheet(context);
+                // launchQRCodePage(context);
+                await showTagsBottomSheet(context);
                 // await showFiltersButtomSheet(context);
-                await showScaffoldBottomsheet(context);
               },
               child: const Text('Add Data'),
             )
