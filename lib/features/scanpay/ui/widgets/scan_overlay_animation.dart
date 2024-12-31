@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../theme/theme.dart';
+
 class ScanOverlayAnimation extends StatefulWidget {
   const ScanOverlayAnimation({super.key});
 
@@ -32,20 +34,23 @@ class _ScanOverlayAnimationState extends State<ScanOverlayAnimation>
   }
 
   @override
-  Widget build(BuildContext context) => AnimatedBuilder(
-        animation: _sizeAnimation,
-        builder: (context, child) => Center(
-          child: CustomPaint(
-            size: Size(_sizeAnimation.value, _sizeAnimation.value),
-            painter: CornerBoxPaint(
-              color: Colors.white,
-              strokeWidth: 6.0,
-              cornerRadius: 15.0,
-              cornerLength: 40.0,
-            ),
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return AnimatedBuilder(
+      animation: _sizeAnimation,
+      builder: (context, child) => Center(
+        child: CustomPaint(
+          size: Size(_sizeAnimation.value, _sizeAnimation.value),
+          painter: CornerBoxPaint(
+            color: theme.colors.light,
+            strokeWidth: theme.spacing.height.s8,
+            cornerRadius: theme.borderradius.medium,
+            cornerLength: theme.sizing.height.s10,
           ),
         ),
-      );
+      ),
+    );
+  }
 }
 
 class CornerBoxPaint extends CustomPainter {

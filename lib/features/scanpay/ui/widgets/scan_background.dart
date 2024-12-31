@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 
+import '../../../../theme/theme.dart';
+
 class ScanBackground extends StatelessWidget {
   const ScanBackground({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) => ClipPath(
-        clipper: CenterHoleClipper(cutOutSize: 280),
-        child: Container(color: Colors.black.withAlpha(120)),
-      );
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return ClipPath(
+      clipper: CenterHoleClipper(
+        cutOutSize: theme.sizing.height.s64 + theme.sizing.height.s6,
+      ),
+      child: Container(color: Colors.black.withAlpha(120)),
+    );
+  }
 }
 
 class CenterHoleClipper extends CustomClipper<Path> {
