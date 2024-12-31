@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../core/flavors.dart';
+import '../features/scanpay/ui/pages/scan_qr_page.dart';
 import '../theme/theme.dart';
-import '../widgets/bottomsheet/bottomsheet_scaffold.dart';
+// import '../widgets/bottomsheet/bottomsheet_scaffold.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -18,10 +19,8 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
-                // await testWriteData();
-                // await showScanNPayBottomSheet(context);
-                // await showFiltersButtomSheet(context);
-                await showScaffoldBottomsheet(context);
+                // await showScaffoldBottomsheet(context);
+                launchQRCodePage(context);
               },
               child: const Text('Add Data'),
             )
@@ -30,6 +29,15 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+void launchQRCodePage(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const QRPage(),
+    ),
+  );
 }
 
 Future<void> testWriteData() async {
