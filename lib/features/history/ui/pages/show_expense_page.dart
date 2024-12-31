@@ -4,11 +4,14 @@ import '../../../../theme/theme.dart';
 import '../../../../widgets/cards/tag_card.dart';
 import '../../../../widgets/cards/upi_info_card.dart';
 import '../../../../widgets/pay_date_dropdown.dart';
+import 'history_page.dart';
 
 class ShowExpensePage extends StatelessWidget {
+  final TransactionModel transactionModel;
   const ShowExpensePage({
     super.key,
     required this.theme,
+    required this.transactionModel,
   });
 
   final ThemeData theme;
@@ -41,16 +44,13 @@ class ShowExpensePage extends StatelessWidget {
               const Spacer(),
             ],
           ),
-
           _buildScanPayNowBody(theme),
-          _buildPayNowButtonBody(),
+          Expanded(
+            child: PayDateDropdown(),
+          ),
         ],
       );
 }
-
-Expanded _buildPayNowButtonBody() => Expanded(
-      child: PayDateDropdown(),
-    );
 
 StatefulBuilder _buildScanPayNowBody(ThemeData theme) {
   final tagList = <String>['Groc', 'Home2'];

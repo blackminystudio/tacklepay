@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../core/flavors.dart';
-import '../features/history/ui/widgets/bottomSheets/bottomsheet_filters.dart';
-// import '../features/scanpay/ui/widgets/bottomsheets/bottomsheet_scan_n_pay.dart';
 import '../theme/theme.dart';
+import '../widgets/bottomsheet/bottomsheet_scaffold.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -21,7 +20,8 @@ class HomeScreen extends StatelessWidget {
               onPressed: () async {
                 // await testWriteData();
                 // await showScanNPayBottomSheet(context);
-                await showFiltersButtomSheet(context);
+                // await showFiltersButtomSheet(context);
+                await showScaffoldBottomsheet(context);
               },
               child: const Text('Add Data'),
             )

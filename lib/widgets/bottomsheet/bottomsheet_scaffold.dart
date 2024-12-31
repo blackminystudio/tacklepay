@@ -3,8 +3,6 @@ import '../../theme/theme.dart';
 
 Future<dynamic> showScaffoldBottomsheet(
   BuildContext context, {
-  Widget? actionButton,
-  String? title,
   Widget? child,
 }) {
   final theme = Theme.of(context);
