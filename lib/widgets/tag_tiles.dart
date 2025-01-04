@@ -45,6 +45,17 @@ class _TagTileState extends State<TagTile> {
   }
 
   @override
+  void didUpdateWidget(TagTile oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Update _isTagSelected when the parent changes the isSelected property
+    if (widget.isSelected != oldWidget.isSelected) {
+      setState(() {
+        _isTagSelected = widget.isSelected;
+      });
+    }
+  }
+
+  @override
   void dispose() {
     _debounce?.cancel();
     _tagNameController.dispose();
