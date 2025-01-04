@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../theme/theme.dart';
-import 'string_constants.dart';
+import '../../../../theme/theme.dart';
+import '../../../../widgets/store/theme_store.dart';
+import '../../utilities/constants/home_constant.dart';
 
 enum HeaderType {
   income,
@@ -19,23 +20,28 @@ class SummaryPreviewCard extends StatelessWidget {
     required this.percentage,
   });
 
-  Color getColor(ThemeData theme, bool isIncome) {
-    final zero = percentage == checkZero;
-    final minus = percentage.startsWith(checkMinus);
-    if (zero) {
-      return theme.colors.contrastDark;
-    } else if (minus) {
-      return isIncome ? theme.colors.secondaryDark : theme.colors.primaryDark;
-    } else {
-      return isIncome ? theme.colors.primaryDark : theme.colors.secondaryDark;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    String _formatIndianNumber(String number) {
+      if (number.isEmpty) return number;
+      final length = number.length;
+      if (length <= 3) return number;
+      final lastThree = number.substring(length - 3);
+      final remaining = number.substring(0, length - 3);
+      final regExp = RegExp(r'(\d)(?=(\d{2})+(?!\d))');
+      final formattedRemaining = remaining.replaceAllMapped(
+        regExp,
+        (Match match) => '${match[1]},',
+      );
+      return '$formattedRemaining,$lastThree';
+    }
+
+    final formattedAmount = _formatIndianNumber(amount);
     final isIncome = header == HeaderType.income;
     final theme = Theme.of(context);
-    final title = header == HeaderType.income ? incomeText : expenseText;
+    final title = header == HeaderType.income
+        ? HomeConstants.incomeText
+        : HomeConstants.expenseText;
     final headerColor = header == HeaderType.income
         ? theme.colors.primary
         : theme.colors.secondary;
@@ -83,28 +89,35 @@ class SummaryPreviewCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '₹ $amount',
+                  '₹$formattedAmount',
                   style: theme.textStyle.titleBold.copyWith(
                     color: theme.colors.contrastDark,
                   ),
                 ),
                 SizedBox(height: theme.spacing.height.s4),
-                Text.rich(
-                  TextSpan(
-                    text: '$percentage%',
-                    style: theme.textStyle.bodyBold.copyWith(
-                      color: getColor(theme, isIncome),
-                    ),
+                RichText(
+                  key: const Key('RichText'),
+                  text: TextSpan(
                     children: [
                       TextSpan(
-                        text: vsLastMonth,
+                        text: '$percentage%',
+                        style: theme.textStyle.bodyBold.copyWith(
+                          color: ThemeStore.getColor(
+                            theme: theme,
+                            isReversed: isIncome,
+                            amount: percentage,
+                          ),
+                        ),
+                      ),
+                      TextSpan(
+                        text: HomeConstants.vsLastMonthText,
                         style: theme.textStyle.quote.copyWith(
                           color: theme.colors.contrastDark,
                         ),
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),

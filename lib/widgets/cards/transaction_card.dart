@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '/theme/theme.dart';
+import '../store/theme_store.dart';
 
 class TransactionCard extends StatelessWidget {
-  final IconData icon;
   final String transactionName;
   final String transactionDateTime;
   final String transactionAmount;
@@ -10,7 +10,6 @@ class TransactionCard extends StatelessWidget {
 
   const TransactionCard({
     super.key,
-    required this.icon,
     required this.transactionName,
     required this.transactionDateTime,
     required this.transactionAmount,
@@ -22,25 +21,28 @@ class TransactionCard extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             buildIcon(theme),
             SizedBox(width: theme.sizing.width.s3),
             Expanded(
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  buildTitle(theme),
+                  Flexible(child: buildTitle(theme)),
                   buildPrice(theme),
                 ],
               ),
             ),
           ],
         ),
-        SizedBox(
-          height: theme.spacing.height.s20,
-        ),
+        SizedBox(height: theme.spacing.height.s20),
         Container(
           height: 1,
           width: double.infinity,
@@ -54,24 +56,34 @@ class TransactionCard extends StatelessWidget {
         height: theme.sizing.width.s14,
         width: theme.sizing.width.s14,
         decoration: BoxDecoration(
-          color: theme.colors.light,
+          color: theme.colors.contrastLight,
           borderRadius: BorderRadius.circular(
-              theme.borderradius.full(theme.sizing.width.s14)),
+            theme.borderradius.full(theme.sizing.width.s14),
+          ),
         ),
         child: Icon(
-          icon,
-          color: theme.colors.dark,
+          transactionAmount.startsWith('-')
+              ? MinyIcons.outlineSendMoney
+              : MinyIcons.outlineReceiveMoney,
+          color: transactionAmount.startsWith('-')
+              ? theme.colors.secondaryDark
+              : theme.colors.primaryDark,
           size: theme.sizing.width.s6,
         ),
       );
 
   Column buildPrice(ThemeData theme) => Column(
         crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             transactionAmount,
             style: theme.textStyle.headingSmallMedium.copyWith(
-              color: theme.colors.secondary,
+              color: ThemeStore.getColor(
+                theme: theme,
+                amount: transactionAmount,
+                isReversed: true,
+              ),
             ),
           ),
           SizedBox(height: theme.spacing.height.s8),
@@ -86,6 +98,7 @@ class TransactionCard extends StatelessWidget {
 
   Column buildTitle(ThemeData theme) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             transactionName,

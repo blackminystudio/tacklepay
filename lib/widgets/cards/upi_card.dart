@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'theme/theme.dart';
+import '../../theme/theme.dart';
 
 class UPICard extends StatelessWidget {
   final String payeeFirstName;
@@ -23,8 +23,8 @@ class UPICard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final firstNameInitial = payeeFirstName[0];
-    final lastNameInitial = payeeLastName[0];
+    final firstNameInitial = payeeFirstName.trim()[0].toUpperCase();
+    final lastNameInitial = payeeLastName.trim()[0].toUpperCase();
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(theme.spacing.width.s12),
@@ -53,14 +53,16 @@ class UPICard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              '$payeeFirstName $payeeLastName',
-              style: theme.textStyle.headingSmallRegular
-                  .copyWith(color: theme.colors.contrastDark),
+              '${payeeFirstName.trim()} ${payeeLastName.trim()}',
+              style: theme.textStyle.headingSmallRegular.copyWith(
+                color: theme.colors.contrastDark,
+              ),
             ),
             Text(
               getCroppedUPIId(payeeUpiId),
-              style: theme.textStyle.bodyRegular
-                  .copyWith(color: theme.colors.contrastMedium),
+              style: theme.textStyle.bodyRegular.copyWith(
+                color: theme.colors.contrastMedium,
+              ),
             ),
           ],
         ),
@@ -74,7 +76,9 @@ class UPICard extends StatelessWidget {
         decoration: BoxDecoration(
           color: theme.colors.light,
           borderRadius: BorderRadius.circular(
-            theme.borderradius.full(theme.sizing.width.s12),
+            theme.borderradius.full(
+              theme.sizing.width.s12,
+            ),
           ),
         ),
         child: Center(

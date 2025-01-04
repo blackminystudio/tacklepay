@@ -3,10 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class MinyIcons {
+  static const IconData currencyExchange = Icons.currency_exchange_rounded;
+  static const IconData check = Icons.check;
   static const IconData cross = Icons.close_rounded;
   static const IconData fillScan = Iconsax.scan5;
   static const IconData filter = Iconsax.setting_4;
+  static const IconData tag = Iconsax.tag;
+  static const IconData outlineArrowDown = Iconsax.arrow_down_1;
   static const IconData outlineArrowUp = Iconsax.arrow_up_2;
+  static const IconData outlineArrowLeft = Iconsax.arrow_left_2;
   static const IconData outlineReceiveMoney = Iconsax.card_receive;
   static const IconData outlineSendMoney = Iconsax.card_send;
   static const IconData plus = Icons.add_rounded;

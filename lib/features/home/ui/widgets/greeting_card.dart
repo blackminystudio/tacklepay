@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import '../theme/theme.dart';
+import '../../../../theme/theme.dart';
 
-class WelcomeCard extends StatelessWidget {
+class GreetingCard extends StatelessWidget {
   final String greetingMessage;
   final String userName;
   final String profilePictureUrl;
 
-  const WelcomeCard({
+  const GreetingCard({
     super.key,
     required this.greetingMessage,
     required this.userName,
     required this.profilePictureUrl,
   });
+
+  String _buildFirstName(String name) => name.trim().split(' ')[0];
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +21,13 @@ class WelcomeCard extends StatelessWidget {
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
         CircleAvatar(
           radius: theme.borderradius.full(theme.sizing.width.s15),
-          backgroundImage: NetworkImage(profilePictureUrl),
+          backgroundImage: profilePictureUrl.isNotEmpty
+              ? NetworkImage(profilePictureUrl)
+              : null,
         ),
         SizedBox(width: theme.sizing.width.s4),
         Flexible(
@@ -36,7 +41,7 @@ class WelcomeCard extends StatelessWidget {
                 ),
               ),
               Text(
-                userName,
+                _buildFirstName(userName),
                 style: theme.textStyle.headingLargeBold.copyWith(
                   color: theme.colors.contrastDark,
                 ),

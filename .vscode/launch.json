@@ -1,0 +1,38 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "dev Debug",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--dart-define",
+                "USE_FIREBASE_EMULATOR=true"
+            ],
+            "program": "lib/core/main.dart"
+        },
+        {
+            "name": "staging Debug",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--dart-define",
+                "USE_FIREBASE_EMULATOR=true"
+            ],
+            "program": "lib/core/main.dart"
+        },
+        {
+            "name": "prod Debug",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--dart-define",
+                "USE_FIREBASE_EMULATOR=true"
+            ],
+            "program": "lib/core/main.dart"
+        },
+    ]
+}
