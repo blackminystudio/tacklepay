@@ -32,13 +32,6 @@ class _QRPageState extends State<QRPage> {
   QRCodeDartScanView _buildScanner(BuildContext context) => QRCodeDartScanView(
         formats: [BarcodeFormat.qrCode],
         scanInvertedQRCode: true,
-        // takePictureButtonBuilder: (context, controller, isLoading) {
-        //   if (isLoading) return const CircularProgressIndicator();
-        //   return ElevatedButton(
-        //     onPressed: controller.takePictureAndDecode,
-        //     child: const Text('Take a picture'),
-        //   );
-        // },
         resolutionPreset: QRCodeDartScanResolutionPreset.high,
         onCapture: (Result result) async {
           if (isScanningPaused) return;

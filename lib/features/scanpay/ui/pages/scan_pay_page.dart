@@ -8,6 +8,7 @@ import '../../../../../widgets/cards/upi_info_card.dart';
 import '../../store/models/model_payusing.dart';
 import '../../store/models/model_upi_data.dart';
 import '../../store/scanpay_store.dart';
+import '../../utilities/constants.dart';
 
 class ScanNPayPage extends StatelessWidget {
   const ScanNPayPage({
@@ -40,7 +41,7 @@ class ScanNPayPage extends StatelessWidget {
                       const Icon(MinyIcons.navArrowLeft),
                       SizedBox(width: theme.sizing.width.s4),
                       Text(
-                        'Expense',
+                        expenseText,
                         style: theme.textStyle.titleRegular,
                       ),
                     ],
@@ -73,7 +74,7 @@ class ScanNPayPage extends StatelessWidget {
             child: PayUsingButton(listOfPayUsing: listOfPayUsing),
           ),
           ActionButton(
-            title: 'Pay Now',
+            title: payNowText,
             onTap: () {
               store.logAll();
             },
