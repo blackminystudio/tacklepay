@@ -5,7 +5,7 @@ import 'theme/theme.dart';
 void main() {
   runApp(
     ScreenUtilInit(
-      designSize: const Size(440, 956), // Base design size (width x height)
+      designSize: const Size(440, 956),
       minTextAdapt: true,
       builder: (context, _) => const TacklePay(),
     ),
