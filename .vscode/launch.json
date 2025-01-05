@@ -10,7 +10,7 @@
                 "--flavor",
                 "dev",
                 "--dart-define",
-                "USE_FIREBASE_EMULATOR=true"
+                "USE_FIREBASE_EMULATOR=false"
             ],
             "program": "lib/core/main/main_dev.dart"
         },

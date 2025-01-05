@@ -45,6 +45,7 @@ dependencies:
   firebase_auth: ^5.3.4
   provider: ^6.1.2
   qr_code_dart_scan: ^0.9.4
+  google_sign_in: ^6.2.2
 
 dev_dependencies:
   flutter_test:
