@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '/theme/theme.dart';
+import '../../features/history/ui/pages/history_page.dart';
 import '../string_constants.dart';
 
 class UpiInfoCard extends StatefulWidget {
   final Function(String value)? onAmountChanged;
   final Function(String value)? onMessageChanged;
+  final TransactionModel? transactionModel;
   const UpiInfoCard({
     super.key,
     this.onAmountChanged,
     this.onMessageChanged,
+    this.transactionModel,
   });
 
   @override
@@ -36,6 +39,7 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
   @override
   void initState() {
     super.initState();
+    initControllerValue(widget.transactionModel);
     _messageFocusNode.addListener(
       () {
         if (_messageFocusNode.hasFocus) {
@@ -45,6 +49,12 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
         }
       },
     );
+  }
+
+  void initControllerValue(TransactionModel? transactionModel) {
+    if (transactionModel == null) return;
+    _amountController.text = transactionModel.amount ?? '';
+    _messageController.text = transactionModel.message ?? '';
   }
 
   void onSubmitAmount(String value) {

@@ -3,7 +3,10 @@ import '../../../../../widgets/bottomsheet/bottomsheet_scaffold.dart';
 import '../../pages/history_page.dart';
 import '../../pages/show_expense_page.dart';
 
-Future showExpenseBottomSheet(BuildContext context) async {
+Future showExpenseBottomSheet(
+  BuildContext context,
+  TransactionModel transactionModel,
+) async {
   final theme = Theme.of(context);
   await showScaffoldBottomsheet(
     context,
@@ -13,10 +16,3 @@ Future showExpenseBottomSheet(BuildContext context) async {
     ),
   );
 }
-
-final transactionModel = TransactionModel(
-  amount: '300',
-  name: 'Coffee',
-  balance: '18000',
-  dateTime: '11-12-24',
-);

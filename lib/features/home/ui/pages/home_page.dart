@@ -74,10 +74,10 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) => Padding(
                   padding: EdgeInsets.only(bottom: theme.sizing.height.s5),
                   child: TransactionCard(
-                    transactionName: transactionList[index].name,
-                    transactionAmount: transactionList[index].amount,
-                    transactionDateTime: transactionList[index].dateTime,
-                    remainingBalance: transactionList[index].balance,
+                    transactionName: transactionList[index].message ?? '',
+                    transactionAmount: transactionList[index].amount ?? '',
+                    transactionDateTime: transactionList[index].date ?? '',
+                    remainingBalance: transactionList[index].balance ?? '',
                   ),
                 ),
               ),
