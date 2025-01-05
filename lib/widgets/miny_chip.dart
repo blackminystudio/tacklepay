@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/theme.dart';
 
-class MinyChip extends StatefulWidget {
+class MinyChip extends StatelessWidget {
   final String label;
   final bool selected;
   final void Function(bool value)? onSelected;
@@ -11,7 +11,7 @@ class MinyChip extends StatefulWidget {
   /// [label] is the text displayed on the chip.
   /// [selected] determines whether the chip is initially selected.
   /// [onSelected] is a callback that is triggered when the selection state
-  ///  changes.
+  /// changes.
   const MinyChip({
     super.key,
     required this.label,
@@ -20,35 +20,18 @@ class MinyChip extends StatefulWidget {
   });
 
   @override
-  State<MinyChip> createState() => _MinyChipState();
-}
-
-class _MinyChipState extends State<MinyChip> {
-  late bool selected;
-
-  @override
-  void initState() {
-    super.initState();
-    // We store 'selected' in the state because it can change over time
-    // based on user interaction, so we need to track it within the state
-    // to trigger re-renders when it changes.
-    selected = widget.selected;
-  }
-
-  void _onTap() {
-    setState(() {
-      selected = !selected;
-    });
-    widget.onSelected?.call(selected);
-  }
-
-  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDisabled = widget.onSelected == null;
+    final isDisabled = onSelected == null;
 
     return GestureDetector(
-      onTap: isDisabled ? null : _onTap,
+      onTap: isDisabled
+          ? null
+          : () {
+              if (onSelected != null) {
+                onSelected!(!selected); // Pass the updated selection state
+              }
+            },
       child: Container(
         padding: EdgeInsets.symmetric(
           vertical: theme.sizing.width.s2,
@@ -63,30 +46,27 @@ class _MinyChipState extends State<MinyChip> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              widget.label,
+              label,
               style: theme.textStyle.caption.copyWith(
                 color:
                     selected ? theme.colors.light : theme.colors.contrastDark,
               ),
             ),
-            _buildSelectedIcon(theme),
+            if (selected) _buildSelectedIcon(theme),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildSelectedIcon(ThemeData theme) {
-    if (!selected) return const SizedBox.shrink();
-    return Row(
-      children: [
-        SizedBox(width: theme.spacing.width.s4),
-        Icon(
-          MinyIcons.check,
-          size: theme.sizing.width.s3,
-          color: theme.colors.light,
-        ),
-      ],
-    );
-  }
+  Widget _buildSelectedIcon(ThemeData theme) => Row(
+        children: [
+          SizedBox(width: theme.spacing.width.s4),
+          Icon(
+            MinyIcons.check,
+            size: theme.sizing.width.s3,
+            color: theme.colors.light,
+          ),
+        ],
+      );
 }

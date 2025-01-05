@@ -4,6 +4,7 @@ import '../../../../widgets/balance_amount.dart';
 import '../../../../widgets/buttons/action_button.dart';
 import '../../../../widgets/cards/transaction_card.dart';
 import '../../../../widgets/transaction_header.dart';
+import '../../../history/ui/pages/history_page.dart';
 import '../../utilities/constants/home_constant.dart';
 import '../widgets/greeting_card.dart';
 import '../widgets/summary_preview_card.dart';
@@ -73,10 +74,10 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) => Padding(
                   padding: EdgeInsets.only(bottom: theme.sizing.height.s5),
                   child: TransactionCard(
-                    transactionName: transactionList[index].name,
-                    transactionAmount: transactionList[index].amount,
-                    transactionDateTime: transactionList[index].dateTime,
-                    remainingBalance: transactionList[index].balance,
+                    transactionName: transactionList[index].message ?? '',
+                    transactionAmount: transactionList[index].amount ?? '',
+                    transactionDateTime: transactionList[index].date ?? '',
+                    remainingBalance: transactionList[index].balance ?? '',
                   ),
                 ),
               ),
@@ -99,50 +100,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-class TransactionModel {
-  final String name;
-  final String amount;
-  final String dateTime;
-  final String balance;
-
-  TransactionModel({
-    required this.name,
-    required this.amount,
-    required this.dateTime,
-    required this.balance,
-  });
-}
-
-final transactionList = [
-  TransactionModel(
-    name: 'Refund',
-    amount: '₹3200',
-    balance: '₹18,110',
-    dateTime: 'Today, 08:23 PM',
-  ),
-  TransactionModel(
-    name: 'Coffee',
-    amount: '-₹300',
-    balance: '₹21,310',
-    dateTime: 'Yesterday, 10:20 AM',
-  ),
-  TransactionModel(
-    name: 'Coffee',
-    amount: '-₹300',
-    balance: '₹21,310',
-    dateTime: 'Yesterday, 10:20 AM',
-  ),
-  TransactionModel(
-    name: 'Transfer to Client',
-    amount: '-₹50,000',
-    balance: '₹21,610',
-    dateTime: '10th Nov, 04:35 PM',
-  ),
-  TransactionModel(
-    name: 'Transfer to Client',
-    amount: '-₹50,000',
-    balance: '₹21,610',
-    dateTime: '10th Nov, 04:35 PM',
-  ),
-];

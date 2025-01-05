@@ -42,10 +42,10 @@ void main() {
     // Initial state check
 
     expect(toggledValue, isFalse);
-    expect(buttonBackground.alignment, Alignment.centerLeft);
+    expect(buttonBackground.alignment, Alignment.centerRight);
     expect(
       (buttonSlider.decoration as BoxDecoration).color,
-      appTheme.colors.secondary,
+      appTheme.colors.primary,
     );
 
     // Tap to change to true
@@ -56,10 +56,10 @@ void main() {
     buttonBackground = tester.widget<AnimatedContainer>(toggleBackgroundFinder);
 
     expect(toggledValue, isTrue);
-    expect(buttonBackground.alignment, Alignment.centerRight);
+    expect(buttonBackground.alignment, Alignment.centerLeft);
     expect(
       (buttonSlider.decoration as BoxDecoration).color,
-      appTheme.colors.primary,
+      appTheme.colors.secondary,
     );
   });
 
@@ -81,10 +81,10 @@ void main() {
         tester.widget<AnimatedContainer>(toggleBackgroundFinder);
 
     expect(toggledValue, isTrue);
-    expect(buttonBackground.alignment, Alignment.centerRight);
+    expect(buttonBackground.alignment, Alignment.centerLeft);
     expect(
       (buttonSlider.decoration as BoxDecoration).color,
-      appTheme.colors.primary,
+      appTheme.colors.secondary,
     );
 
     // Tap to change back to false
@@ -95,10 +95,10 @@ void main() {
     buttonBackground = tester.widget<AnimatedContainer>(toggleBackgroundFinder);
 
     expect(toggledValue, isFalse);
-    expect(buttonBackground.alignment, Alignment.centerLeft);
+    expect(buttonBackground.alignment, Alignment.centerRight);
     expect(
       (buttonSlider.decoration as BoxDecoration).color,
-      appTheme.colors.secondary,
+      appTheme.colors.primary,
     );
   });
 
@@ -123,10 +123,10 @@ void main() {
         tester.widget<AnimatedContainer>(toggleBackgroundFinder);
 
     expect(toggledValue, isTrue);
-    expect(buttonBackground.alignment, Alignment.centerRight);
+    expect(buttonBackground.alignment, Alignment.centerLeft);
     expect(
       (buttonSlider.decoration as BoxDecoration).color,
-      appTheme.colors.primary,
+      appTheme.colors.secondary,
     );
   });
 }

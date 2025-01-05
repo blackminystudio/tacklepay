@@ -3,6 +3,7 @@ import '../../../../theme/theme.dart';
 import '../../../../widgets/cards/transaction_card.dart';
 import '../../../../widgets/transaction_header.dart';
 import '../../utilities/constants/history_constant.dart';
+import '../widgets/bottomSheets/bottomsheet_show_expense.dart';
 import '../widgets/filter_button.dart' as miny;
 import '../widgets/history_info_card.dart';
 
@@ -61,11 +62,15 @@ class HistoryPage extends StatelessWidget {
                 itemCount: transactionList.length,
                 itemBuilder: (context, index) => Padding(
                   padding: EdgeInsets.only(bottom: theme.sizing.height.s5),
-                  child: TransactionCard(
-                    transactionName: transactionList[index].name,
-                    transactionAmount: transactionList[index].amount,
-                    transactionDateTime: transactionList[index].dateTime,
-                    remainingBalance: transactionList[index].balance,
+                  child: GestureDetector(
+                    onTap: () =>
+                        showExpenseBottomSheet(context, transactionList[index]),
+                    child: TransactionCard(
+                      transactionName: transactionList[index].message ?? '',
+                      transactionAmount: transactionList[index].amount ?? '',
+                      transactionDateTime: transactionList[index].date ?? '',
+                      remainingBalance: transactionList[index].balance ?? '',
+                    ),
                   ),
                 ),
               ),
@@ -78,42 +83,58 @@ class HistoryPage extends StatelessWidget {
 }
 
 class TransactionModel {
-  final String name;
-  final String amount;
-  final String dateTime;
-  final String balance;
+  final String id;
+  final String? date;
+  final String? amount;
+  final bool isExpense;
+  final String? balance;
+  final String? message;
+  final List<String> tags;
 
   TransactionModel({
-    required this.name,
-    required this.amount,
-    required this.dateTime,
-    required this.balance,
+    this.date,
+    this.amount,
+    this.message,
+    this.balance,
+    required this.id,
+    required this.tags,
+    required this.isExpense,
   });
 }
 
 final transactionList = [
   TransactionModel(
-    name: 'Refund ..........',
+    id: '',
+    message: 'Refund ..........',
     amount: '₹3200',
     balance: '₹ 18,110',
-    dateTime: 'Today, 08:23 PM',
+    date: 'Today, 08:23 PM',
+    tags: ['pay'],
+    isExpense: false,
   ),
   TransactionModel(
-    name: 'Coffee',
-    amount: '-₹300',
-    balance: '₹ 21,310',
-    dateTime: 'Yesterday, 10:20 AM',
-  ),
+      id: '',
+      message: 'Coffee',
+      amount: '-₹300',
+      balance: '₹ 21,310',
+      date: 'Yesterday, 10:20 AM',
+      tags: ['food'],
+      isExpense: true),
   TransactionModel(
-    name: 'Transfer to Client',
+    id: '',
+    message: 'Transfer to Client',
     amount: '-₹50,000',
     balance: '₹ 21,610',
-    dateTime: '10th Nov, 04:35 PM',
+    date: '10th Nov, 04:35 PM',
+    tags: ['pay'],
+    isExpense: true,
   ),
   TransactionModel(
-    name: 'Transfer to Client',
-    amount: '-₹50,000',
-    balance: '₹ 21,610',
-    dateTime: '10th Nov, 04:35 PM',
-  ),
+      id: '',
+      message: 'Transfer to Client',
+      amount: '-₹50,000',
+      balance: '₹ 21,610',
+      date: '10th Nov, 04:35 PM',
+      tags: ['pay'],
+      isExpense: true),
 ];
