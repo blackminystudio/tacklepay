@@ -4,7 +4,7 @@ import '../../../../theme/theme.dart';
 import '../../../../widgets/cards/tag_card.dart';
 import '../../../../widgets/cards/upi_info_card.dart';
 import '../../../../widgets/pay_date_dropdown.dart';
-import 'history_page.dart';
+import '../../../transaction/store/models/transaction_model.dart';
 
 class ShowExpensePage extends StatelessWidget {
   final TransactionModel transactionModel;
@@ -46,7 +46,7 @@ class ShowExpensePage extends StatelessWidget {
           ),
           _buildScanPayNowBody(theme),
 
-          PayDateDropdown()
+          const PayDateDropdown()
         ],
       );
 

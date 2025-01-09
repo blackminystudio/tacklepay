@@ -4,6 +4,13 @@ import '../theme/theme.dart';
 import 'string_constants.dart';
 
 class PayDateDropdown extends StatefulWidget {
+  final Function(DateTime value)? onChangedDate;
+
+  const PayDateDropdown({
+    super.key,
+    this.onChangedDate,
+  });
+
   @override
   State<PayDateDropdown> createState() => _PayDateDropDownState();
 }
@@ -21,6 +28,7 @@ class _PayDateDropDownState extends State<PayDateDropdown> {
     if (picked != null) {
       setState(() {
         selectedDate = picked;
+        widget.onChangedDate?.call(picked);
       });
     }
   }

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../features/auth/ui/pages/login_page.dart';
+import '../features/home/ui/pages/home_page.dart';
 import '../pages/home_screen.dart';
 import '../theme/theme.dart';
 import '../widgets/string_constants.dart';
@@ -32,7 +33,7 @@ class TacklePay extends StatelessWidget {
         home: _flavorBanner(
             theme: Theme.of(context),
             // App Entry
-            child: AuthWrapper()),
+            child: const HomePage()),
       );
 }
 
@@ -44,7 +45,7 @@ class AuthWrapper extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasData) {
-            return HomeScreen();
+            return const HomePage();
           } else {
             return const LoginScreen();
           }

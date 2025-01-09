@@ -8,7 +8,7 @@ void main() {
   const testIconRecieve = MinyIcons.outlineReceiveMoney;
   const testIconSend = MinyIcons.outlineSendMoney;
   const testTransactionName = 'Transfer to Client';
-  const testTransactionDateTime = 'Today, 08:23 PM';
+  final testTransactionDateTime = DateTime.now();
   const testNegativeTransactionAmount = '-₹3,200';
   const testPositiveTransactionAmount = '₹3,200';
   const testRemainingBalance = '₹18,110';
@@ -16,9 +16,10 @@ void main() {
   group('TransactionCard Widget Tests', () {
     Widget createWidgetUnderTest({
       required String transactionName,
-      required String transactionDateTime,
+      required DateTime transactionDateTime,
       required String transactionAmount,
       required String remainingBalance,
+      required bool isExpense,
     }) =>
         ScreenUtilInit(
           designSize: const Size(440, 956),
@@ -30,7 +31,7 @@ void main() {
                 transactionName: transactionName,
                 transactionDateTime: transactionDateTime,
                 transactionAmount: transactionAmount,
-                remainingBalance: remainingBalance,
+                isExpense: isExpense,
               ),
             ),
           ),
@@ -47,11 +48,12 @@ void main() {
           transactionDateTime: testTransactionDateTime,
           transactionAmount: testNegativeTransactionAmount,
           remainingBalance: testRemainingBalance,
+          isExpense: true,
         ));
 
         // Assert
         expect(find.text(testTransactionName), findsOneWidget);
-        expect(find.text(testTransactionDateTime), findsOneWidget);
+        expect(find.text(testTransactionDateTime.toString()), findsOneWidget);
         expect(find.text(testNegativeTransactionAmount), findsOneWidget);
         expect(find.text(testRemainingBalance), findsOneWidget);
         expect(find.byIcon(testIconSend), findsOneWidget);
@@ -84,11 +86,12 @@ void main() {
           transactionDateTime: testTransactionDateTime,
           transactionAmount: testPositiveTransactionAmount,
           remainingBalance: testRemainingBalance,
+          isExpense: false,
         ));
 
         // Assert
         expect(find.text(testTransactionName), findsOneWidget);
-        expect(find.text(testTransactionDateTime), findsOneWidget);
+        expect(find.text(testTransactionDateTime.toString()), findsOneWidget);
         expect(find.text(testPositiveTransactionAmount), findsOneWidget);
         expect(find.text(testRemainingBalance), findsOneWidget);
         expect(find.byIcon(testIconRecieve), findsOneWidget);
@@ -114,9 +117,10 @@ void main() {
       (WidgetTester tester) async {
         await tester.pumpWidget(createWidgetUnderTest(
           transactionName: '',
-          transactionDateTime: '',
+          transactionDateTime: testTransactionDateTime,
           transactionAmount: '',
           remainingBalance: '',
+          isExpense: true,
         ));
 
         expect(find.text(''), findsNWidgets(4));

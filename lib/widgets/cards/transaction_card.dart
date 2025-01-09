@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '/theme/theme.dart';
 import '../store/theme_store.dart';
+import '../string_constants.dart';
 
 class TransactionCard extends StatelessWidget {
   final String transactionName;
-  final String transactionDateTime;
+  final DateTime transactionDateTime;
   final String transactionAmount;
-  final String remainingBalance;
+  final bool isExpense;
 
   const TransactionCard({
     super.key,
     required this.transactionName,
     required this.transactionDateTime,
     required this.transactionAmount,
-    required this.remainingBalance,
+    required this.isExpense,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
+    final formattedTime = DateFormat('hh:mm a').format(transactionDateTime);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -35,7 +39,7 @@ class TransactionCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Flexible(child: buildTitle(theme)),
+                  Flexible(child: buildTitle(theme, formattedTime)),
                   buildPrice(theme),
                 ],
               ),
@@ -62,12 +66,11 @@ class TransactionCard extends StatelessWidget {
           ),
         ),
         child: Icon(
-          transactionAmount.startsWith('-')
+          isExpense
               ? MinyIcons.outlineSendMoney
               : MinyIcons.outlineReceiveMoney,
-          color: transactionAmount.startsWith('-')
-              ? theme.colors.secondaryDark
-              : theme.colors.primaryDark,
+          color:
+              isExpense ? theme.colors.secondaryDark : theme.colors.primaryDark,
           size: theme.sizing.width.s6,
         ),
       );
@@ -81,22 +84,15 @@ class TransactionCard extends StatelessWidget {
             style: theme.textStyle.headingSmallMedium.copyWith(
               color: ThemeStore.getColor(
                 theme: theme,
-                amount: transactionAmount,
+                amount: isExpense ? '-$transactionAmount' : transactionAmount,
                 isReversed: true,
               ),
-            ),
-          ),
-          SizedBox(height: theme.spacing.height.s8),
-          Text(
-            remainingBalance,
-            style: theme.textStyle.bodyRegular.copyWith(
-              color: theme.colors.contrastMedium,
             ),
           ),
         ],
       );
 
-  Column buildTitle(ThemeData theme) => Column(
+  Column buildTitle(ThemeData theme, String formattedTime) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -108,7 +104,7 @@ class TransactionCard extends StatelessWidget {
           ),
           SizedBox(height: theme.spacing.height.s4),
           Text(
-            transactionDateTime,
+            '$todayText, $formattedTime',
             style: theme.textStyle.bodyRegular.copyWith(
               color: theme.colors.contrastMedium,
             ),

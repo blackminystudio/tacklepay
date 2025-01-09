@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import '../../../../theme/theme.dart';
 import '../../../../widgets/cards/transaction_card.dart';
 import '../../../../widgets/transaction_header.dart';
+import '../../../transaction/store/models/transaction_model.dart';
 import '../../utilities/constants/history_constant.dart';
 import '../widgets/bottomSheets/bottomsheet_show_expense.dart';
+import '../widgets/bottomSheets/bottomsheet_tags.dart';
 import '../widgets/filter_button.dart' as miny;
 import '../widgets/history_info_card.dart';
 
@@ -40,7 +42,7 @@ class HistoryPage extends StatelessWidget {
                 miny.FilterButton(
                   title: HistoryConstants.tagButtonText,
                   icon: MinyIcons.tag,
-                  onTap: () {},
+                  onTap: () => showTagsBottomSheet(context),
                 ),
                 miny.FilterButton(
                   title: HistoryConstants.filterButtonText,
@@ -68,8 +70,9 @@ class HistoryPage extends StatelessWidget {
                     child: TransactionCard(
                       transactionName: transactionList[index].message ?? '',
                       transactionAmount: transactionList[index].amount ?? '',
-                      transactionDateTime: transactionList[index].date ?? '',
-                      remainingBalance: transactionList[index].balance ?? '',
+                      transactionDateTime:
+                          transactionList[index].date ?? DateTime.now(),
+                      isExpense: transactionList[index].isExpense,
                     ),
                   ),
                 ),
@@ -81,60 +84,3 @@ class HistoryPage extends StatelessWidget {
     );
   }
 }
-
-class TransactionModel {
-  final String id;
-  final String? date;
-  final String? amount;
-  final bool isExpense;
-  final String? balance;
-  final String? message;
-  final List<String> tags;
-
-  TransactionModel({
-    this.date,
-    this.amount,
-    this.message,
-    this.balance,
-    required this.id,
-    required this.tags,
-    required this.isExpense,
-  });
-}
-
-final transactionList = [
-  TransactionModel(
-    id: '',
-    message: 'Refund ..........',
-    amount: '₹3200',
-    balance: '₹ 18,110',
-    date: 'Today, 08:23 PM',
-    tags: ['pay'],
-    isExpense: false,
-  ),
-  TransactionModel(
-      id: '',
-      message: 'Coffee',
-      amount: '-₹300',
-      balance: '₹ 21,310',
-      date: 'Yesterday, 10:20 AM',
-      tags: ['food'],
-      isExpense: true),
-  TransactionModel(
-    id: '',
-    message: 'Transfer to Client',
-    amount: '-₹50,000',
-    balance: '₹ 21,610',
-    date: '10th Nov, 04:35 PM',
-    tags: ['pay'],
-    isExpense: true,
-  ),
-  TransactionModel(
-      id: '',
-      message: 'Transfer to Client',
-      amount: '-₹50,000',
-      balance: '₹ 21,610',
-      date: '10th Nov, 04:35 PM',
-      tags: ['pay'],
-      isExpense: true),
-];
