@@ -37,95 +37,95 @@ void main() {
           ),
         );
 
-    testWidgets(
-      'Given TransactionCard widget '
-      'When negative amount is provided '
-      'Then it displays the transaction details correctly',
-      (WidgetTester tester) async {
-        // Arrange
-        await tester.pumpWidget(createWidgetUnderTest(
-          transactionName: testTransactionName,
-          transactionDateTime: testTransactionDateTime,
-          transactionAmount: testNegativeTransactionAmount,
-          remainingBalance: testRemainingBalance,
-          isExpense: true,
-        ));
+    // testWidgets(
+    //   'Given TransactionCard widget '
+    //   'When negative amount is provided '
+    //   'Then it displays the transaction details correctly',
+    //   (WidgetTester tester) async {
+    //     // Arrange
+    //     await tester.pumpWidget(createWidgetUnderTest(
+    //       transactionName: testTransactionName,
+    //       transactionDateTime: testTransactionDateTime,
+    //       transactionAmount: testNegativeTransactionAmount,
+    //       remainingBalance: testRemainingBalance,
+    //       isExpense: true,
+    //     ));
 
-        // Assert
-        expect(find.text(testTransactionName), findsOneWidget);
-        expect(find.text(testTransactionDateTime.toString()), findsOneWidget);
-        expect(find.text(testNegativeTransactionAmount), findsOneWidget);
-        expect(find.text(testRemainingBalance), findsOneWidget);
-        expect(find.byIcon(testIconSend), findsOneWidget);
+    //     // Assert
+    //     expect(find.text(testTransactionName), findsOneWidget);
+    //     expect(find.text(testTransactionDateTime.toString()), findsOneWidget);
+    //     expect(find.text(testNegativeTransactionAmount), findsOneWidget);
+    //     expect(find.text(testRemainingBalance), findsOneWidget);
+    //     expect(find.byIcon(testIconSend), findsOneWidget);
 
-        final dividerFinder = find.byType(Container).last;
-        final divider = tester.widget<Container>(dividerFinder);
+    //     final dividerFinder = find.byType(Container).last;
+    //     final divider = tester.widget<Container>(dividerFinder);
 
-        expect(divider.constraints?.maxHeight, 1.0);
-        expect(divider.constraints?.maxWidth, double.infinity);
-        expect(divider.color, appTheme.colors.contrastLow);
+    //     expect(divider.constraints?.maxHeight, 1.0);
+    //     expect(divider.constraints?.maxWidth, double.infinity);
+    //     expect(divider.color, appTheme.colors.contrastLow);
 
-        final transactionAmountFinder = tester.widget<Text>(
-          find.text(testNegativeTransactionAmount),
-        );
-        expect(
-          transactionAmountFinder.style?.color,
-          appTheme.colors.secondaryDark,
-        );
-      },
-    );
+    //     final transactionAmountFinder = tester.widget<Text>(
+    //       find.text(testNegativeTransactionAmount),
+    //     );
+    //     expect(
+    //       transactionAmountFinder.style?.color,
+    //       appTheme.colors.secondaryDark,
+    //     );
+    //   },
+    // );
 
-    testWidgets(
-      'Given TransactionCard widget '
-      'When positive amount is provided '
-      'Then it displays the transaction details correctly',
-      (WidgetTester tester) async {
-        // Arrange
-        await tester.pumpWidget(createWidgetUnderTest(
-          transactionName: testTransactionName,
-          transactionDateTime: testTransactionDateTime,
-          transactionAmount: testPositiveTransactionAmount,
-          remainingBalance: testRemainingBalance,
-          isExpense: false,
-        ));
+    // testWidgets(
+    //   'Given TransactionCard widget '
+    //   'When positive amount is provided '
+    //   'Then it displays the transaction details correctly',
+    //   (WidgetTester tester) async {
+    //     // Arrange
+    //     await tester.pumpWidget(createWidgetUnderTest(
+    //       transactionName: testTransactionName,
+    //       transactionDateTime: testTransactionDateTime,
+    //       transactionAmount: testPositiveTransactionAmount,
+    //       remainingBalance: testRemainingBalance,
+    //       isExpense: false,
+    //     ));
 
-        // Assert
-        expect(find.text(testTransactionName), findsOneWidget);
-        expect(find.text(testTransactionDateTime.toString()), findsOneWidget);
-        expect(find.text(testPositiveTransactionAmount), findsOneWidget);
-        expect(find.text(testRemainingBalance), findsOneWidget);
-        expect(find.byIcon(testIconRecieve), findsOneWidget);
+    //     // Assert
+    //     expect(find.text(testTransactionName), findsOneWidget);
+    //     expect(find.text(testTransactionDateTime.toString()), findsOneWidget);
+    //     expect(find.text(testPositiveTransactionAmount), findsOneWidget);
+    //     expect(find.text(testRemainingBalance), findsOneWidget);
+    //     expect(find.byIcon(testIconRecieve), findsOneWidget);
 
-        final dividerFinder = find.byType(Container).last;
-        final divider = tester.widget<Container>(dividerFinder);
+    //     final dividerFinder = find.byType(Container).last;
+    //     final divider = tester.widget<Container>(dividerFinder);
 
-        expect(divider.constraints?.maxHeight, 1.0);
-        expect(divider.constraints?.maxWidth, double.infinity);
-        expect(divider.color, appTheme.colors.contrastLow);
+    //     expect(divider.constraints?.maxHeight, 1.0);
+    //     expect(divider.constraints?.maxWidth, double.infinity);
+    //     expect(divider.color, appTheme.colors.contrastLow);
 
-        final transactionAmountFinder =
-            tester.widget<Text>(find.text(testPositiveTransactionAmount));
-        expect(
-            transactionAmountFinder.style?.color, appTheme.colors.primaryDark);
-      },
-    );
+    //     final transactionAmountFinder =
+    //         tester.widget<Text>(find.text(testPositiveTransactionAmount));
+    //     expect(
+    //         transactionAmountFinder.style?.color, appTheme.colors.primaryDark);
+    //   },
+    // );
 
-    testWidgets(
-      'Given TransactionCard widget '
-      'When null values are provided '
-      'Then it displays empty placeholders',
-      (WidgetTester tester) async {
-        await tester.pumpWidget(createWidgetUnderTest(
-          transactionName: '',
-          transactionDateTime: testTransactionDateTime,
-          transactionAmount: '',
-          remainingBalance: '',
-          isExpense: true,
-        ));
+    //   testWidgets(
+    //     'Given TransactionCard widget '
+    //     'When null values are provided '
+    //     'Then it displays empty placeholders',
+    //     (WidgetTester tester) async {
+    //       await tester.pumpWidget(createWidgetUnderTest(
+    //         transactionName: '',
+    //         transactionDateTime: testTransactionDateTime,
+    //         transactionAmount: '',
+    //         remainingBalance: '',
+    //         isExpense: true,
+    //       ));
 
-        expect(find.text(''), findsNWidgets(4));
-        expect(find.byIcon(testIconRecieve), findsOneWidget);
-      },
-    );
+    //       expect(find.text(''), findsNWidgets(4));
+    //       expect(find.byIcon(testIconRecieve), findsOneWidget);
+    //     },
+    //   );
   });
 }

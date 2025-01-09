@@ -33,7 +33,7 @@ class TacklePay extends StatelessWidget {
         home: _flavorBanner(
             theme: Theme.of(context),
             // App Entry
-            child: const HomePage()),
+            child: AuthWrapper()),
       );
 }
 
