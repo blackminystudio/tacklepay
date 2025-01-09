@@ -3,6 +3,7 @@ import '../../../../theme/theme.dart';
 import '../../../../widgets/cards/transaction_card.dart';
 import '../../../../widgets/transaction_header.dart';
 import '../../../transaction/store/models/transaction_model.dart';
+import '../../../transaction/utilities/helper/formatter.dart';
 import '../../utilities/constants/history_constant.dart';
 import '../widgets/bottomSheets/bottomsheet_show_expense.dart';
 import '../widgets/bottomSheets/bottomsheet_tags.dart';
@@ -62,20 +63,22 @@ class HistoryPage extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 itemCount: transactionList.length,
-                itemBuilder: (context, index) => Padding(
-                  padding: EdgeInsets.only(bottom: theme.sizing.height.s5),
-                  child: GestureDetector(
-                    onTap: () =>
-                        showExpenseBottomSheet(context, transactionList[index]),
-                    child: TransactionCard(
-                      transactionName: transactionList[index].message ?? '',
-                      transactionAmount: transactionList[index].amount ?? '',
-                      transactionDateTime:
-                          transactionList[index].date ?? DateTime.now(),
-                      isExpense: transactionList[index].isExpense,
+                itemBuilder: (context, index) {
+                  final transaction = transactionList[index];
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: theme.sizing.height.s5),
+                    child: GestureDetector(
+                      onTap: () => showExpenseBottomSheet(context, transaction),
+                      child: TransactionCard(
+                        transactionName: transaction.message ?? '',
+                        transactionAmount: transaction.amount ?? '',
+                        date: Format.date(transaction.dateTime) ?? '',
+                        time: Format.time(transaction.dateTime) ?? '',
+                        isExpense: transaction.isExpense,
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
             ),
           ],

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '/theme/theme.dart';
 import '../store/theme_store.dart';
-import '../string_constants.dart';
 
 class TransactionCard extends StatelessWidget {
   final String transactionName;
-  final DateTime transactionDateTime;
+  final String time;
+  final String date;
   final String transactionAmount;
   final bool isExpense;
 
   const TransactionCard({
     super.key,
     required this.transactionName,
-    required this.transactionDateTime,
+    required this.time,
+    required this.date,
     required this.transactionAmount,
     required this.isExpense,
   });
@@ -21,9 +21,6 @@ class TransactionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
-    final formattedTime = DateFormat('hh:mm a').format(transactionDateTime);
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -39,7 +36,7 @@ class TransactionCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Flexible(child: buildTitle(theme, formattedTime)),
+                  Flexible(child: buildTitle(theme)),
                   buildPrice(theme),
                 ],
               ),
@@ -92,7 +89,7 @@ class TransactionCard extends StatelessWidget {
         ],
       );
 
-  Column buildTitle(ThemeData theme, String formattedTime) => Column(
+  Column buildTitle(ThemeData theme) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -104,7 +101,7 @@ class TransactionCard extends StatelessWidget {
           ),
           SizedBox(height: theme.spacing.height.s4),
           Text(
-            '$todayText, $formattedTime',
+            '$date, $time',
             style: theme.textStyle.bodyRegular.copyWith(
               color: theme.colors.contrastMedium,
             ),

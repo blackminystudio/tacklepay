@@ -6,6 +6,7 @@ import '../../../../widgets/cards/transaction_card.dart';
 import '../../../../widgets/string_constants.dart';
 import '../../../../widgets/transaction_header.dart';
 import '../../../transaction/ui/widgets/bottomSheets/bottomsheet_add_expense.dart';
+import '../../../transaction/utilities/helper/formatter.dart';
 import '../../store/home_store.dart';
 import '../../utilities/constants/home_constant.dart';
 import '../widgets/greeting_card.dart';
@@ -79,20 +80,20 @@ class _HomePageState extends State<HomePage> {
                   : ListView.builder(
                       itemCount: homeStore.transactionList.length,
                       padding: EdgeInsets.zero,
-                      itemBuilder: (context, index) => Padding(
-                        padding:
-                            EdgeInsets.only(bottom: theme.sizing.height.s5),
-                        child: TransactionCard(
-                          transactionName:
-                              homeStore.transactionList[index].message ?? '',
-                          transactionAmount:
-                              homeStore.transactionList[index].amount ?? '',
-                          transactionDateTime:
-                              homeStore.transactionList[index].date ??
-                                  DateTime.now(),
-                          isExpense: homeStore.transactionList[index].isExpense,
-                        ),
-                      ),
+                      itemBuilder: (context, index) {
+                        final transaction = homeStore.transactionList[index];
+                        return Padding(
+                          padding:
+                              EdgeInsets.only(bottom: theme.sizing.height.s5),
+                          child: TransactionCard(
+                            transactionName: transaction.message ?? '',
+                            transactionAmount: transaction.amount ?? '',
+                            date: Format.date(transaction.dateTime) ?? '',
+                            time: Format.time(transaction.dateTime) ?? '',
+                            isExpense: transaction.isExpense,
+                          ),
+                        );
+                      },
                     ),
             ),
             SizedBox(height: theme.sizing.height.s5),

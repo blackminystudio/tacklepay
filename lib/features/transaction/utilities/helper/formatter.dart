@@ -1,11 +1,13 @@
+import 'package:intl/intl.dart';
+
 import '../../../../widgets/string_constants.dart';
 
 class Format {
-  bool _isIntegerLimited(String text) =>
+  static bool _isIntegerLimited(String text) =>
       text.length > 6 ||
       BigInt.tryParse(text) != null && BigInt.parse(text) > BigInt.from(999999);
 
-  String _validateMaxAmountAndDecimalLimit(String text) {
+  static String _validateMaxAmountAndDecimalLimit(String text) {
     // Split the number into integer and decimal parts
     if (text.contains('.')) {
       final parts = text.split('.');
@@ -26,7 +28,7 @@ class Format {
     return text;
   }
 
-  String _addCommasToInteger(String text) {
+  static String _addCommasToInteger(String text) {
     if (text.contains('.')) {
       final parts = text.split('.');
       final integerPart = parts[0];
@@ -39,7 +41,7 @@ class Format {
     return _formatIndianNumber(text);
   }
 
-  String _formatIndianNumber(String number) {
+  static String _formatIndianNumber(String number) {
     if (number.isEmpty) return number;
     final length = number.length;
     if (length <= 3) return number;
@@ -56,14 +58,14 @@ class Format {
     return '$formattedRemaining,$lastThree';
   }
 
-  String _ensureRupeeSymbol(String text) {
+  static String _ensureRupeeSymbol(String text) {
     if (text.isNotEmpty && !text.startsWith(rupeeSymbol)) {
       text = '$rupeeSymbol$text';
     }
     return text;
   }
 
-  String amount(int? val) {
+  static String amount(int? val) {
     if (val == null) return '';
     var amount = val.toString().trim();
     amount = amount.replaceAll(RegExp(r'[^0-9.]'), '');
@@ -73,8 +75,24 @@ class Format {
     return amount;
   }
 
-  String tags(String val) {
+  static String tags(String val) {
     val = val.trim();
     return val.toLowerCase();
+  }
+
+  static String? date(DateTime? dateTime) {
+    if (dateTime == null) return null;
+    return DateFormat('dd-MM-yyyy').format(dateTime);
+  }
+
+  static String? time(DateTime? dateTime) {
+    if (dateTime == null) return null;
+    return DateFormat('hh:mm a').format(dateTime);
+  }
+
+  static String? dateAsString(String? dateTime) {
+    if (dateTime == null) return null;
+    final date = DateTime.parse(dateTime);
+    return DateFormat('dd-MM-yyyy').format(date);
   }
 }
