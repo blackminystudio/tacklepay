@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-// import '../features/home/ui/pages/home_page.dart';
 import '../pages/home_screen.dart';
 import '../theme/theme.dart';
 import '../widgets/string_constants.dart';
