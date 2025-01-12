@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '/theme/theme.dart';
-import '../../features/history/ui/pages/history_page.dart';
+import '../../features/transaction/store/models/transaction_model.dart';
 import '../string_constants.dart';
 
 class UpiInfoCard extends StatefulWidget {
@@ -53,7 +53,7 @@ class _UpiInfoCardState extends State<UpiInfoCard> {
 
   void initControllerValue(TransactionModel? transactionModel) {
     if (transactionModel == null) return;
-    _amountController.text = transactionModel.amount ?? '';
+    _amountController.text = transactionModel.amount.toString();
     _messageController.text = transactionModel.message ?? '';
   }
 

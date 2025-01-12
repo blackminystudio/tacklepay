@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../../widgets/bottomsheet/bottomsheet_scaffold.dart';
-import '../../pages/history_page.dart';
+import '../../../../transaction/store/models/transaction_model.dart';
 import '../../pages/show_expense_page.dart';
 
 Future showExpenseBottomSheet(

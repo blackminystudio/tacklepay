@@ -4,22 +4,23 @@ import '../store/theme_store.dart';
 
 class TransactionCard extends StatelessWidget {
   final String transactionName;
-  final String transactionDateTime;
+  final String time;
+  final String date;
   final String transactionAmount;
-  final String remainingBalance;
+  final bool isExpense;
 
   const TransactionCard({
     super.key,
     required this.transactionName,
-    required this.transactionDateTime,
+    required this.time,
+    required this.date,
     required this.transactionAmount,
-    required this.remainingBalance,
+    required this.isExpense,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -62,12 +63,11 @@ class TransactionCard extends StatelessWidget {
           ),
         ),
         child: Icon(
-          transactionAmount.startsWith('-')
+          isExpense
               ? MinyIcons.outlineSendMoney
               : MinyIcons.outlineReceiveMoney,
-          color: transactionAmount.startsWith('-')
-              ? theme.colors.secondaryDark
-              : theme.colors.primaryDark,
+          color:
+              isExpense ? theme.colors.secondaryDark : theme.colors.primaryDark,
           size: theme.sizing.width.s6,
         ),
       );
@@ -81,16 +81,9 @@ class TransactionCard extends StatelessWidget {
             style: theme.textStyle.headingSmallMedium.copyWith(
               color: ThemeStore.getColor(
                 theme: theme,
-                amount: transactionAmount,
+                amount: isExpense ? '-$transactionAmount' : transactionAmount,
                 isReversed: true,
               ),
-            ),
-          ),
-          SizedBox(height: theme.spacing.height.s8),
-          Text(
-            remainingBalance,
-            style: theme.textStyle.bodyRegular.copyWith(
-              color: theme.colors.contrastMedium,
             ),
           ),
         ],
@@ -108,7 +101,7 @@ class TransactionCard extends StatelessWidget {
           ),
           SizedBox(height: theme.spacing.height.s4),
           Text(
-            transactionDateTime,
+            '$date, $time',
             style: theme.textStyle.bodyRegular.copyWith(
               color: theme.colors.contrastMedium,
             ),

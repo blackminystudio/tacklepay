@@ -22,7 +22,7 @@ void main() {
         'Given the payDateDropdown widget '
         'When it is rendered '
         'Then today\'s date is visible ', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(PayDateDropdown()));
+      await tester.pumpWidget(buildTestableWidget(const PayDateDropdown()));
 
       final initialDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
 
@@ -43,7 +43,7 @@ void main() {
       'When it is tapped on and datepicker opens '
       'Then we can select any date ',
       (WidgetTester tester) async {
-        await tester.pumpWidget(buildTestableWidget(PayDateDropdown()));
+        await tester.pumpWidget(buildTestableWidget(const PayDateDropdown()));
 
         await tester.tap(find.byType(GestureDetector));
         await tester.pumpAndSettle();
@@ -66,7 +66,7 @@ void main() {
       'When it is tapped on and datepicker opens '
       'Then we can not select date later than today ',
       (WidgetTester tester) async {
-        await tester.pumpWidget(buildTestableWidget(PayDateDropdown()));
+        await tester.pumpWidget(buildTestableWidget(const PayDateDropdown()));
 
         await tester.tap(find.byType(GestureDetector));
         await tester.pumpAndSettle();
